@@ -1,0 +1,37 @@
+{
+    "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+    "@type": "SoftwareSourceCode",
+    "name": "ATVM-INTERFACE",
+    "description": "An interactive web implementation of an Automated Ticket Vending Machine (ATVM) for the Mumbai Metro, featuring responsive design and client-side fare calculation.",
+    "identifier": "ATVM-INTERFACE",
+    "license": "https://spdx.org/licenses/MIT.html",
+    "programmingLanguage": [
+        "HTML5",
+        "CSS3",
+        "AngularJS"
+    ],
+    "author": [
+        {
+            "@type": "Person",
+            "givenName": "Amey",
+            "familyName": "Thakur",
+            "id": "https://orcid.org/0000-0001-5644-1575",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "Terna Engineering College"
+            }
+        }
+    ],
+    "dateReleased": "2022-02-25",
+    "codeRepository": "https://github.com/Amey-Thakur/ATVM-INTERFACE",
+    "developmentStatus": "complete",
+    "applicationCategory": "Web Application / Simulation",
+    "keywords": [
+        "Mumbai Metro",
+        "ATVM",
+        "AngularJS",
+        "Simulation",
+        "Web Development",
+        "UI/UX Design"
+    ]
+}
