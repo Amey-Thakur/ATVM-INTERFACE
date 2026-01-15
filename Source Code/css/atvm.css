@@ -587,10 +587,12 @@ body::after {
 /* --- LINE SELECTOR (Vibrant & Native) --- */
 /* --- LINE SELECTOR (Vibrant & Native) --- */
 .line-selector {
-    padding: 24px;
+    padding: 10px 24px;
+    /* Reduced vertical padding */
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 12px;
+    /* Slightly tighter gap */
     background: transparent;
     /* Changed from opaque to transparent so animation shows through */
     border-bottom: none;
@@ -752,8 +754,8 @@ body::after {
 
 /* --- SEARCH BAR --- */
 .search-wrapper {
-    padding: 20px 30px;
-    /* Better spacing */
+    padding: 5px 30px 20px;
+    /* Reduced top padding significantly */
     background: transparent;
     /* Seamless with side-panel pattern */
 }
