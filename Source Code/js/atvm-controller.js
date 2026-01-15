@@ -83,11 +83,11 @@ function num2hindi(num) {
 // --- Constants & Configuration ---
 const FARE_STAGES = [
     { maxDist: 10, fare: 5 },
-    { maxDist: 20, fare: 10 },
-    { maxDist: 35, fare: 15 },
-    { maxDist: 50, fare: 20 },
-    { maxDist: 70, fare: 25 },
-    { maxDist: Infinity, fare: 30 }
+    { maxDist: 30, fare: 10 },
+    { maxDist: 60, fare: 15 },
+    { maxDist: 90, fare: 20 },
+    { maxDist: 135, fare: 25 },
+    { maxDist: Infinity, fare: 35 }
 ];
 
 function atvmController($scope) {
