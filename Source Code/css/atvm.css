@@ -1,98 +1,493 @@
 /*
   Project: ATVM Interface
   File: atvm.css
-  Date: February 25, 2022
-  Description: Custom styles for the ATVM Interface, handling layout and visual components.
+  Date: January 15, 2026
+  Description: Premium "10/10" Glassmorphism UI for ATVM Interface.
+  
+  HMI Principles:
+  - Visual Hierarchy: Using depth and blur to focus interaction.
+  - Affordance: Clear button states and shadows.
+  - Accessibility: High contrast ratios on key information.
+  - Consistency: Coherent metro-blue and red palette.
+*/
 
-  Created by: Amey Thakur (https://github.com/Amey-Thakur) & Mega Satish (https://github.com/msatmod)
-  Repository: https://github.com/Amey-Thakur/ATVM-INTERFACE
-  License: MIT
-*/
-/* 
-    Global Layout:
-    Sets the document to full height and prevents scrolling on the main body to simulate 
-    a fixed kiosk interface. Background image is centered and covers the viewport.
-*/
-body,
-html {
-    height: 99%;
+:root {
+    --metro-blue: #0284c7;
+    --metro-blue-light: #38bdf8;
+    --metro-blue-dark: #0c4a6e;
+    --wr-red: #dc2626;
+    --wr-red-dark: #b91c1c;
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-hover: rgba(240, 249, 255, 0.95);
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --success: #16a34a;
+    --warning: #ea580c;
+    --shadow-premium: 0 10px 40px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* =========================================
+   BASE STYLES
+   ========================================= */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
     overflow: hidden;
-    /* Anti-Select Protection */
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    font-family: 'Outfit', sans-serif;
+    background: #0f172a;
+}
 
+body {
     background-image: url("../images/background.jpg");
-    background-position: center;
     background-size: cover;
-
+    background-position: center;
+    background-attachment: fixed;
 }
 
+/* Kiosk Overlay: Dims and Blurs background for focus (HMI: Focus) */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(15, 23, 42, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 0;
+}
+
+.main-container {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2vh 2vw;
+}
+
+.full-height-container {
+    width: 100%;
+    max-width: 1400px;
+    height: 96vh;
+}
+
+/* =========================================
+   MAIN PANEL (Glassmorphism)
+   ========================================= */
 .main-panel {
-    background-color: #ffffff;
-    opacity: 0.95;
-    margin-top: 15px;
+    background: var(--glass-bg);
+    border: none;
+    border-radius: 24px;
+    box-shadow: var(--shadow-premium);
+    height: 100%;
+    overflow: hidden;
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.grayed {
-    background-color: #e3e3e3;
+.panel-body {
+    padding: 25px !important;
+    height: 100%;
 }
 
-.green {
-    background-color: #47a447;
-    color: #ffffff;
+/* =========================================
+   SIDE PANEL (Station List)
+   ========================================= */
+.side-panel {
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
-.set-height {
-    height: 95%;
+.panel-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
 }
 
-.full-height {
-    height: 99%;
+.panel-header i {
+    color: var(--metro-blue);
+    font-size: 20px;
 }
 
-.scrollable {
-    overflow: auto;
+.panel-header h3 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--text-primary);
 }
 
-/* 
-    Ticket Visual Styling:
-    Simulates the appearance of a physical paper ticket using a cream background (#fff0d9),
-    rounded corners (border-radius: 20px), and a dashed border.
-*/
-.ticket {
-    height: 63%;
-    width: 95%;
-    background-color: #fff0d9;
-    border-radius: 20px;
-    border-style: dashed;
-    border-width: 2px;
+.station-list-container {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.list-group-item {
+    border: none !important;
+    margin-bottom: 6px;
+    border-radius: 12px !important;
+    padding: 12px 16px;
+    background: transparent;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.list-group-item .en-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-primary);
+}
+
+.list-group-item .hi-name {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.list-group-item:hover {
+    background: rgba(2, 132, 199, 0.1);
+    transform: translateX(5px);
+}
+
+.list-group-item.grayed {
+    background: #e2e8f0 !important;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* =========================================
+   MAIN INTERFACE (Destination Select)
+   ========================================= */
+.main-interface {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.section-header i {
+    color: var(--metro-blue);
+}
+
+.section-header h3 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Primary Destiny Buttons (HMI: Touch Scale) */
+.btn-group-kiosk {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.btn-kiosk {
+    background: #fff !important;
+    border: 2px solid #e2e8f0 !important;
+    border-radius: 14px !important;
+    padding: 15px 10px !important;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-content .main-text {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.btn-content .sub-text {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.btn-kiosk:hover {
+    border-color: var(--metro-blue-light) !important;
+    background: var(--metro-blue-light) !important;
+    color: #fff !important;
+    transform: scale(1.05);
+}
+
+.btn-kiosk:hover .sub-text {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.btn-kiosk.green {
+    background: var(--metro-blue) !important;
+    border-color: var(--metro-blue) !important;
+    color: #fff !important;
+}
+
+/* Sub-Station Grid (HMI: Organization) */
+.sub-destinations {
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+}
+
+.btn-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+}
+
+.btn-sub {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
     padding: 10px;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.2s;
 }
 
-.pointer {
-    cursor: pointer;
+.btn-sub:hover {
+    background: #f1f5f9;
+    border-color: var(--metro-blue);
 }
 
-.opaque {
-    opacity: 0.2;
+.btn-sub.green {
+    background: var(--metro-blue) !important;
+    color: #fff !important;
+    border-color: var(--metro-blue) !important;
 }
 
-.ticket hr {
-    border-color: #b4b4b4;
-    margin-top: 0px;
-    margin-bottom: 0px;
+/* =========================================
+   TICKET VISUAL (Premium Printed Style)
+   ========================================= */
+.ticket {
+    background: #fffef0;
+    width: 650px;
+    max-width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+    position: relative;
+    border: 2px dashed #e2e8f0;
+    padding: 0;
+    overflow: hidden;
 }
 
-.adult {
+/* Ticket Side Notches */
+.ticket::before,
+.ticket::after {
+    content: '';
+    position: absolute;
+    width: 30px;
     height: 30px;
-    width: 25px;
-    margin-right: 10px;
-    margin-bottom: 7px;
+    background: var(--glass-bg);
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.ticket::before {
+    left: -15px;
+}
+
+.ticket::after {
+    right: -15px;
+}
+
+.ticket-top {
+    background: #fff;
+    padding: 20px 30px;
+    border-bottom: 1px dashed #d4d4d8;
 }
 
 .logo {
     height: 50px;
     width: 50px;
+}
+
+.ticket-brand {
+    margin: 0;
+    font-weight: 800;
+    font-size: 24px;
+    color: var(--wr-red);
+    letter-spacing: -0.5px;
+}
+
+.ticket-subbrand {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.ticket-body {
+    padding: 20px 30px;
+}
+
+.info-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.info-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.type-row {
+    margin: 25px 0;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.03);
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.journey-toggle {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    border-radius: 8px;
+    background: #fff;
+    border: 2px solid var(--metro-blue);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.journey-toggle .en {
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.journey-toggle .hi {
+    font-size: 12px;
+}
+
+.journey-toggle.opaque {
+    border-color: #e2e8f0;
+    opacity: 0.5;
+}
+
+.passenger-icons {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.p-icon {
+    height: 35px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.p-icon:hover {
+    transform: scale(1.2) rotate(5deg);
+}
+
+.p-icon.opaque {
+    opacity: 0.2;
+    filter: grayscale(1);
+}
+
+.ticket-footer {
+    background: #f1f5f9;
+    padding: 20px 30px;
+}
+
+.total-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+.total-value {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.btn-print {
+    background: var(--wr-red);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 30px;
+    font-weight: 700;
+    font-size: 18px;
+    box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
+    transition: all 0.3s;
+}
+
+.btn-print:hover {
+    background: var(--wr-red-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(220, 38, 38, 0.4);
+    color: #fff;
+}
+
+/* =========================================
+   ANIMATIONS
+   ========================================= */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Scrollbar Customization */
+.scrollable::-webkit-scrollbar {
+    width: 5px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+/* =========================================
+   UTILITIES
+   ========================================= */
+.full-height {
+    height: 100%;
+}
+
+.text-warning {
+    color: var(--warning) !important;
+}
+
+.text-success {
+    color: var(--success) !important;
+}
+
+.opaque {
+    opacity: 0.3;
 }
