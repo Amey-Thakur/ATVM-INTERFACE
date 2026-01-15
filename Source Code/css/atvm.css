@@ -861,27 +861,47 @@ body::after {
     /* Slide Right */
 }
 
-/* Active State (Selected - Light & Fresh) */
+/* Active State (Premium Apple Gradient) */
 .station-item.active {
-    background: #eff6ff;
-    /* Lightest Blue Tint */
-    border-color: rgba(0, 94, 184, 0.2);
-    box-shadow: 0 4px 15px rgba(0, 94, 184, 0.1);
+    background: linear-gradient(135deg, #007aff, #0056b3);
+    /* Vibrant Blue Gradient */
+    border-color: transparent;
+    box-shadow: 0 10px 30px rgba(0, 122, 255, 0.4);
+    /* Premium Glow */
     transform: scale(1.0);
 }
 
 .station-item.active .station-name-en,
 .station-item.active .station-name-mr,
 .station-item.active .fa-chevron-right {
-    color: var(--mumbai-blue) !important;
-    /* switch to dark blue text */
+    color: #fff !important;
     opacity: 1 !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .station-item.active::before {
-    background: #ef4444;
-    /* RED Line as requested */
+    background: #ff3b30;
+    /* Apple Red (Brighter) */
     width: 6px;
+    box-shadow: 2px 0 10px rgba(255, 59, 48, 0.4);
+}
+
+/* Active Station Sign Contrast (Glassy White Theme) */
+.station-item.active .station-sign .diamond {
+    background: #fff;
+    border-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.station-item.active .station-sign .circle {
+    border-color: rgba(255, 255, 255, 0.9);
+}
+
+.station-item.active .station-sign .bar {
+    background: #fff;
+    color: #007aff;
+    /* Blue Text inside white bar */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .station-name-group {
