@@ -462,32 +462,85 @@ body::after {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 40px;
+    height: 50px;
+    /* Slightly taller for the visualization */
     display: flex;
     align-items: center;
     justify-content: center;
     background: #ffffff;
-    border-top: 5px solid var(--wr-red);
-    border-bottom: 5px solid var(--mumbai-blue);
-    color: #333;
-    font-size: 11px;
+    border-top: 4px solid var(--wr-red);
+    border-bottom: 4px solid var(--mumbai-blue);
+    z-index: 1000;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.dev-route {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.dev-label {
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: 0.5px;
-    z-index: 100;
-    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+    color: #8e8e93;
+    letter-spacing: 1px;
 }
 
-.attribution a {
-    color: var(--mumbai-blue);
-    font-weight: 900;
-    text-decoration: none;
-    margin-left: 4px;
+.dev-station {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f2f2f7;
+    padding: 4px 12px;
+    border-radius: 20px;
+    transition: all 0.2s;
+    cursor: default;
 }
 
-.attribution a:hover {
-    text-decoration: underline;
-    color: var(--wr-red);
+.dev-station:hover {
+    background: #e5e5ea;
+    transform: translateY(-2px);
 }
+
+.station-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.wr-dot {
+    background: var(--wr-red);
+}
+
+.cr-dot {
+    background: var(--mumbai-blue);
+}
+
+.station-name {
+    font-size: 12px;
+    font-weight: 800;
+    color: #333;
+    text-transform: uppercase;
+}
+
+.route-line-connector {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #c7c7cc;
+}
+
+.line-segment {
+    width: 20px;
+    height: 2px;
+    background: #c7c7cc;
+    border-radius: 2px;
+}
+
+/* Ensure links are handled if we want clickability, but for now just visual badges as requested */
 
 .premium-loader {
     position: fixed;
