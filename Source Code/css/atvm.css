@@ -1426,70 +1426,117 @@ body::after {
     z-index: -1;
 }
 
-/* The Moving Train */
-.ticket::after {
-    content: '🚆';
+/* Interactive Train Implementation */
+.train-track-container {
     position: absolute;
-    font-size: 20px;
-    z-index: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     pointer-events: none;
-    animation: trainMove 10s infinite linear;
-    filter: drop-shadow(0 0 5px rgba(0, 122, 255, 0.4));
+    z-index: 10;
 }
 
-@keyframes trainMove {
-    0% {
-        top: 10px;
-        left: 10px;
-        transform: translate(-50%, -50%) rotate(90deg);
-    }
+.train-vessel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+    cursor: grab;
+}
 
-    24.9% {
-        top: 10px;
-        left: calc(100% - 10px);
+.train-vessel:active {
+    cursor: grabbing;
+}
+
+.compartment {
+    position: absolute;
+    font-size: 22px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    filter: drop-shadow(0 0 5px rgba(0, 122, 255, 0.4));
+    animation: trainPath 15s infinite linear;
+}
+
+/* Staggered starts for 5-compartment effect */
+.compartment:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.compartment:nth-child(2) {
+    animation-delay: -0.3s;
+}
+
+.compartment:nth-child(3) {
+    animation-delay: -0.6s;
+}
+
+.compartment:nth-child(4) {
+    animation-delay: -0.9s;
+}
+
+.compartment:nth-child(5) {
+    animation-delay: -1.2s;
+}
+
+/* Direction Control */
+.train-reverse .compartment {
+    animation-direction: reverse;
+}
+
+@keyframes trainPath {
+    0% {
+        top: 12px;
+        left: 12px;
         transform: translate(-50%, -50%) rotate(90deg);
     }
 
     25% {
-        top: 10px;
-        left: calc(100% - 10px);
-        transform: translate(-50%, -50%) rotate(180deg);
+        top: 12px;
+        left: calc(100% - 12px);
+        transform: translate(-50%, -50%) rotate(90deg);
     }
 
-    49.9% {
-        top: calc(100% - 10px);
-        left: calc(100% - 10px);
+    25.01% {
+        top: 12px;
+        left: calc(100% - 12px);
         transform: translate(-50%, -50%) rotate(180deg);
     }
 
     50% {
-        top: calc(100% - 10px);
-        left: calc(100% - 10px);
-        transform: translate(-50%, -50%) rotate(270deg);
+        top: calc(100% - 12px);
+        left: calc(100% - 12px);
+        transform: translate(-50%, -50%) rotate(180deg);
     }
 
-    74.9% {
-        top: calc(100% - 10px);
-        left: 10px;
+    50.01% {
+        top: calc(100% - 12px);
+        left: calc(100% - 12px);
         transform: translate(-50%, -50%) rotate(270deg);
     }
 
     75% {
-        top: calc(100% - 10px);
-        left: 10px;
-        transform: translate(-50%, -50%) rotate(0deg);
+        top: calc(100% - 12px);
+        left: 12px;
+        transform: translate(-50%, -50%) rotate(270deg);
     }
 
-    99.9% {
-        top: 10px;
-        left: 10px;
+    75.01% {
+        top: calc(100% - 12px);
+        left: 12px;
         transform: translate(-50%, -50%) rotate(0deg);
     }
 
     100% {
-        top: 10px;
-        left: 10px;
-        transform: translate(-50%, -50%) rotate(90deg);
+        top: 12px;
+        left: 12px;
+        transform: translate(-50%, -50%) rotate(0deg);
     }
 }
 

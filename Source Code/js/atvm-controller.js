@@ -104,6 +104,12 @@ function atvmController($scope) {
         return $scope.lineTranslations[line] || "";
     };
 
+    // Train Animation Logic
+    $scope.trainDirection = 'normal';
+    $scope.toggleTrainDirection = function () {
+        $scope.trainDirection = ($scope.trainDirection === 'normal') ? 'reverse' : 'normal';
+    };
+
     /**
      * Authentic Station Database 🚆
      * Organized by Railway Zones for native navigation.
