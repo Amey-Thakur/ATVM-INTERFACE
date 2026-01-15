@@ -239,8 +239,8 @@
 
                                 <div class="route-arrow">
                                     <i class="fas fa-arrow-right" style="color: #ccc; font-size: 16px;"></i>
-                                    <div class="journey-badge" ng-show="journeyType === 'Return'"
-                                        style="font-size: 10px; margin-top: 5px;">RETURN</div>
+                                    <div class="journey-badge" style="font-size: 10px; margin-top: 5px;">{{journeyType
+                                        === 'Return' ? 'RETURN' : 'SINGLE'}}</div>
                                 </div>
 
                                 <div class="route-point">
