@@ -285,6 +285,18 @@ function atvmController($scope) {
     };
 
     /**
+     * Auto-selects the first station from filtered results.
+     * Triggered by ENTER key.
+     */
+    $scope.selectFirstResult = function () {
+        var filtered = $scope.getFilteredStations();
+        if (filtered && filtered.length > 0) {
+            $scope.selectStation(filtered[0]);
+            $scope.searchText = ""; // Clear search after selection
+        }
+    };
+
+    /**
      * Handles station box click with selection mode logic.
      */
     $scope.selectStation = function (station) {
