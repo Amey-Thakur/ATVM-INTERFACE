@@ -1422,10 +1422,16 @@ body::after {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    padding: 10px 25px;
-    /* Match ticket-body padding */
+    width: calc(100% + 50px);
+    margin-left: -25px;
+    margin-bottom: -15px;
+    /* Pull to bottom edge */
+    padding: 15px 25px;
+    background: #fff;
+    /* Ensure bg covers */
     border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 0 0 20px 20px;
+    /* Match Card Radius */
 }
 
 /* Journey Type Segmented Control (Apple Sliding Pill) */
