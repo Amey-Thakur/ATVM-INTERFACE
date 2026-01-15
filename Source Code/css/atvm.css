@@ -753,7 +753,6 @@ body::after {
 
 
 /* --- SEARCH BAR --- */
-/* --- SEARCH BAR --- */
 .search-container {
     padding: 10px 30px;
     /* Balanced padding for easier centering */
@@ -764,8 +763,8 @@ body::after {
 .search-input {
     width: 100%;
     box-sizing: border-box;
-    padding: 16px 24px 16px 54px;
-    /* Space for icon */
+    padding: 16px 24px 16px 60px;
+    /* Increased padding to safely clear icon */
     border-radius: 18px;
     border: 1px solid rgba(0, 0, 0, 0.08);
     background: #fff;
@@ -780,8 +779,8 @@ body::after {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: 48px;
-    /* 30px container pad + 18px indent */
+    left: 45px;
+    /* Adjusted position */
     font-size: 18px;
     color: var(--mumbai-blue);
     opacity: 0.8;
