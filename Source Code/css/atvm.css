@@ -1395,12 +1395,15 @@ body::after {
     z-index: 0;
 }
 
-/* Ticket Card (Clean white) */
+/* Ticket Card (Glassmorphism) */
 .ticket {
     position: relative;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 20px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -1413,7 +1416,7 @@ body::after {
 
 /* --- New Ticket Dashboard Layout (Compact) --- */
 .ticket-body {
-    padding: 8px 20px;
+    padding: 5px 20px 8px 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -1431,7 +1434,7 @@ body::after {
     align-items: center;
     width: 100%;
     padding: 10px 20px;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.5);
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
 }
