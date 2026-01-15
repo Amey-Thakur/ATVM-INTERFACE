@@ -1085,30 +1085,40 @@ body::after {
     padding: 30px 40px;
     display: flex;
     flex-direction: column;
-}
-
-/* Watermark moved to Ticket Card itself */
-.ticket {
     position: relative;
     overflow: hidden;
-    /* Clip the watermark */
+    /* Contain the watermark */
 }
 
-/* Ticket Background Watermark */
-.ticket::after {
+/* Background Watermark (Right Section) */
+.main-interface::after {
     content: '';
     position: absolute;
-    bottom: -20px;
-    right: -20px;
-    width: 400px;
-    height: 300px;
-    background: url('../images/mumbai_lifeline_header.png') no-repeat bottom right;
-    background-size: contain;
-    opacity: 0.08;
-    /* Very subtle */
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 60%;
+    /* Cover slightly more than half */
+    background: url('../images/mumbai_lifeline_header.png') no-repeat right center;
+    background-size: auto 100%;
+    /* Full height */
+    opacity: 0.12;
+    /* Visible but subtle */
     pointer-events: none;
     z-index: 0;
+    mix-blend-mode: multiply;
+    mask-image: linear-gradient(to right, transparent, black 80%);
+    /* Fade in */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 80%);
 }
+
+/* Ticket Card (Clean white) */
+.ticket {
+    position: relative;
+    /* No watermark inside */
+}
+
+/* Removed ticket::after */
 
 .ticket-header,
 .ticket-body {
