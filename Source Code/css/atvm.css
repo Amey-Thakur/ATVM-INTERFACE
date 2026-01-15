@@ -865,8 +865,9 @@ body::after {
 .station-item.active {
     background: linear-gradient(135deg, #007aff, #0056b3);
     /* Vibrant Blue Gradient */
-    border-color: transparent;
-    box-shadow: 0 10px 30px rgba(0, 122, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* Subtle Glass Edge */
+    box-shadow: 0 8px 25px rgba(0, 122, 255, 0.35);
     /* Premium Glow */
     transform: scale(1.0);
 }
@@ -876,14 +877,13 @@ body::after {
 .station-item.active .fa-chevron-right {
     color: #fff !important;
     opacity: 1 !important;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-shadow: none;
+    /* Clean Look */
 }
 
+/* Remove the colored strip in active state for a cleaner look */
 .station-item.active::before {
-    background: #ff3b30;
-    /* Apple Red (Brighter) */
-    width: 6px;
-    box-shadow: 2px 0 10px rgba(255, 59, 48, 0.4);
+    display: none;
 }
 
 /* Active Station Sign Contrast (Glassy White Theme) */
