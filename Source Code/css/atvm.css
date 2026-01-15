@@ -653,8 +653,9 @@ body::after {
 .line-card {
     background: var(--line-bg);
     /* Native feel background */
-    border-radius: 16px;
-    padding: 20px;
+    border-radius: 14px;
+    padding: 10px 12px;
+    /* Compact padding */
     cursor: pointer;
     position: relative;
     overflow: hidden;
@@ -671,7 +672,8 @@ body::after {
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 120px;
+    height: 85px;
+    /* Reduced layout footprint */
 }
 
 /* Stripe Decor - The "Livery" */
@@ -732,12 +734,14 @@ body::after {
 
 .line-name {
     display: block;
-    font-size: 16px;
+    font-size: 14px;
+    /* Reduced from 16px */
     font-weight: 800;
     /* Bolder for impact */
     color: var(--line-color);
     /* Color matched to line */
-    margin-bottom: 6px;
+    margin-bottom: 2px;
+    /* Tighter spacing */
     transition: color 0.3s;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -745,7 +749,8 @@ body::after {
 
 .line-route {
     display: block;
-    font-size: 11px;
+    font-size: 10px;
+    /* Reduced from 11px */
     color: #666;
     /* Softer grey */
     font-weight: 600;
