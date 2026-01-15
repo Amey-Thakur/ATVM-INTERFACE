@@ -1,0 +1,147 @@
+/* --- Station Sign Component (Real Mumbai Board Style) --- */
+.station-sign {
+    position: relative;
+    min-width: 80px;
+    /* Increased to fit text */
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Helper for list item spacing */
+.station-item .station-sign {
+    margin-right: 10px;
+}
+
+.station-sign .diamond {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    border: 3px solid var(--station-sign-border);
+    transform: rotate(45deg);
+    background: #fff;
+    z-index: 1;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.station-sign .circle {
+    position: absolute;
+    width: 54px;
+    height: 54px;
+    border: 9px solid var(--mumbai-red);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.station-sign .bar {
+    position: absolute;
+    width: auto;
+    min-width: 75px;
+    padding: 0 8px;
+    height: 18px;
+    background: var(--mumbai-blue);
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 8px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+    border-radius: 2px;
+}
+
+/* Large Variant for Ticket Dashboard */
+.station-sign.large {
+    transform: scale(1.5);
+    /* Significantly larger */
+    margin: 20px 0;
+}
+
+.station-sign.large .bar {
+    min-width: 90px;
+    font-size: 9px;
+    height: 20px;
+}
+
+/* --- Station Item Wrapper (M-Indicator Style) --- */
+.station-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px 20px;
+    /* Comfortable touch area */
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    /* Clean separator */
+    border-radius: 0;
+    /* Flat list */
+    background: #fff;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.station-item:hover {
+    background: #f9f9f9;
+    transform: none;
+    /* Keep list stable */
+    box-shadow: none;
+}
+
+.station-item:last-child {
+    border-bottom: none;
+}
+
+.station-item.active {
+    background: #eef2ff;
+    /* Very subtle blue tint */
+    color: var(--apple-text);
+    border-color: rgba(0, 0, 0, 0.05);
+    box-shadow: inset 4px 0 0 var(--mumbai-blue);
+    /* Left accent bar */
+}
+
+/* Adjust sign inside list */
+.station-item .station-sign {
+    transform: scale(0.7);
+    /* Smaller in list */
+    margin-right: 0;
+    min-width: 60px;
+    height: 45px;
+}
+
+.station-item.active .station-sign .diamond {
+    border-color: var(--station-sign-border);
+}
+
+.station-item.active .station-sign .bar {
+    background: var(--mumbai-blue);
+    color: #fff;
+}
+
+.station-item.active .station-sign .circle {
+    border-color: var(--mumbai-red);
+}
+
+.station-item .names {
+    display: flex;
+    flex-direction: column;
+}
+
+.station-item .en {
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: -0.5px;
+}
+
+.station-item .hi {
+    font-size: 11px;
+    opacity: 0.7;
+    font-weight: 600;
+}

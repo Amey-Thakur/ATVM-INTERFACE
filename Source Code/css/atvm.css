@@ -1,14 +1,15 @@
 :root {
-    --apple-bg: rgba(253, 253, 255, 0.75);
-    --apple-bg-accent: rgba(242, 242, 247, 0.4);
-    --apple-border: rgba(255, 255, 255, 0.6);
+    --apple-bg: rgba(253, 253, 255, 0.85);
+    /* Slightly more opaque for better legibility */
+    --apple-bg-accent: rgba(242, 242, 247, 0.5);
+    --apple-border: rgba(255, 255, 255, 0.7);
     --apple-text: #1c1c1e;
     --apple-text-sec: #86868b;
     --apple-blue: #007aff;
     --apple-blue-hover: #006ede;
     --apple-green: #34c759;
     --apple-red: #ff3b30;
-    --apple-shadow: 0 40px 100px rgba(0, 0, 0, 0.15);
+    --apple-shadow: 0 40px 100px rgba(0, 0, 0, 0.12);
     --apple-blur: blur(50px) saturate(200%);
     --wr-red: #d1121d;
 }
@@ -19,22 +20,28 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden !important;
-    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+    font-family: 'Outfit', -apple-system, BlinkMacMacSystemFont, "SF Pro Display", sans-serif;
     color: var(--apple-text);
 }
 
-/* Atmospheric Background */
+/* --- High-End Atmospheric CSS Background --- */
+body {
+    background: #000;
+    position: relative;
+    overflow: hidden !important;
+}
+
 body::before {
     content: '';
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background-image: url("../images/background.jpg");
     background-size: cover;
     background-position: center;
-    filter: brightness(0.6) contrast(1.1) saturate(1.2);
+    filter: brightness(0.3) contrast(1.2) saturate(0.6) blur(20px);
+    /* Heavy premium blur */
+    transform: scale(1.1);
+    /* Prevent edge blur artifacts */
     z-index: -2;
 }
 
@@ -42,7 +49,7 @@ body::after {
     content: '';
     position: fixed;
     inset: 0;
-    background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4));
+    background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
     z-index: -1;
 }
 
@@ -52,12 +59,16 @@ body::after {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-bottom: 40px;
+    /* Space for footer */
 }
 
 .main-panel {
-    width: 1400px;
-    max-width: 98vw;
-    height: 90vh;
+    width: 1300px;
+    /* Slightly narrower for better fit */
+    max-width: 96vw;
+    height: 86vh;
+    /* Reduced height to ensure footer fits below */
     background: var(--apple-bg);
     backdrop-filter: var(--apple-blur);
     -webkit-backdrop-filter: var(--apple-blur);
@@ -66,14 +77,14 @@ body::after {
     box-shadow: var(--apple-shadow);
     display: flex;
     overflow: hidden;
-    animation: dashEnter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: dashEnter 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes dashEnter {
     from {
         opacity: 0;
-        transform: scale(0.96) translateY(30px);
-        filter: blur(10px);
+        transform: scale(0.98) translateY(20px);
+        filter: blur(5px);
     }
 
     to {
@@ -84,70 +95,52 @@ body::after {
 }
 
 /* --- SIDE NAVIGATION (Stations & Lines) --- */
-.side-panel {
-    width: 380px;
-    background: var(--apple-bg-accent);
-    border-right: 1px solid rgba(0, 0, 0, 0.04);
-    display: flex;
-    flex-direction: column;
-    padding: 30px;
-}
+/* (Basic structure kept for compatibility, specifics moved to layout.css) */
 
 .side-panel h3 {
     margin: 0 0 20px 0;
-    font-weight: 800;
+    font-weight: 900;
     font-size: 22px;
-    letter-spacing: -0.5px;
+    letter-spacing: -1px;
+    color: var(--mumbai-blue);
+    text-transform: uppercase;
 }
 
-.line-tabs {
-    display: flex;
-    background: rgba(0, 0, 0, 0.04);
-    padding: 4px;
-    border-radius: 14px;
-    margin-bottom: 25px;
+/* Specific Line Selection colors */
+.line-card.active[ng-click*="Central"] {
+    border-bottom: 4px solid var(--cr-maroon);
 }
 
-.line-tab {
-    flex: 1;
-    padding: 10px;
-    text-align: center;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+.line-card.active[ng-click*="Western"] {
+    border-bottom: 4px solid var(--wr-red);
 }
 
-.line-tab.active {
-    background: #fff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.search-container {
-    margin-bottom: 20px;
+.line-card.active[ng-click*="Harbour"] {
+    border-bottom: 4px solid var(--mumbai-blue);
 }
 
 .search-input {
     width: 100%;
-    background: rgba(255, 255, 255, 0.6) !important;
-    border: 1px solid rgba(0, 0, 0, 0.04) !important;
-    border-radius: 14px !important;
-    padding: 12px 18px !important;
-    font-size: 15px !important;
+    background: #f2f2f7 !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 16px 20px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    color: var(--apple-text) !important;
     transition: all 0.3s !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02) !important;
 }
 
 .search-input:focus {
     background: #fff !important;
-    outline: none !important;
-    box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1) !important;
+    box-shadow: 0 0 0 4px rgba(0, 51, 153, 0.2) !important;
 }
 
 .station-list {
     flex: 1;
     overflow-y: auto;
-    padding-right: 10px;
+    padding-right: 15px;
 }
 
 .station-list::-webkit-scrollbar {
@@ -198,259 +191,290 @@ body::after {
 }
 
 /* --- MAIN INTERFACE (Ticket Dashboard) --- */
-.main-interface {
-    flex: 1;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-}
-
 .dash-header {
-    padding: 40px 60px 20px;
+    padding: 30px 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .dash-header h2 {
     margin: 0;
-    font-weight: 800;
+    font-weight: 900;
     font-size: 28px;
-    letter-spacing: -1px;
+    letter-spacing: -1.5px;
+    color: var(--mumbai-blue);
+    text-transform: uppercase;
 }
 
 .mode-selector {
     display: flex;
-    gap: 10px;
+    gap: 12px;
+    background: #f2f2f7;
+    padding: 6px;
+    border-radius: 16px;
 }
 
 .mode-btn {
-    padding: 10px 20px;
+    padding: 10px 24px;
     border-radius: 12px;
-    font-weight: 700;
-    font-size: 14px;
+    font-weight: 800;
+    font-size: 13px;
     cursor: pointer;
-    background: #f2f2f7;
-    transition: all 0.3s;
+    background: transparent;
+    color: var(--apple-text-sec);
+    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .mode-btn.active {
-    background: var(--apple-text);
-    color: #fff;
+    background: #fff;
+    color: var(--mumbai-blue);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
+/* --- Premium Ticket Dashboard --- */
 .ticket-canvas {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px;
-    background: #f9f9fb;
+    padding: 0 60px;
+    position: relative;
+    z-index: 1;
 }
 
 .ticket {
-    width: 680px;
-    background: #fff;
-    border-radius: 36px;
-    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 0, 0, 0.03);
+    width: 100%;
+    max-width: 900px;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border-radius: 40px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.05),
+        0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+    border: none;
     overflow: hidden;
-    transform: rotate(-0.5deg);
-    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.ticket:hover {
-    transform: rotate(0deg) scale(1.02);
-}
-
-.ticket-header {
-    background: #fff;
-    padding: 30px 50px;
-    border-bottom: 2px dashed #eee;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    padding: 40px;
+    transform: scale(0.95);
+    /* Fit comfortably */
+}
+
+/* Header with Watermark & Branding */
+.ticket-header {
+    display: flex;
     align-items: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .ticket-logo {
-    height: 50px;
-}
-
-.railway-label {
-    text-align: right;
+    height: 60px;
+    margin-right: 20px;
 }
 
 .railway-label h3 {
     margin: 0;
-    color: var(--wr-red);
-    font-weight: 900;
-    font-size: 24px;
+    font-size: 20px;
+    font-weight: 800;
     text-transform: uppercase;
+    color: var(--apple-text);
+    letter-spacing: 0.5px;
 }
 
 .railway-label p {
     margin: 0;
-    font-size: 11px;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 500;
     color: #8e8e93;
     letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
-.ticket-body {
-    padding: 40px 50px;
-}
-
+/* Route Display */
 .route-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 40px;
+    align-items: center;
+    margin-bottom: 50px;
     position: relative;
+    padding: 0 40px;
 }
 
+/* Connecting Arrow */
 .route-row::after {
-    content: '';
+    content: '→';
     position: absolute;
     top: 50%;
-    left: 100px;
-    right: 100px;
-    height: 1px;
-    background: #eee;
-    z-index: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 32px;
+    color: #d1d1d6;
+    font-weight: 300;
 }
 
 .route-point {
-    position: relative;
-    z-index: 1;
-    background: #fff;
     text-align: center;
-    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 200px;
+    background: transparent;
+    padding: 0;
 }
 
 .route-point .label {
     font-size: 11px;
     font-weight: 700;
-    color: #8e8e93;
+    color: #86868b;
     text-transform: uppercase;
-    margin-bottom: 8px;
+    margin-bottom: 15px;
+    letter-spacing: 1.5px;
 }
 
-.route-point .city {
-    font-size: 28px;
-    font-weight: 950;
-    letter-spacing: -1.5px;
+.route-point .city-name {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--apple-text);
+    margin-top: 15px;
 }
 
+/* --- Controls Section (Segmented Pills) --- */
 .ticket-controls {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 40px;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .control-group {
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .control-label {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
-    color: #8e8e93;
-    margin-bottom: 12px;
     text-transform: uppercase;
+    color: #86868b;
+    letter-spacing: 1px;
 }
 
-.selector-grid {
+.segmented-control {
     display: flex;
-    gap: 8px;
+    background: #e5e5ea;
+    border-radius: 12px;
+    padding: 4px;
 }
 
-.selector-item {
+.segment-btn {
     flex: 1;
+    border: none;
+    background: transparent;
     padding: 12px;
-    background: #f2f2f7;
-    border-radius: 14px;
-    text-align: center;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
     cursor: pointer;
-    font-weight: 700;
-    font-size: 13px;
     transition: all 0.2s;
+    text-align: center;
 }
 
-.selector-item.active {
-    background: var(--apple-blue);
-    color: #fff;
+.segment-btn.active {
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
-.p-icons-row {
-    display: flex;
-    gap: 8px;
-}
-
-.p-icon {
-    width: 28px;
-    opacity: 0.15;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.p-icon.active {
-    opacity: 1;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-}
-
+/* --- Footer & Print Action --- */
 .ticket-footer {
-    padding: 30px 50px;
-    background: #fafafc;
-    border-top: 2px dashed #eee;
+    border-top: 1px dashed rgba(0, 0, 0, 0.1);
+    padding-top: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.fare-block h4 {
-    margin: 0;
-    font-size: 11px;
-    text-transform: uppercase;
-    color: #8e8e93;
+.fare-display {
+    display: flex;
+    flex-direction: column;
 }
 
-.fare-block .price {
-    font-size: 38px;
+.fare-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #8e8e93;
+    text-transform: uppercase;
+}
+
+.fare-amount {
     font-weight: 900;
+    font-size: 56px;
+    color: var(--apple-text);
     letter-spacing: -2px;
+    line-height: 1;
 }
 
 .print-btn {
-    background: var(--apple-red);
+    background: linear-gradient(135deg, #007aff, #005ecb);
     color: #fff;
-    padding: 16px 45px;
-    border-radius: 18px;
     border: none;
-    font-weight: 800;
+    padding: 20px 60px;
+    border-radius: 20px;
     font-size: 18px;
-    box-shadow: 0 12px 30px rgba(255, 59, 48, 0.3);
-    transition: all 0.3s;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 122, 255, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .print-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 18px 40px rgba(255, 59, 48, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(0, 122, 255, 0.4);
 }
 
 .attribution {
     position: fixed;
-    bottom: 25px;
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 13px;
-    font-weight: 500;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
     z-index: 100;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .attribution a {
     color: #5ac8fa;
-    font-weight: 700;
+    font-weight: 800;
     text-decoration: none;
+    margin-left: 4px;
+}
+
+.attribution a:hover {
+    text-decoration: underline;
 }
 
 .premium-loader {
