@@ -1103,11 +1103,10 @@ body::after {
     background: url('../images/mumbai_lifeline_header.png') no-repeat center center;
     background-size: 100% 100%;
     /* Force stretch to fill entire area edge to edge */
-    opacity: 0.08;
-    /* Very subtle texture */
+    opacity: 0.5;
+    /* Sharper and more visible */
     pointer-events: none;
     z-index: 0;
-    mix-blend-mode: multiply;
 }
 
 /* Ticket Card (Clean white) */
