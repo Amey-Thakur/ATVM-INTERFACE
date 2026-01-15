@@ -344,10 +344,10 @@ function atvmController($scope) {
 
         if (type === 'adults') {
             var newVal = $scope.adults + change;
-            if (newVal >= 1 && newVal <= 4) $scope.adults = newVal;
+            if (newVal >= 1 && newVal <= 5) $scope.adults = newVal;
         } else if (type === 'children') {
             var newVal = $scope.children + change;
-            if (newVal >= 0 && newVal <= 4) $scope.children = newVal;
+            if (newVal >= 0 && newVal <= 5) $scope.children = newVal;
         }
     };
 
