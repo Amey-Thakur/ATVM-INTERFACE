@@ -242,47 +242,55 @@ body::after {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 60px;
+    padding: 20px;
+    /* Reduced padding */
     position: relative;
     z-index: 1;
+    height: 100%;
 }
 
 .ticket {
     width: 100%;
-    max-width: 900px;
-    background: rgba(255, 255, 255, 0.82);
+    max-width: 850px;
+    height: auto;
+    max-height: 95vh;
+    /* Ensure it fits */
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(40px);
     -webkit-backdrop-filter: blur(40px);
-    border-radius: 40px;
+    border-radius: 32px;
     box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.05),
         0 0 0 1px rgba(255, 255, 255, 0.5) inset;
     border: none;
-    overflow: hidden;
+    overflow-y: auto;
+    /* Scroll internally if absolutely needed */
     display: flex;
     flex-direction: column;
-    padding: 40px;
-    transform: scale(0.95);
-    /* Fit comfortably */
+    padding: 30px;
+    /* Reduced from 40px */
 }
 
 /* Header with Watermark & Branding */
 .ticket-header {
     display: flex;
     align-items: center;
-    margin-bottom: 40px;
-    padding-bottom: 20px;
+    margin-bottom: 25px;
+    /* Reduced */
+    padding-bottom: 15px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    flex-shrink: 0;
 }
 
 .ticket-logo {
-    height: 60px;
-    margin-right: 20px;
+    height: 50px;
+    /* Reduced */
+    margin-right: 15px;
 }
 
 .railway-label h3 {
     margin: 0;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 800;
     text-transform: uppercase;
     color: var(--apple-text);
@@ -291,7 +299,7 @@ body::after {
 
 .railway-label p {
     margin: 0;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     color: #8e8e93;
     letter-spacing: 1px;
@@ -303,9 +311,11 @@ body::after {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+    /* Reduced */
     position: relative;
-    padding: 0 40px;
+    padding: 0 20px;
+    flex-shrink: 0;
 }
 
 /* Connecting Arrow */
@@ -315,7 +325,7 @@ body::after {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 32px;
+    font-size: 28px;
     color: #d1d1d6;
     font-weight: 300;
 }
@@ -325,44 +335,47 @@ body::after {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 200px;
+    min-width: 180px;
     background: transparent;
     padding: 0;
 }
 
 .route-point .label {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
     color: #86868b;
     text-transform: uppercase;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     letter-spacing: 1.5px;
 }
 
 .route-point .city-name {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 800;
     letter-spacing: -0.5px;
     color: var(--apple-text);
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 /* --- Controls Section (Segmented Pills) --- */
 .ticket-controls {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    margin-bottom: 40px;
+    gap: 20px;
+    /* Reduced gap */
+    margin-bottom: 30px;
+    /* Reduced margin */
+    flex-shrink: 0;
 }
 
 .control-group {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 }
 
 .control-label {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     color: #86868b;
@@ -372,17 +385,17 @@ body::after {
 .segmented-control {
     display: flex;
     background: #e5e5ea;
-    border-radius: 12px;
-    padding: 4px;
+    border-radius: 10px;
+    padding: 3px;
 }
 
 .segment-btn {
     flex: 1;
     border: none;
     background: transparent;
-    padding: 12px;
-    border-radius: 9px;
-    font-size: 14px;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
     font-weight: 600;
     color: #000;
     cursor: pointer;
@@ -398,10 +411,12 @@ body::after {
 /* --- Footer & Print Action --- */
 .ticket-footer {
     border-top: 1px dashed rgba(0, 0, 0, 0.1);
-    padding-top: 30px;
+    padding-top: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: auto;
+    /* Push to bottom if space permits */
 }
 
 .fare-display {
@@ -410,7 +425,7 @@ body::after {
 }
 
 .fare-label {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     color: #8e8e93;
     text-transform: uppercase;
@@ -418,7 +433,8 @@ body::after {
 
 .fare-amount {
     font-weight: 900;
-    font-size: 56px;
+    font-size: 48px;
+    /* Slightly reduced */
     color: var(--apple-text);
     letter-spacing: -2px;
     line-height: 1;
@@ -428,9 +444,9 @@ body::after {
     background: linear-gradient(135deg, #007aff, #005ecb);
     color: #fff;
     border: none;
-    padding: 20px 60px;
-    border-radius: 20px;
-    font-size: 18px;
+    padding: 16px 50px;
+    border-radius: 16px;
+    font-size: 16px;
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
