@@ -196,7 +196,17 @@
                 </div>
 
                 <div class="ticket-canvas">
-                    <div class="ticket">
+                    <div class="ticket" ng-class="{'train-reverse': trainDirection === 'reverse'}">
+                        <!-- Interactive Train Track -->
+                        <div class="train-track-container" ng-click="toggleTrainDirection()">
+                            <div class="train-vessel">
+                                <div class="compartment">🚆</div>
+                                <div class="compartment">🚃</div>
+                                <div class="compartment">🚃</div>
+                                <div class="compartment">🚃</div>
+                                <div class="compartment">🚃</div>
+                            </div>
+                        </div>
                         <div class="ticket-header">
                             <img src="images/mumbai_modern_monogram_logo.png" class="ticket-logo">
                             <div class="railway-label">
