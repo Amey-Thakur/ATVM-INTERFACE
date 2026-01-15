@@ -1409,6 +1409,70 @@ body::after {
     height: fit-content;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: cardFadeIn 0.6s ease-out;
+    z-index: 1;
+}
+
+/* The Animated Track (Dotted Line) */
+.ticket::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 2px dashed rgba(0, 122, 255, 0.1);
+    border-radius: 15px;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* The Moving Dot (Train) */
+.ticket::after {
+    content: '●';
+    position: absolute;
+    color: #007aff;
+    font-size: 14px;
+    text-shadow: 0 0 10px rgba(0, 122, 255, 0.5);
+    z-index: 0;
+    pointer-events: none;
+    animation: trainMove 8s infinite linear;
+}
+
+@keyframes trainMove {
+    0% {
+        top: 10px;
+        left: 10px;
+        transform: translate(-50%, -50%);
+    }
+
+    25% {
+        top: 10px;
+        left: calc(100% - 10px);
+        transform: translate(-50%, -50%);
+    }
+
+    50% {
+        top: calc(100% - 10px);
+        left: calc(100% - 10px);
+        transform: translate(-50%, -50%);
+    }
+
+    75% {
+        top: calc(100% - 10px);
+        left: 10px;
+        transform: translate(-50%, -50%);
+    }
+
+    100% {
+        top: 10px;
+        left: 10px;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.ticket>* {
+    position: relative;
+    z-index: 2;
 }
 
 .ticket:hover {
