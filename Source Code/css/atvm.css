@@ -1403,20 +1403,22 @@ body::after {
 
 /* Removed ticket::after */
 
-/* --- New Ticket Dashboard Layout --- */
+/* --- New Ticket Dashboard Layout (Compact) --- */
 .ticket-body {
-    padding: 20px 30px;
+    padding: 15px 25px;
+    /* Reduced Padding */
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
+    /* Reduced Gap */
 }
 
 /* Journey Type Segmented Control */
 .journey-type-control {
     background: #ebebf0;
-    border-radius: 12px;
-    padding: 4px;
+    border-radius: 10px;
+    padding: 3px;
     display: flex;
     position: relative;
     user-select: none;
@@ -1425,11 +1427,16 @@ body::after {
 .segment-option {
     flex: 1;
     text-align: center;
-    padding: 10px 0;
-    border-radius: 10px;
+    padding: 6px 0;
+    /* Nicer compact height */
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
     color: #8e8e93;
+}
+
+transition: all 0.2s ease;
+color: #8e8e93;
 }
 
 .segment-option.active {
