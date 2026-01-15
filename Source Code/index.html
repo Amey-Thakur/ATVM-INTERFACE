@@ -146,6 +146,14 @@
                     </div>
                 </div>
 
+                <!-- Mode Selector (Relocated for Accessibility) -->
+                <div class="mode-selector">
+                    <div class="mode-btn" ng-class="{active: selectionMode == 'source'}"
+                        ng-click="setSelectionMode('source')">SET SOURCE</div>
+                    <div class="mode-btn" ng-class="{active: selectionMode == 'destination'}"
+                        ng-click="setSelectionMode('destination')">SET DEST</div>
+                </div>
+
                 <div class="search-container">
                     <input type="text" class="search-input" placeholder="Search Station / स्थानक शोधा..."
                         ng-model="searchText" ng-keydown="$event.keyCode === 13 && selectFirstResult()">
@@ -180,13 +188,6 @@
                         <!-- LED Map Button (Restored & Resized) -->
                         <div class="map-header-img-wrapper" ng-click="toggleMap(true)">
                             <img src="images/led_map_btn.png" alt="View Map" class="map-header-img">
-                        </div>
-
-                        <div class="mode-selector">
-                            <div class="mode-btn" ng-class="{active: selectionMode == 'source'}"
-                                ng-click="setSelectionMode('source')">SET SOURCE</div>
-                            <div class="mode-btn" ng-class="{active: selectionMode == 'destination'}"
-                                ng-click="setSelectionMode('destination')">SET DEST</div>
                         </div>
                     </div>
                 </div>
