@@ -607,8 +607,8 @@ body::after {
 }
 
 .route-line-connector .fa-train {
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    /* Smooth elastic transition */
+    transition: all 1.2s cubic-bezier(0.2, 0.6, 0.35, 1);
+    /* Slow, heavy arrival */
     z-index: 2;
 }
 
