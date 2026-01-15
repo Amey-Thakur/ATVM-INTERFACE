@@ -182,7 +182,7 @@ Copyright © 2022 Amey Thakur & Mega Satish
 **Institution**: [Terna Engineering College](https://ternaengg.ac.in/), Navi Mumbai  
 **University**: [University of Mumbai](https://mu.ac.in/)
 
-This project features the **ATVM Interface**, developed as a **Human Machine Interaction** project during the engineering curriculum. It showcases the use of web technologies to build interactive, simulation-based digital experiences.
+This project features the **ATVM Interface**, developed as a **Human Machine Interaction** project during the **8th Semester Computer Engineering** curriculum. It showcases the use of web technologies to build interactive, simulation-based digital experiences.
 
 **Connect:** [GitHub](https://github.com/Amey-Thakur) &nbsp;·&nbsp; [LinkedIn](https://www.linkedin.com/in/amey-thakur) &nbsp;·&nbsp; [ORCID](https://orcid.org/0000-0001-5644-1575)
 
