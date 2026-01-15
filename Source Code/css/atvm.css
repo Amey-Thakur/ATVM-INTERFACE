@@ -1395,28 +1395,74 @@ body::after {
     z-index: 0;
 }
 
-/* Ticket Card (Glassmorphism) */
+/* Ticket Card (Clean white) */
 .ticket {
     position: relative;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: #fff;
     border-radius: 20px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
     overflow: hidden;
     max-width: 800px;
     margin: 0 auto;
     height: fit-content;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: cardFadeIn 0.6s ease-out;
 }
 
-/* Removed ticket::after */
+.ticket:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
+}
+
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ticket Header - Compact */
+.ticket-header {
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.ticket-header h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.ticket-header p {
+    margin: 0;
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.ticket-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+/* Remove extra bottom space from footer */
+.ticket-controls {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
 
 /* --- New Ticket Dashboard Layout (Compact) --- */
 .ticket-body {
-    padding: 5px 20px 8px 20px;
+    padding: 8px 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -1434,7 +1480,7 @@ body::after {
     align-items: center;
     width: 100%;
     padding: 10px 20px;
-    background: rgba(255, 255, 255, 0.5);
+    background: #fff;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
 }
