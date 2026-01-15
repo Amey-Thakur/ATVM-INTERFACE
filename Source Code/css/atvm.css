@@ -457,6 +457,7 @@ body::after {
     box-shadow: 0 15px 40px rgba(0, 122, 255, 0.4);
 }
 
+/* --- Creative Footer (Dev Route) --- */
 .attribution {
     position: fixed;
     bottom: 0;
@@ -466,12 +467,23 @@ body::after {
     /* Slightly taller for the visualization */
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    /* Space out copyright and dev route */
+    padding: 0 40px;
+    /* Horizontal padding */
     background: #ffffff;
     border-top: 4px solid var(--wr-red);
     border-bottom: 4px solid var(--mumbai-blue);
     z-index: 1000;
     box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.copyright-text {
+    font-size: 11px;
+    font-weight: 700;
+    color: #8e8e93;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 /* --- MAIN LAYOUT : SIDE PANEL (Lively Vibe) --- */
