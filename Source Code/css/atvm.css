@@ -17,6 +17,11 @@ body,
 html {
     height: 99%;
     overflow: hidden;
+    /* Anti-Select Protection */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 
     background-image: url("../images/background.jpg");
     background-position: center;
