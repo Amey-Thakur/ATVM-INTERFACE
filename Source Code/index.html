@@ -103,9 +103,9 @@
         <div class="main-panel">
             <!-- Sidebar: Station Navigator -->
             <div class="side-panel">
-                <!-- Hero Asset: Mumbai Lifeline -->
-                <div class="lifeline-header">
-                    <img src="images/mumbai_lifeline_header.png" alt="Mumbai Lifeline">
+                <div class="side-header">
+                    <h3>MUMBAI RAIL</h3>
+                    <p>Select Route</p>
                 </div>
 
                 <div class="line-selector">
@@ -139,11 +139,6 @@
                     </div>
                 </div>
 
-                <!-- Map Trigger (LED Board) -->
-                <div class="map-trigger-container" ng-click="toggleMap(true)">
-                    <img src="images/led_map_btn.png" class="led-map-btn" alt="View Map">
-                </div>
-
                 <div class="search-container">
                     <input type="text" class="search-input" placeholder="Search station / शोध..." ng-model="searchText">
                     <i class="fas fa-search search-icon"></i>
@@ -170,12 +165,19 @@
             <!-- Main Dashboard -->
             <div class="main-interface">
                 <div class="dash-header">
-                    <h2>Ticket Dashboard</h2>
-                    <div class="mode-selector">
-                        <div class="mode-btn" ng-class="{active: selectionMode == 'source'}"
-                            ng-click="setSelectionMode('source')">SET SOURCE</div>
-                        <div class="mode-btn" ng-class="{active: selectionMode == 'destination'}"
-                            ng-click="setSelectionMode('destination')">SET DEST</div>
+                    <div class="header-left">
+                        <h2>Ticket Dashboard</h2>
+                    </div>
+                    <div class="header-right">
+                        <button class="map-header-btn" ng-click="toggleMap(true)">
+                            <i class="fas fa-map"></i> View Map
+                        </button>
+                        <div class="mode-selector">
+                            <div class="mode-btn" ng-class="{active: selectionMode == 'source'}"
+                                ng-click="setSelectionMode('source')">SET SOURCE</div>
+                            <div class="mode-btn" ng-class="{active: selectionMode == 'destination'}"
+                                ng-click="setSelectionMode('destination')">SET DEST</div>
+                        </div>
                     </div>
                 </div>
 
@@ -187,11 +189,6 @@
                                 <h3>{{currentLine}}</h3>
                                 <p>Unreserved Ticketing System</p>
                             </div>
-                            <!-- Creative Assets -->
-                            <img src="images/mumbai_local_vector.png"
-                                style="height: 120px; position: absolute; right: 20px; top: 10px; opacity: 0.9;">
-                            <img src="images/mumbai_lifeline_badge.png"
-                                style="height: 80px; position: absolute; right: 350px; top: 30px; transform: rotate(-15deg); opacity: 0.8;">
                         </div>
 
                         <div class="ticket-body" style="padding: 0; flex: 1;">
