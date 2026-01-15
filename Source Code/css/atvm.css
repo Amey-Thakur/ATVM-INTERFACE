@@ -1410,7 +1410,48 @@ h2 {
 
 .rail-line-col {
     position: relative;
-    padding: 0 20px;
+    padding: 20px 0 20px 40px;
+    /* Space for track on left */
+}
+
+/* realistic track visual */
+.track-line {
+    position: absolute;
+    left: 18px;
+    /* Center of the 40px padding area */
+    top: 60px;
+    /* Start below header */
+    bottom: 20px;
+    width: 6px;
+    /* The Rails */
+    border-left: 2px solid;
+    border-right: 2px solid;
+    /* The Sleepers */
+    background: linear-gradient(to bottom, currentColor 2px, transparent 2px);
+    background-size: 100% 8px;
+    /* Sleeper every 8px */
+    opacity: 0.6;
+    z-index: 0;
+}
+
+.line-wr .track-line {
+    color: var(--western-red);
+    border-color: var(--western-red);
+}
+
+.line-cr .track-line {
+    color: var(--central-yellow);
+    border-color: var(--central-yellow);
+}
+
+.line-hr .track-line {
+    color: var(--harbour-blue);
+    border-color: var(--harbour-blue);
+}
+
+.line-th .track-line {
+    color: var(--trans-purple);
+    border-color: var(--trans-purple);
 }
 
 .rail-line-label {
@@ -1423,6 +1464,8 @@ h2 {
     text-align: center;
     border-bottom: 2px solid;
     padding-bottom: 10px;
+    margin-left: -40px;
+    /* Center relative to column, ignoring track padding */
 }
 
 .line-wr .rail-line-label {
@@ -1452,21 +1495,51 @@ h2 {
     cursor: pointer;
     transition: all 0.2s;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     color: #3a3a3c;
     display: flex;
     align-items: center;
+    position: relative;
+    z-index: 1;
+    /* Above track */
 }
 
+/* Station Dot (Sit on track) */
 .map-station-node::before {
     content: '';
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    background: #d1d1d6;
+    position: absolute;
+    left: -26px;
+    /* Align with track center (40px padding - 26px = ~14px? wait. padding-left is 40. track is at 18. center of track is 18+3 = 21. dot needs to be at 21.) */
+    /* Wait, let's use absolute positioning relative to the node */
+    left: -26px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border: 3px solid #8e8e93;
+    /* Default gray */
     border-radius: 50%;
-    margin-right: 12px;
     transition: all 0.2s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Color code station dots */
+.line-wr .map-station-node::before {
+    border-color: var(--western-red);
+}
+
+.line-cr .map-station-node::before {
+    border-color: var(--central-yellow);
+}
+
+.line-hr .map-station-node::before {
+    border-color: var(--harbour-blue);
+}
+
+.line-th .map-station-node::before {
+    border-color: var(--trans-purple);
 }
 
 .map-station-node:hover {
@@ -1477,15 +1550,25 @@ h2 {
 
 .map-station-node:hover::before {
     background: var(--mumbai-blue);
-    transform: scale(1.5);
+    /* Active Blue Fill */
+    border-color: var(--mumbai-blue);
+    transform: translateY(-50%) scale(1.3);
 }
 
+/* Interchange Station (Big Junction Node) */
 .map-station-node.interchange::before {
-    width: 12px;
-    height: 12px;
-    border: 3px solid #fff;
-    box-shadow: 0 0 0 2px #8e8e93;
-    background: #333;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-width: 4px;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+    /* Outer ring */
+}
+
+.map-station-node.interchange {
+    font-weight: 800;
+    /* Bolder text for hubs */
+    font-size: 15px;
 }
 
 .loader-bar {
