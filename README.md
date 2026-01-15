@@ -111,9 +111,9 @@ ATVM-INTERFACE/
 ## Results
 
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/54937357/155710329-1b1447b7-ac68-4e2a-9f20-8e52eac1d331.png" alt="ATVM Interface" width="80%">
+  **Interface Simulation**
   <br>
-  *Interface Simulation*
+  <img src="https://user-images.githubusercontent.com/54937357/155710329-1b1447b7-ac68-4e2a-9f20-8e52eac1d331.png" alt="ATVM Interface" width="80%">
 </div>
 
 ---
