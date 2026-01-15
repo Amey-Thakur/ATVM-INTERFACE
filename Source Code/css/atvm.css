@@ -753,9 +753,9 @@ body::after {
 
 
 /* --- SEARCH BAR --- */
+/* --- SEARCH BAR --- */
 .search-container {
     padding: 10px 30px;
-    /* Balanced padding for easier centering */
     background: transparent;
     position: relative;
 }
@@ -763,8 +763,8 @@ body::after {
 .search-input {
     width: 100%;
     box-sizing: border-box;
-    padding: 16px 24px 16px 60px;
-    /* Increased padding to safely clear icon */
+    padding: 16px 24px 16px 70px !important;
+    /* Force large padding to clear icon */
     border-radius: 18px;
     border: 1px solid rgba(0, 0, 0, 0.08);
     background: #fff;
@@ -779,13 +779,14 @@ body::after {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: 45px;
-    /* Adjusted position */
-    font-size: 18px;
+    left: 50px;
+    /* Perfectly positioned inside padding */
+    font-size: 20px;
+    /* Slightly larger icon */
     color: var(--mumbai-blue);
-    opacity: 0.8;
+    opacity: 0.9;
     pointer-events: none;
-    z-index: 2;
+    z-index: 10;
 }
 
 .search-input:focus {
