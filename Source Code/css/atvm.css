@@ -1100,9 +1100,9 @@ body::after {
     right: 0;
     width: 100%;
     height: 100%;
-    background: url('../images/mumbai_lifeline_header.png') no-repeat center center;
+    background: url('../images/mumbai_lifeline_wallpaper.png') no-repeat center center;
     background-size: 100% 100%;
-    /* Force stretch to fill entire area edge to edge */
+    /* Now uses correct aspect ratio image, so no distortion */
     opacity: 0.5;
     /* Sharper and more visible */
     pointer-events: none;
