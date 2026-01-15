@@ -861,47 +861,27 @@ body::after {
     /* Slide Right */
 }
 
-/* Active State (Selected) */
+/* Active State (Selected - Light & Fresh) */
 .station-item.active {
-    background: var(--mumbai-blue);
-    /* User liked this */
-    border-color: transparent;
-    box-shadow: 0 8px 20px rgba(0, 94, 184, 0.25);
+    background: #eff6ff;
+    /* Lightest Blue Tint */
+    border-color: rgba(0, 94, 184, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 94, 184, 0.1);
     transform: scale(1.0);
 }
 
 .station-item.active .station-name-en,
 .station-item.active .station-name-mr,
 .station-item.active .fa-chevron-right {
-    color: #fff !important;
-    opacity: 0.9 !important;
+    color: var(--mumbai-blue) !important;
+    /* switch to dark blue text */
+    opacity: 1 !important;
 }
 
 .station-item.active::before {
     background: #ef4444;
     /* RED Line as requested */
     width: 6px;
-}
-
-/* Active Station Sign Contrast (White Theme) */
-.station-item.active .station-sign .diamond {
-    background: #fff;
-    /* Solid white diamond */
-    border-color: #fff;
-    box-shadow: none;
-}
-
-.station-item.active .station-sign .circle {
-    border-color: #fff;
-    /* White ring */
-}
-
-.station-item.active .station-sign .bar {
-    background: #fff;
-    /* White bar */
-    color: var(--mumbai-blue);
-    /* Blue Text */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .station-name-group {
