@@ -1404,8 +1404,10 @@ body::after {
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    /* overflow: hidden;  <-- Keep visible for shadows if needed, but radius cuts content usually. Let's use hidden for radius. */
     overflow: hidden;
+    flex: 1;
+    /* Fill available width */
+    max-width: 100%;
 }
 
 /* Removed ticket::after */
