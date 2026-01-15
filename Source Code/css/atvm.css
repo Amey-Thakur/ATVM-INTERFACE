@@ -1444,6 +1444,30 @@ body::after {
 
 .ticket-footer .print-btn {
     margin-left: auto !important;
+    background: linear-gradient(135deg, #007aff 0%, #005ecb 100%);
+    color: #fff;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
+}
+
+.ticket-footer .print-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 122, 255, 0.5);
+    background: linear-gradient(135deg, #0088ff 0%, #0066dd 100%);
+}
+
+.ticket-footer .print-btn:active {
+    transform: translateY(-1px) scale(0.98);
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.4);
 }
 
 /* Journey Type Segmented Control (Apple Sliding Pill) */
