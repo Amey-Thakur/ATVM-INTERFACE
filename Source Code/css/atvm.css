@@ -1330,16 +1330,162 @@ h2 {
     font-weight: bold;
 }
 
-.premium-loader {
+/* --- Premium Map Overlay --- */
+.map-overlay {
     position: fixed;
-    inset: 0;
-    background: #fff;
-    z-index: 3000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(245, 245, 247, 0.95);
+    /* Deep Glass */
+    backdrop-filter: blur(20px);
+    z-index: 2000;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    padding: 40px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: scale(0.98);
+}
+
+.map-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.map-header {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    transition: opacity 0.8s, visibility 0.8s;
+    margin-bottom: 40px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding-bottom: 20px;
+}
+
+.map-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1c1c1e;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    letter-spacing: -0.5px;
+}
+
+.map-title i {
+    color: var(--mumbai-blue);
+}
+
+.close-map-btn {
+    background: #e5e5ea;
+    color: #1c1c1e;
+    padding: 12px 24px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.close-map-btn:hover {
+    background: #d1d1d6;
+    transform: translateY(-2px);
+}
+
+/* --- Schematic Map Diagram --- */
+.map-diagram {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    height: 100%;
+    overflow-y: auto;
+    padding-bottom: 80px;
+    /* Space for footer */
+}
+
+.rail-line-col {
+    position: relative;
+    padding: 0 20px;
+}
+
+.rail-line-label {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #8e8e93;
+    text-align: center;
+    border-bottom: 2px solid;
+    padding-bottom: 10px;
+}
+
+.line-wr .rail-line-label {
+    border-color: var(--western-red);
+    color: var(--western-red);
+}
+
+.line-cr .rail-line-label {
+    border-color: var(--central-yellow);
+    color: var(--central-yellow);
+}
+
+.line-hr .rail-line-label {
+    border-color: var(--harbour-blue);
+    color: var(--harbour-blue);
+}
+
+.line-th .rail-line-label {
+    border-color: var(--trans-purple);
+    color: var(--trans-purple);
+}
+
+.map-station-node {
+    padding: 6px 10px;
+    margin: 4px 0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+    font-weight: 500;
+    color: #3a3a3c;
+    display: flex;
+    align-items: center;
+}
+
+.map-station-node::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #d1d1d6;
+    border-radius: 50%;
+    margin-right: 12px;
+    transition: all 0.2s;
+}
+
+.map-station-node:hover {
+    background: rgba(0, 0, 0, 0.03);
+    color: #000;
+    transform: translateX(5px);
+}
+
+.map-station-node:hover::before {
+    background: var(--mumbai-blue);
+    transform: scale(1.5);
+}
+
+.map-station-node.interchange::before {
+    width: 12px;
+    height: 12px;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 2px #8e8e93;
+    background: #333;
 }
 
 .loader-bar {
