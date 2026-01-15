@@ -544,28 +544,16 @@ body::after {
     }
 }
 
-/* Train Sway Animation (New Vibe) */
-@keyframes swayLeft {
+/* Train Sway Animation (Decoupled Movement) */
+@keyframes sway {
 
     0%,
     100% {
-        transform: translateX(-24px) scale(1.4) rotate(-3deg);
+        transform: scale(1.4) rotate(-3deg);
     }
 
     50% {
-        transform: translateX(-24px) scale(1.4) rotate(3deg);
-    }
-}
-
-@keyframes swayRight {
-
-    0%,
-    100% {
-        transform: translateX(24px) scale(1.4) rotate(3deg);
-    }
-
-    50% {
-        transform: translateX(24px) scale(1.4) rotate(-3deg);
+        transform: scale(1.4) rotate(3deg);
     }
 }
 
@@ -607,8 +595,10 @@ body::after {
 }
 
 .route-line-connector .fa-train {
-    transition: all 2.5s ease-in-out;
-    /* Very slow, majestic arrival */
+    position: relative;
+    left: 0;
+    transition: left 1.5s cubic-bezier(0.2, 0.6, 0.35, 1), color 0.5s;
+    /* Smooth visual movement */
     z-index: 2;
 }
 
@@ -616,10 +606,11 @@ body::after {
 
 /* 1. Hover AMEY (Left) */
 .dev-route:has(.amey-link:hover) .fa-train {
-    /* Base transform handled by animation */
+    left: -26px;
+    /* Move Left using Left property */
     color: var(--wr-red);
-    animation: swayLeft 3s infinite ease-in-out;
-    /* Very gentle sway */
+    animation: sway 2.5s infinite ease-in-out;
+    /* Sway using Transform */
 }
 
 .dev-route:has(.amey-link:hover) .line-segment {
@@ -643,10 +634,11 @@ body::after {
 
 /* 2. Hover MEGA (Right) */
 .dev-route:has(.mega-link:hover) .fa-train {
-    /* Base transform handled by animation */
+    left: 26px;
+    /* Move Right using Left property */
     color: var(--mumbai-blue);
-    animation: swayRight 3s infinite ease-in-out;
-    /* Very gentle sway */
+    animation: sway 2.5s infinite ease-in-out -1.25s;
+    /* Sway with offset */
 }
 
 .dev-route:has(.mega-link:hover) .line-segment {
