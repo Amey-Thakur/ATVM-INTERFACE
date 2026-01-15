@@ -38,4 +38,4 @@ This repository is preserved as a fixed academic and engineering project. Securi
 
 ---
 
-*This document defines the security posture of a finalized HMI Interface project.*
+*This document defines the security posture of a finalized Human Machine Interaction project.*
