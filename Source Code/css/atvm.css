@@ -1413,10 +1413,10 @@ body::after {
 
 /* --- New Ticket Dashboard Layout (Compact) --- */
 .ticket-body {
-    padding: 12px 20px;
+    padding: 8px 20px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 .ticket-controls {
@@ -1430,7 +1430,7 @@ body::after {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 12px 20px;
+    padding: 10px 20px;
     background: #fff;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
