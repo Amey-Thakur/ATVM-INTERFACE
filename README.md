@@ -88,7 +88,9 @@ ATVM-INTERFACE/
 ├── docs/                            # Technical Documentation
 │   └── SPECIFICATION.md             # Architecture & Design Specification
 │
-├── Mega/                            # Project Resources & Assets
+├── Mega/                                                         # Archival Attribution Assets
+│   ├── Filly.jpg                                                 # Companion (Filly)
+│   └── Mega.png                                                  # Author Profile Image (Mega Satish)
 │
 ├── Source Code/                     # Primary Application Layer
 │   ├── css/                         # Design System & Stylesheets
