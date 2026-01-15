@@ -769,8 +769,8 @@ body::after {
 .search-input {
     width: 100%;
     box-sizing: border-box;
-    padding: 16px 24px 16px 70px !important;
-    /* Force large padding to clear icon */
+    padding: 16px 24px 16px 54px !important;
+    /* Reduced padding to bring text closer */
     border-radius: 18px;
     border: 1px solid rgba(0, 0, 0, 0.08);
     background: #fff;
@@ -785,14 +785,17 @@ body::after {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: 50px;
-    font-size: 20px;
+    left: 24px;
+    /* Move closer to edge */
+    font-size: 18px;
+    /* Slightly smaller to match text */
     color: var(--mumbai-blue);
-    opacity: 0.9;
+    /* Keep blue brand color */
+    opacity: 0.8;
+    /* Slightly softer */
     pointer-events: none;
     z-index: 10;
     transition: all 0.3s ease;
-    /* Animate seamlessly */
 }
 
 .search-input:focus {
