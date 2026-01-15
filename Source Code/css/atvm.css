@@ -1039,7 +1039,7 @@ body::after {
     font-size: 16px;
     text-transform: uppercase;
     text-shadow: 0 0 5px rgba(57, 255, 20, 0.8);
-    animation: marquee 8s linear infinite;
+    animation: marquee 15s linear infinite;
     padding-left: 100%;
     /* Start off-screen */
 }
