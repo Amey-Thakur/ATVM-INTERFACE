@@ -1414,47 +1414,81 @@ body::after {
     /* Reduced Gap */
 }
 
-/* Journey Type Segmented Control */
+/* Journey Type Segmented Control (Apple Sliding Pill) */
 .journey-type-control {
-    background: #ebebf0;
-    border-radius: 10px;
-    padding: 3px;
+    background: #e3e3e8;
+    /* Apple Gray Content Background */
+    border-radius: 9px;
+    padding: 2px;
+    /* Tight padding for the glider track */
     display: flex;
     position: relative;
     user-select: none;
+    height: 44px;
+    /* Sufficient height */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+    /* Inner depth */
+}
+
+/* The Sliding Pill */
+.glider {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: calc(50% - 2px);
+    height: calc(100% - 4px);
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12), 0 3px 1px rgba(0, 0, 0, 0.04);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 1;
+}
+
+/* Slide to Right when Return is active */
+.journey-type-control.mode-return .glider {
+    transform: translateX(100%);
 }
 
 .segment-option {
     flex: 1;
-    text-align: center;
-    padding: 6px 0;
-    /* Nicer compact height */
-    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    position: relative;
+    z-index: 2;
+    /* Text above glider */
+    transition: color 0.2s;
     color: #8e8e93;
+    /* Default Inactive */
 }
 
-transition: all 0.2s ease;
-color: #8e8e93;
+.segment-option:hover {
+    color: #000;
 }
 
 .segment-option.active {
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: transparent !important;
+    /* Remove old bg */
+    box-shadow: none !important;
+    /* Remove old shadow */
     color: #000;
 }
 
 .seg-label {
-    font-size: 14px;
-    font-weight: 800;
-    letter-spacing: 0.5px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    line-height: 1.2;
 }
 
 .seg-sub {
-    font-size: 10px;
-    opacity: 0.8;
-    margin-top: 2px;
+    font-size: 9px;
+    opacity: 0.6;
+    margin-top: 1px;
+    font-weight: 500;
 }
 
 /* Compact Route Visual */
