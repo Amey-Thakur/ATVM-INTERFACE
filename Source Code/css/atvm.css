@@ -1424,6 +1424,8 @@ body::after {
 
 .ticket-controls {
     width: 100%;
+    display: block;
+    align-self: stretch;
 }
 
 .ticket-footer {
