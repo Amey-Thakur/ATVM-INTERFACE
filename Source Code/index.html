@@ -105,6 +105,12 @@
             <div class="side-panel">
                 <h3>Mumbai Rail</h3>
 
+                <!-- Hero Asset: Mumbai Lifeline -->
+                <div class="lifeline-header">
+                    <img src="../../brain/7ad066ba-8d4f-4278-b7de-1c83c88931a/mumbai_local_trains_lifeline_1768507002825.png"
+                        alt="Mumbai Lifeline">
+                </div>
+
                 <div class="line-selector">
                     <div class="line-card wr" ng-class="{active: currentLine == 'Western Railway'}"
                         ng-click="setLine('Western Railway')">
@@ -128,10 +134,11 @@
                     </div>
                 </div>
 
-                <!-- Map Trigger -->
-                <button class="map-trigger-btn" ng-click="toggleMap(true)">
-                    <i class="fas fa-map"></i> View System Map
-                </button>
+                <!-- Map Trigger (LED Board) -->
+                <div class="map-trigger-container" ng-click="toggleMap()">
+                    <img src="../../brain/7ad066ba-8d4f-4278-b7de-1c83c88931a/led_map_button_1768507018018.png"
+                        class="led-map-btn">
+                </div>
 
                 <div class="search-container">
                     <input type="text" class="search-input" placeholder="Search station / शोध..."
