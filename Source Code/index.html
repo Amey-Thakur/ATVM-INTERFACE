@@ -261,7 +261,8 @@
                                     <div class="pax-label">ADULT / प्रौढ</div>
                                     <div class="stepper">
                                         <button class="step-btn minus" ng-click="updatePassenger('adults', -1)"
-                                            ng-disabled="adults <= 1"><i class="fas fa-minus"></i></button>
+                                            ng-disabled="adults <= 0 || (adults == 1 && children == 0)"><i
+                                                class="fas fa-minus"></i></button>
                                         <span class="step-val">{{adults}}</span>
                                         <button class="step-btn plus" ng-click="updatePassenger('adults', 1)"
                                             ng-disabled="adults == 5"><i class="fas fa-plus"></i></button>

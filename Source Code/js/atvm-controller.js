@@ -344,10 +344,17 @@ function atvmController($scope) {
 
         if (type === 'adults') {
             var newVal = $scope.adults + change;
-            if (newVal >= 1 && newVal <= 5) $scope.adults = newVal;
+            // Allow 0 adults only if there's at least 1 child
+            if (newVal >= 0 && newVal <= 5) {
+                if (newVal === 0 && $scope.children === 0) return; // Must have at least 1 passenger
+                $scope.adults = newVal;
+            }
         } else if (type === 'children') {
             var newVal = $scope.children + change;
-            if (newVal >= 0 && newVal <= 5) $scope.children = newVal;
+            if (newVal >= 0 && newVal <= 5) {
+                if (newVal === 0 && $scope.adults === 0) return; // Must have at least 1 passenger
+                $scope.children = newVal;
+            }
         }
     };
 
