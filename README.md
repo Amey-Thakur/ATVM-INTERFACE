@@ -43,14 +43,17 @@
 <a name="overview"></a>
 ## Overview
 
-The **ATVM Interface** project represents a pivotal milestone as a **Human Machine Interaction** project. Developed during the engineering journey, this project focuses on the practical application of user interface design principles to create a realistic simulation of a public utility system.
+The **ATVM (Automatic Ticket Vending Machine) Interface** is a user-centric digital simulation designed to optimize the commuter ticketing experience. The system streamlines the workflow for public transport access, reducing transaction time and cognitive friction through a clean, linear interface design.
 
-The project explores themes of accessibility and user workflow optimization, utilizing a clean aesthetic with intuitive navigation and instant feedback to enhance the user experience of purchasing railway tickets digitally.
+### HMI Principles
+The development of this interface was guided by core **Human-Machine Interaction** paradigms:
+*   **Direct Manipulation**: Users interact directly with visual representations of travel zones and ticket types, reducing the abstraction gap between intent and action.
+*   **Feedback**: The system provides immediate visual responsiveness (color changes, summary updates) to every user input, ensuring the user is always aware of the system state.
 
 > [!TIP]
-**Design Consistency**
+> **Fitts's Law in Action**
 >
-> The project utilizes a centralized styling approach to maintain visual harmony across the interface. Modular CSS encourages reusability and ensures that design tokens (colors, typography, spacing) remain consistent across the entire application layer.
+> The interface layout strategically sizes and places interactive buttons (like 'Book Ticket' and Map Zones) to minimize cursor travel time and maximize target acquisition accuracy. This adherence to **Fitts's Law** ensures that high-frequency actions become motor reflexes for the user, significantly speeding up the transaction process in high-volume public transport scenarios.
 
 ---
 
