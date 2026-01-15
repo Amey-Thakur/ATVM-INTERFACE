@@ -263,7 +263,7 @@
                                             ng-disabled="adults <= 1"><i class="fas fa-minus"></i></button>
                                         <span class="step-val">{{adults}}</span>
                                         <button class="step-btn plus" ng-click="updatePassenger('adults', 1)"
-                                            ng-disabled="adults >= 4"><i class="fas fa-plus"></i></button>
+                                            ng-disabled="adults >= 5"><i class="fas fa-plus"></i></button>
                                     </div>
                                 </div>
                                 <div class="pax-control-card">
@@ -273,7 +273,7 @@
                                             ng-disabled="children <= 0"><i class="fas fa-minus"></i></button>
                                         <span class="step-val">{{children}}</span>
                                         <button class="step-btn plus" ng-click="updatePassenger('children', 1)"
-                                            ng-disabled="children >= 4"><i class="fas fa-plus"></i></button>
+                                            ng-disabled="children >= 5"><i class="fas fa-plus"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -293,10 +293,6 @@
                             </div>
                         </div>
                     </div>
-                    <h4
-                        style="margin: 0; font-size: 11px; font-weight: 900; color: #8e8e93; text-transform: uppercase; letter-spacing: 1px;">
-                        Total Fare / एकूण भाडे</h4>
-                    <div class="price">₹ {{calculateFare()}}</div>
                 </div>
                 <!-- Duplicate Button Removed -->
             </div>
