@@ -1482,6 +1482,18 @@ body::after {
     font-weight: 700;
     letter-spacing: 0.3px;
     line-height: 1.2;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    /* Space between English and Marathi */
+}
+
+.mr-label {
+    font-family: 'Mukta', sans-serif;
+    font-size: 14px;
+    /* Slightly larger for readability */
+    font-weight: 500;
+    opacity: 0.8;
 }
 
 .seg-sub {
