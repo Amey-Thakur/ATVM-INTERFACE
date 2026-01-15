@@ -8,6 +8,61 @@
  * Repository: https://github.com/Amey-Thakur/ATVM-INTERFACE
  * License: MIT
  */
+
+// =========================================
+//   CONSOLE EASTER EGG 🚇
+// =========================================
+console.log(
+    "%c🚇 ATVM Interface - Mumbai Metro",
+    "font-size: 24px; font-weight: bold; color: #0ea5e9; text-shadow: 2px 2px 0 #0f172a;"
+);
+console.log(
+    "%c🎫 Automated Ticket Vending Machine Simulator",
+    "font-size: 14px; color: #64748b;"
+);
+console.log(
+    "%c👩‍💻 Developed by Amey Thakur & Mega Satish",
+    "font-size: 12px; color: #22c55e;"
+);
+console.log(
+    "%c🔗 https://github.com/Amey-Thakur/ATVM-INTERFACE",
+    "font-size: 12px; color: #2563eb;"
+);
+console.log(
+    "%c⚠️ This project is protected. Please respect the authors' work!",
+    "font-size: 12px; color: #f59e0b; font-weight: bold;"
+);
+
+// =========================================
+//   SECURITY MEASURES 🔒
+// =========================================
+(function initSecurity() {
+    // Disable Right Click
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+    });
+
+    // Disable Dragging
+    document.addEventListener('dragstart', function (e) {
+        e.preventDefault();
+    });
+
+    // Disable Text Selection (except inputs)
+    document.addEventListener('selectstart', function (e) {
+        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+            e.preventDefault();
+        }
+    });
+
+    // Disable DevTools Shortcuts
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'F12' ||
+            (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+            (e.ctrlKey && e.key === 'u')) {
+            e.preventDefault();
+        }
+    });
+})();
 /**
  * Utility Function: num2hindi
  * Converts standard Arabic numerals (0-9) to Hindi digits (०-९).
