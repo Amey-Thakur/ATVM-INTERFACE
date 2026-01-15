@@ -91,6 +91,19 @@ const FARE_STAGES = [
 ];
 
 function atvmController($scope) {
+
+    // Line Translations
+    $scope.lineTranslations = {
+        "Western Railway": "पश्चिम रेल्वे",
+        "Central Railway": "मध्य रेल्वे",
+        "Harbour Line": "हार्बर रेल्वे",
+        "Trans-Harbour Line": "ट्रान्स-हार्बर रेल्वे"
+    };
+
+    $scope.getLineMr = function (line) {
+        return $scope.lineTranslations[line] || "";
+    };
+
     /**
      * Authentic Station Database 🚆
      * Organized by Railway Zones for native navigation.
