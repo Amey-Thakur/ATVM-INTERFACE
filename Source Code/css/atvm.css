@@ -786,13 +786,13 @@ body::after {
     top: 50%;
     transform: translateY(-50%);
     left: 50px;
-    /* Perfectly positioned inside padding */
     font-size: 20px;
-    /* Slightly larger icon */
     color: var(--mumbai-blue);
     opacity: 0.9;
     pointer-events: none;
     z-index: 10;
+    transition: all 0.3s ease;
+    /* Animate seamlessly */
 }
 
 .search-input:focus {
@@ -802,6 +802,13 @@ body::after {
     /* Premium colored glow */
     outline: none;
     transform: translateY(-1px);
+}
+
+/* Sync Icon Lift with Input */
+.search-input:focus~.search-icon {
+    transform: translateY(calc(-50% - 1px));
+    opacity: 1;
+    text-shadow: 0 2px 4px rgba(0, 94, 184, 0.2);
 }
 
 
