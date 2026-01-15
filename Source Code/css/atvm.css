@@ -1368,7 +1368,7 @@ body::after {
 .main-interface {
     flex: 1;
     background: #f5f5f7;
-    padding: 30px 40px;
+    padding: 20px 25px;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -1389,8 +1389,8 @@ body::after {
     background: url('../images/mumbai_lifeline_wallpaper.png') no-repeat center center;
     background-size: 100% 100%;
     /* Now uses correct aspect ratio image, so no distortion */
-    opacity: 0.5;
-    /* Sharper and more visible */
+    opacity: 1;
+    /* Full visibility */
     pointer-events: none;
     z-index: 0;
 }
@@ -1413,11 +1413,11 @@ body::after {
 
 /* --- New Ticket Dashboard Layout (Compact) --- */
 .ticket-body {
-    padding: 15px 25px;
+    padding: 12px 20px;
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
 }
 
 .ticket-controls {
@@ -1431,7 +1431,7 @@ body::after {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 15px 25px;
+    padding: 12px 20px;
     background: #fff;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
