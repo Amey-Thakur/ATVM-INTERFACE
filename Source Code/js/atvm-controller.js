@@ -229,14 +229,59 @@ function atvmController($scope) {
     /**
      * Filters station list based on search query and current line.
      */
+    /**
+     * Filters station list based on search query and current line.
+     * Sorts matches: Exact > Starts With > Contains.
+     */
     $scope.getFilteredStations = function () {
         const stations = $scope.railwayData[$scope.currentLine];
-        if (!$scope.searchQuery) return stations;
+        // Note: Check if $scope.searchText is used or $scope.searchQuery.
+        // User HTML said `ng-model="searchText"`.
+        // Controller line 210 defines `$scope.searchQuery`.
+        // Wait, line 149 HTML: `ng-model="searchText"`.
+        // Line 234 JS: `if (!$scope.searchQuery)`.
+        // One of them is wrong or they are synced?
+        // Let's assume HTML `searchText` is correct and JS needs update if mismatch.
+        // But wait, I see `ng-model="searchText"` in HTML snippet step 849.
+        // JS uses `searchQuery`. This might be why search works/doesn't work?
+        // Ah, likely mapped in view or I should check initialization.
+        // Wait, line 210: `$scope.searchQuery = "";`.
+        // Let's use `searchText` to match HTML view.
 
-        const q = $scope.searchQuery.toLowerCase();
-        return stations.filter(s =>
+        // Actually, just better to check what scope variable is being used.
+        // HTML: `ng-model="searchText"`
+        // The previous code block showed `$scope.searchQuery`.
+        // If I change this function to use `searchText`, it will safely match HTML.
+
+        var query = $scope.searchText || "";
+        if (!query) return stations;
+
+        const q = query.toLowerCase();
+
+        // Filter first
+        let filtered = stations.filter(s =>
             s.name.toLowerCase().includes(q) || s.devng.includes(q)
         );
+
+        // Sort logic
+        return filtered.sort((a, b) => {
+            const aName = a.name.toLowerCase();
+            const bName = b.name.toLowerCase();
+
+            // Priority 1: Exact Match
+            const aExact = aName === q || a.devng === q;
+            const bExact = bName === q || b.devng === q;
+            if (aExact && !bExact) return -1;
+            if (!aExact && bExact) return 1;
+
+            // Priority 2: Starts With
+            const aStart = aName.startsWith(q) || a.devng.startsWith(q);
+            const bStart = bName.startsWith(q) || b.devng.startsWith(q);
+            if (aStart && !bStart) return -1;
+            if (!aStart && bStart) return 1;
+
+            return 0; // Maintain original order otherwise
+        });
     };
 
     /**
