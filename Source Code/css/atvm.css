@@ -557,18 +557,31 @@ body::after {
     overflow: hidden;
 }
 
-/* Add a subtle "Track Pattern" background */
+/* Subtle "Track Pattern" Background Animation */
 .side-panel::before {
     content: '';
     position: absolute;
-    top: 0;
+    top: -100px;
+    /* Buffer for scrolling */
     left: 0;
     right: 0;
-    bottom: 0;
-    background-image: radial-gradient(#e1e1e6 1px, transparent 1px);
-    background-size: 20px 20px;
-    opacity: 0.5;
+    bottom: -100px;
+    background-image: radial-gradient(#d1d1d6 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+    opacity: 0.4;
     z-index: -1;
+    animation: railTrackMove 30s linear infinite;
+}
+
+@keyframes railTrackMove {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(24px);
+        /* Move one grid unit seamlessly */
+    }
 }
 
 /* --- LINE SELECTOR (Vibrant & Native) --- */
