@@ -199,8 +199,9 @@
                         <div class="ticket-header">
                             <img src="images/mumbai_modern_monogram_logo.png" class="ticket-logo">
                             <div class="railway-label">
-                                <h3>{{currentLine}}</h3>
-                                <p>Unreserved Ticketing System</p>
+                                <h3>{{currentLine}} <span style="font-size: 0.8em; font-weight: 400; opacity: 0.8;">मध्य
+                                        रेल्वे</span></h3>
+                                <p>Unreserved Ticketing System / अनारक्षित तिकीट प्रणाली</p>
                             </div>
                         </div>
 
@@ -211,12 +212,12 @@
                                 <div class="glider"></div>
                                 <div class="segment-option" ng-class="{active: journeyType === 'Single'}"
                                     ng-click="setJourneyType('Single')">
-                                    <div class="seg-label">SINGLE</div>
+                                    <div class="seg-label">SINGLE <span class="mr-label">एकधेरी</span></div>
                                     <div class="seg-sub">Single Journey</div>
                                 </div>
                                 <div class="segment-option" ng-class="{active: journeyType === 'Return'}"
                                     ng-click="setJourneyType('Return')">
-                                    <div class="seg-label">RETURN</div>
+                                    <div class="seg-label">RETURN <span class="mr-label">परतीचे</span></div>
                                     <div class="seg-sub">Valid for 24 hours</div>
                                 </div>
                             </div>
