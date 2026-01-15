@@ -1434,9 +1434,16 @@ body::after {
     width: 100%;
     padding: 15px 25px;
     background: #fff;
-    /* or transparent */
     border-top: 1px solid rgba(0, 0, 0, 0.05);
-    /* No radius needed if parent has overflow: hidden, but let's be safe */
+    box-sizing: border-box;
+}
+
+.ticket-footer .fare-block {
+    flex-shrink: 0;
+}
+
+.ticket-footer .print-btn {
+    margin-left: auto !important;
 }
 
 /* Journey Type Segmented Control (Apple Sliding Pill) */
