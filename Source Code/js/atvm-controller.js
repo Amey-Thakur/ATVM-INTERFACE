@@ -317,6 +317,27 @@ function atvmController($scope) {
         stations.forEach(function (s) { s.type = lineName; });
     });
 
+    // --- Journey & Passenger State ---
+    $scope.journeyType = 'Single'; // 'Single' or 'Return'
+    $scope.adults = 1;
+    $scope.children = 0;
+
+    $scope.setJourneyType = function (type) {
+        $scope.journeyType = type;
+    };
+
+    $scope.updatePassenger = function (type, change, $event) {
+        if ($event) $event.stopPropagation();
+
+        if (type === 'adults') {
+            var newVal = $scope.adults + change;
+            if (newVal >= 1 && newVal <= 4) $scope.adults = newVal;
+        } else if (type === 'children') {
+            var newVal = $scope.children + change;
+            if (newVal >= 0 && newVal <= 4) $scope.children = newVal;
+        }
+    };
+
     /**
      * Primary calculation engine for railway fares.
      * Uses a Universal Hub Routing System for precise cross-line distances.
@@ -327,7 +348,7 @@ function atvmController($scope) {
         let distance = 0;
         const src = $scope.sourceStation;
         const dest = $scope.destinationStation;
-        
+
         // Define Hub Locations (km markers)
         const HUBS = {
             WR_DADAR: 10.1,
@@ -355,8 +376,8 @@ function atvmController($scope) {
             if (pair === "Central Railway|Western Railway") {
                 // Via Dadar
                 distance = Math.abs(src.km - (src.type === 'Western Railway' ? HUBS.WR_DADAR : HUBS.CR_DADAR)) +
-                           Math.abs(dest.km - (dest.type === 'Western Railway' ? HUBS.WR_DADAR : HUBS.CR_DADAR));
-            } 
+                    Math.abs(dest.km - (dest.type === 'Western Railway' ? HUBS.WR_DADAR : HUBS.CR_DADAR));
+            }
             else if (pair === "Harbour Line|Western Railway") {
                 // Via Dadar -> Kurla (Approximated)
                 const wrDist = Math.abs((src.type === 'Western Railway' ? src.km : dest.km) - HUBS.WR_DADAR);
@@ -372,17 +393,17 @@ function atvmController($scope) {
             else if (pair === "Central Railway|Harbour Line") {
                 // Via Kurla
                 distance = Math.abs(src.km - (src.type === 'Central Railway' ? HUBS.CR_KURLA : HUBS.HB_KURLA)) +
-                           Math.abs(dest.km - (dest.type === 'Central Railway' ? HUBS.CR_KURLA : HUBS.HB_KURLA));
+                    Math.abs(dest.km - (dest.type === 'Central Railway' ? HUBS.CR_KURLA : HUBS.HB_KURLA));
             }
             else if (pair === "Central Railway|Trans-Harbour Line") {
                 // Via Thane
                 distance = Math.abs(src.km - (src.type === 'Central Railway' ? HUBS.CR_THANE : HUBS.TH_THANE)) +
-                           Math.abs(dest.km - (dest.type === 'Central Railway' ? HUBS.CR_THANE : HUBS.TH_THANE));
+                    Math.abs(dest.km - (dest.type === 'Central Railway' ? HUBS.CR_THANE : HUBS.TH_THANE));
             }
             else if (pair === "Harbour Line|Trans-Harbour Line") {
                 // Via Nerul
                 distance = Math.abs(src.km - (src.type === 'Harbour Line' ? HUBS.HB_NERUL : HUBS.TH_NERUL)) +
-                           Math.abs(dest.km - (dest.type === 'Harbour Line' ? HUBS.HB_NERUL : HUBS.TH_NERUL));
+                    Math.abs(dest.km - (dest.type === 'Harbour Line' ? HUBS.HB_NERUL : HUBS.TH_NERUL));
             }
             else {
                 // Fallback

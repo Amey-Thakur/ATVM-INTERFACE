@@ -1403,18 +1403,174 @@ body::after {
 
 /* Removed ticket::after */
 
-.ticket-header,
+/* --- New Ticket Dashboard Layout --- */
 .ticket-body {
-    position: relative;
-    z-index: 1;
-    /* Content above watermark */
+    padding: 20px 30px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.ticket-canvas,
-.dash-header {
+/* Journey Type Segmented Control */
+.journey-type-control {
+    background: #ebebf0;
+    border-radius: 12px;
+    padding: 4px;
+    display: flex;
     position: relative;
-    z-index: 2;
-    /* Ensure content stays above watermark */
+    user-select: none;
+}
+
+.segment-option {
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #8e8e93;
+}
+
+.segment-option.active {
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    color: #000;
+}
+
+.seg-label {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.seg-sub {
+    font-size: 10px;
+    opacity: 0.8;
+    margin-top: 2px;
+}
+
+/* Compact Route Visual */
+.route-visual-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f9f9fa;
+    padding: 15px 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.station-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.node-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 3px solid var(--mumbai-blue);
+    background: #fff;
+}
+
+.node-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1c1c1e;
+}
+
+.route-arrow {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #c7c7cc;
+    font-size: 14px;
+    position: relative;
+}
+
+.route-arrow i {
+    transform: scaleX(1.5);
+}
+
+.journey-badge {
+    background: #34c759;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-top: 4px;
+}
+
+/* Passenger Controls */
+.passenger-controls-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.pax-control-card {
+    background: #fff;
+    border: 1px solid #e5e5ea;
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pax-label {
+    font-size: 11px;
+    font-weight: 800;
+    color: #8e8e93;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.stepper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.step-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: #e5e5ea;
+    color: #1c1c1e;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step-btn:hover:not(:disabled) {
+    background: #d1d1d6;
+}
+
+.step-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.step-val {
+    font-size: 20px;
+    font-weight: 700;
+    width: 20px;
+    text-align: center;
+}
+
+.dash-header {
+    display: none;
+    /* Ensure old header stays hidden */
 }
 
 h2 {
