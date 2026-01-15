@@ -27,6 +27,31 @@
 }
 
 /* =========================================
+   FOOTER
+   ========================================= */
+.footer-simple {
+    margin-top: 15px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+    animation: fadeIn 0.8s ease-out 0.4s both;
+}
+
+.footer-simple a {
+    color: var(--metro-blue-light);
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.2s;
+}
+
+.footer-simple a:hover {
+    color: var(--white);
+    text-decoration: underline;
+}
+
+/* =========================================
+   ACCESSIBILITY
+   ========================================= */
+/* =========================================
    BASE STYLES
    ========================================= */
 html,
