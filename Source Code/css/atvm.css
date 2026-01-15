@@ -607,8 +607,8 @@ body::after {
 }
 
 .route-line-connector .fa-train {
-    transition: all 1.2s cubic-bezier(0.2, 0.6, 0.35, 1);
-    /* Slow, heavy arrival */
+    transition: all 2.5s ease-in-out;
+    /* Very slow, majestic arrival */
     z-index: 2;
 }
 
@@ -618,8 +618,8 @@ body::after {
 .dev-route:has(.amey-link:hover) .fa-train {
     /* Base transform handled by animation */
     color: var(--wr-red);
-    animation: swayLeft 2s infinite ease-in-out;
-    /* Gentle idle sway */
+    animation: swayLeft 3s infinite ease-in-out;
+    /* Very gentle sway */
 }
 
 .dev-route:has(.amey-link:hover) .line-segment {
@@ -645,8 +645,8 @@ body::after {
 .dev-route:has(.mega-link:hover) .fa-train {
     /* Base transform handled by animation */
     color: var(--mumbai-blue);
-    animation: swayRight 2s infinite ease-in-out;
-    /* Gentle idle sway */
+    animation: swayRight 3s infinite ease-in-out;
+    /* Very gentle sway */
 }
 
 .dev-route:has(.mega-link:hover) .line-segment {
