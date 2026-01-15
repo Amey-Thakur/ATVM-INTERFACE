@@ -1406,7 +1406,7 @@ body::after {
     overflow: hidden;
     max-width: 800px;
     margin: 0 auto;
-    /* Center the card and allow background to show */
+    height: fit-content;
 }
 
 /* Removed ticket::after */
