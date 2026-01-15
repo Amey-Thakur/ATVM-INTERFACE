@@ -63,12 +63,17 @@
                         <!-- Left Panel: All Stations -->
                         <div class="side-panel">
                             <div class="panel-header">
-                                <i class="fas fa-list-ul"></i>
-                                <h3>All Stations</h3>
+                                <i class="fas fa-search"></i>
+                                <h3>Stations</h3>
+                            </div>
+                            <div class="search-box">
+                                <input type="text" ng-model="searchQuery" placeholder="Search station / शोध स्टेशन..."
+                                    class="form-control premium-search">
                             </div>
                             <div class="station-list-container scrollable">
                                 <div class="list-group">
-                                    <a href="#" class="list-group-item" ng-repeat="station in stations track by $index"
+                                    <a href="#" class="list-group-item"
+                                        ng-repeat="station in getFilteredStations() track by $index"
                                         ng-class="getSelectedStationStyle($index)"
                                         ng-click="setSelectedStation($index)">
                                         <span class="en-name">{{station.name}}</span>

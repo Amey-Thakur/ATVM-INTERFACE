@@ -112,12 +112,26 @@ function atvmController($scope) {
     $scope.noOfAdults = 1;
     $scope.noOfChildren = 0;
     $scope.returnTicket = false;
+    // Search Filter
+    $scope.searchQuery = "";
+
     $scope.title = "Western Railway ATVM";
 
     $scope.range = function (num) { return new Array(num); };
 
+    // Filtered Stations Logic
+    $scope.getFilteredStations = function () {
+        if (!$scope.searchQuery) return $scope.stations;
+        var query = $scope.searchQuery.toLowerCase();
+        return $scope.stations.filter(function (s) {
+            return s.name.toLowerCase().includes(query) || s.devng.includes(query);
+        });
+    };
+
     $scope.getSelectedStationStyle = function (index) {
-        return ($scope.source == index) ? "grayed" : "";
+        // Correct index mapping for filtered list
+        var realIndex = $scope.stations.indexOf($scope.getFilteredStations()[index]);
+        return ($scope.source == realIndex) ? "grayed" : "";
     };
 
     $scope.getSelectedStationStylePrimary = function (index) {
@@ -131,11 +145,12 @@ function atvmController($scope) {
     };
 
     $scope.setSelectedStation = function (index) {
-        if (index == $scope.source) return;
-        $scope.selectedStation = index;
+        var realIndex = $scope.stations.indexOf($scope.getFilteredStations()[index]);
+        if (realIndex == $scope.source || realIndex == -1) return;
+        $scope.selectedStation = realIndex;
         // Update main station index for sub-button group visibility
         for (var i = 0; i < $scope.mainStations.length; i++) {
-            if (i + 1 == $scope.mainStations.length || $scope.mainStations[i + 1] > index) {
+            if (i + 1 == $scope.mainStations.length || $scope.mainStations[i + 1] > realIndex) {
                 $scope.selectedMainStation = i;
                 break;
             }
@@ -146,6 +161,16 @@ function atvmController($scope) {
         if ($scope.mainStations[index] == $scope.source) return;
         $scope.selectedMainStation = index;
         $scope.selectedStation = $scope.mainStations[index];
+    };
+
+    $scope.getSelectedStationStylePrimary = function (index) {
+        if ($scope.source == index) return "grayed";
+        if ($scope.selectedStation == index) return "green";
+        return "";
+    };
+
+    $scope.getStation = function (index) {
+        return $scope.stations[index].name;
     };
 
     $scope.getSubstations = function (index) {
