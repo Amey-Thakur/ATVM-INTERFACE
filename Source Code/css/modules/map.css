@@ -21,261 +21,185 @@
 
 .map-header {
     padding: 20px 40px;
-    background: #fff;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.02);
-}
-
-.map-title {
-    font-size: 24px;
-    font-weight: 900;
-    color: var(--mumbai-blue);
-    text-transform: uppercase;
-    letter-spacing: -0.5px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.close-map-btn {
-    padding: 10px 24px;
-    background: #f2f2f7;
-    border-radius: 20px;
-    font-weight: 800;
-    color: var(--apple-text);
-    cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    transition: all 0.2s;
-}
-
-.close-map-btn:hover {
-    background: var(--apple-text);
-    color: #fff;
-}
-
-.map-container {
-    flex: 1;
-    overflow-x: auto;
-    overflow-y: auto;
-    padding: 40px;
-    display: flex;
-    justify-content: center;
-    gap: 60px;
-    /* Space between lines */
-    background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.02) 0%, rgba(255, 255, 255, 0) 70%);
-}
-
-/* --- Schematic Line Styles --- */
-.rail-line-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    padding-top: 40px;
-    min-width: 200px;
-}
-
-.rail-line-label {
-    font-size: 18px;
-    font-weight: 900;
-    text-transform: uppercase;
-    margin-bottom: 30px;
-    padding: 8px 16px;
-    border-radius: 8px;
-    color: #fff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
+    background: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     z-index: 10;
 }
 
-/* Specific Line Colors */
-.line-wr .rail-line-label {
-    background: var(--wr-red);
+.map-header h2 {
+    margin: 0;
+    font-weight: 900;
+    color: var(--mumbai-blue);
+    text-transform: uppercase;
+    font-size: 24px;
 }
 
-.line-cr .rail-line-label {
-    background: var(--cr-maroon);
+.close-map-btn {
+    background: #f2f2f7;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 14px;
+    text-transform: uppercase;
 }
 
-.line-hr .rail-line-label {
-    background: var(--mumbai-blue);
+/* --- Schematic Grid Layout --- */
+.map-diagram {
+    flex: 1;
+    overflow-y: auto;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 Equal Columns for WR, CR, HR, TH */
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
 }
 
-.line-m1 .rail-line-label {
-    background: #00AEEF;
+.rail-line-col {
+    position: relative;
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Metro Blue */
-.line-m2 .rail-line-label {
-    background: #FCD206;
-    color: #000;
-}
-
-/* Metro Yellow */
-.line-mono .rail-line-label {
-    background: #8BC53E;
-}
-
-/* Monorail Green */
+/* Continuous Vertical Track Line */
 .track-line {
     position: absolute;
-    top: 80px;
-    bottom: 20px;
+    top: 50px;
+    bottom: 0;
+    left: 50%;
     width: 6px;
-    /* Thick track line */
-    background: #e5e5ea;
+    transform: translateX(-50%);
+    border-radius: 4px;
     z-index: 0;
-    border-radius: 3px;
-}
 
-.line-wr .track-line {
-    background: rgba(209, 18, 29, 0.15);
-    border: 1px solid rgba(209, 18, 29, 0.1);
-}
+    .line-mono .track-line {
+        background: rgba(139, 197, 62, 0.15);
+        border: 1px solid rgba(139, 197, 62, 0.1);
+    }
 
-.line-cr .track-line {
-    background: rgba(123, 36, 28, 0.15);
-    border: 1px solid rgba(123, 36, 28, 0.1);
-}
+    .map-station-node {
+        margin-bottom: 25px;
+        /* Spacing between stations */
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        background: #fff;
+        padding: 8px 16px;
+        border-radius: 20px;
+        border: 2px solid transparent;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.3, 0, 0.2, 1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        width: 180px;
+        justify-content: center;
+    }
 
-.line-hr .track-line {
-    background: rgba(0, 51, 153, 0.15);
-    border: 1px solid rgba(0, 51, 153, 0.1);
-}
+    .line-wr .map-station-node {
+        border-color: rgba(209, 18, 29, 0.1);
+    }
 
-.line-m1 .track-line {
-    background: rgba(0, 174, 239, 0.15);
-    border: 1px solid rgba(0, 174, 239, 0.1);
-}
+    .line-cr .map-station-node {
+        border-color: rgba(123, 36, 28, 0.1);
+    }
 
-.line-m2 .track-line {
-    background: rgba(252, 210, 6, 0.15);
-    border: 1px solid rgba(252, 210, 6, 0.1);
-}
+    .line-hr .map-station-node {
+        border-color: rgba(0, 51, 153, 0.1);
+    }
 
-.line-mono .track-line {
-    background: rgba(139, 197, 62, 0.15);
-    border: 1px solid rgba(139, 197, 62, 0.1);
-}
+    .line-m1 .map-station-node {
+        border-color: rgba(0, 174, 239, 0.1);
+    }
 
-.map-station-node {
-    margin-bottom: 25px;
-    /* Spacing between stations */
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    background: #fff;
-    padding: 8px 16px;
-    border-radius: 20px;
-    border: 2px solid transparent;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.3, 0, 0.2, 1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    width: 180px;
-    justify-content: center;
-}
+    .line-m2 .map-station-node {
+        border-color: rgba(252, 210, 6, 0.1);
+    }
 
-.line-wr .map-station-node {
-    border-color: rgba(209, 18, 29, 0.1);
-}
+    .line-mono .map-station-node {
+        border-color: rgba(139, 197, 62, 0.1);
+    }
 
-.line-cr .map-station-node {
-    border-color: rgba(123, 36, 28, 0.1);
-}
+    .map-station-node:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        z-index: 5;
+    }
 
-.line-hr .map-station-node {
-    border-color: rgba(0, 51, 153, 0.1);
-}
+    .map-station-node::before {
+        content: '';
+        display: block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-right: 10px;
+        border: 3px solid #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
 
-.line-m1 .map-station-node {
-    border-color: rgba(0, 174, 239, 0.1);
-}
+    .line-wr .map-station-node::before {
+        background: var(--wr-red);
+    }
 
-.line-m2 .map-station-node {
-    border-color: rgba(252, 210, 6, 0.1);
-}
+    .line-cr .map-station-node::before {
+        background: var(--cr-maroon);
+    }
 
-.line-mono .map-station-node {
-    border-color: rgba(139, 197, 62, 0.1);
-}
+    .line-hr .map-station-node::before {
+        background: var(--mumbai-blue);
+    }
 
-.map-station-node:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    z-index: 5;
-}
+    .line-m1 .map-station-node::before {
+        background: #00AEEF;
+    }
 
-.map-station-node::before {
-    content: '';
-    display: block;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin-right: 10px;
-    border: 3px solid #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
+    .line-m2 .map-station-node::before {
+        background: #FCD206;
+    }
 
-.line-wr .map-station-node::before {
-    background: var(--wr-red);
-}
+    .line-mono .map-station-node::before {
+        background: #8BC53E;
+    }
 
-.line-cr .map-station-node::before {
-    background: var(--cr-maroon);
-}
+    .map-station-name {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--apple-text);
+    }
 
-.line-hr .map-station-node::before {
-    background: var(--mumbai-blue);
-}
+    /* --- Map Trigger Button --- */
+    .map-trigger-btn {
+        width: 100%;
+        padding: 14px;
+        background: #fff;
+        border: 2px solid var(--apple-bg-accent);
+        color: var(--mumbai-blue);
+        border-radius: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 13px;
+        cursor: pointer;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: all 0.2s;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    }
 
-.line-m1 .map-station-node::before {
-    background: #00AEEF;
-}
-
-.line-m2 .map-station-node::before {
-    background: #FCD206;
-}
-
-.line-mono .map-station-node::before {
-    background: #8BC53E;
-}
-
-.map-station-name {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--apple-text);
-}
-
-/* --- Map Trigger Button --- */
-.map-trigger-btn {
-    width: 100%;
-    padding: 14px;
-    background: #fff;
-    border: 2px solid var(--apple-bg-accent);
-    color: var(--mumbai-blue);
-    border-radius: 12px;
-    font-weight: 800;
-    text-transform: uppercase;
-    font-size: 13px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: all 0.2s;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
-}
-
-.map-trigger-btn:hover {
-    background: var(--mumbai-blue);
-    color: #fff;
-    border-color: var(--mumbai-blue);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 51, 153, 0.2);
-}
+    .map-trigger-btn:hover {
+        background: var(--mumbai-blue);
+        color: #fff;
+        border-color: var(--mumbai-blue);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 51, 153, 0.2);
+    }
