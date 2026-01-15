@@ -1,20 +1,24 @@
-<a name="readme-top"></a>
-
 <div align="center">
 
-  <h1>ATVM | Interface</h1>
+  <a name="readme-top"></a>
+  # ATVM Interface
 
-  **An interface simulation for an Automatic Ticket Vending Machine (ATVM).**
+  [![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey)](LICENSE)
+  ![Status](https://img.shields.io/badge/Status-Completed-success)
+  [![Technology](https://img.shields.io/badge/Technology-HTML5%20%7C%20AngularJS-orange)](https://github.com/Amey-Thakur/ATVM-INTERFACE)
+  [![Developed by Amey Thakur](https://img.shields.io/badge/Developed%20by-Amey%20Thakur-blue)](https://github.com/Amey-Thakur)
 
-  [![Web Application](https://img.shields.io/badge/Web%20Application-ATVM-blue.svg)](https://amey-thakur.github.io/ATVM-INTERFACE)
-  [![License](https://img.shields.io/github/license/Amey-Thakur/ATVM-INTERFACE)](LICENSE)
-  [![Issues](https://img.shields.io/github/issues/Amey-Thakur/ATVM-INTERFACE)](https://github.com/Amey-Thakur/ATVM-INTERFACE/issues)
+  A simulation of the Automatic Ticket Vending Machine (ATVM) interface found at railway stations, designed with Human-Machine Interaction (HMI) principles.
+
+  **[Source Code](Source%20Code/)** &nbsp;·&nbsp; **[Technical Specification](docs/SPECIFICATION.md)** &nbsp;·&nbsp; **[Live Demo](https://amey-thakur.github.io/ATVM-INTERFACE/)**
 
 </div>
 
+---
+
 <div align="center">
 
-  [Authors](#authors) &nbsp;·&nbsp; [Overview](#overview) &nbsp;·&nbsp; [Technical Implementation](#technical-implementation) &nbsp;·&nbsp; [Usage](#usage) &nbsp;·&nbsp; [License](#license) &nbsp;·&nbsp; [Acknowledgments](#acknowledgments)
+  [Authors](#authors) &nbsp;·&nbsp; [Overview](#overview) &nbsp;·&nbsp; [Features](#features) &nbsp;·&nbsp; [Structure](#project-structure) &nbsp;·&nbsp; [Results](#system-architecture--design-gallery) &nbsp;·&nbsp; [Quick Start](#quick-start) &nbsp;·&nbsp; [Usage Guidelines](#usage-guidelines) &nbsp;·&nbsp; [License](#license) &nbsp;·&nbsp; [About](#about-this-repository) &nbsp;·&nbsp; [Acknowledgments](#acknowledgments)
 
 </div>
 
@@ -39,45 +43,120 @@
 <a name="overview"></a>
 ## Overview
 
-The **ATVM Interface** project is a simulation of the interface used in **Automatic Ticket Vending Machines (ATVMs)** found at railway stations. The goal is to provide a simplified, user-friendly digital interface that allows travelers to:
-- Simulate the purchase of railway tickets.
-- Interact with a clean, semantic UI designed with HCI principles.
-- Experience a responsive workflow for station selection and fare calculation.
+The **ATVM Interface** project represents a pivotal milestone as a **Human Machine Interaction** project. Developed during the engineering journey, this project focuses on the practical application of user interface design principles to create a realistic simulation of a public utility system.
 
-> [!NOTE]
-> **Live Web Application**: Experience the interface directly in your browser: [**Launch ATVM Simulator**](https://amey-thakur.github.io/ATVM-INTERFACE).
+The project explores themes of accessibility and user workflow optimization, utilizing a clean aesthetic with intuitive navigation and instant feedback to enhance the user experience of purchasing railway tickets digitally.
 
-<br>
+> [!TIP]
+**Design Consistency**
+>
+> The project utilizes a centralized styling approach to maintain visual harmony across the interface. Modular CSS encourages reusability and ensures that design tokens (colors, typography, spacing) remain consistent across the entire application layer.
+
+---
+
+<!-- FEATURES -->
+<a name="features"></a>
+## Features
+
+| Feature | Description |
+|---------|-------------|
+| **Semantic Layout** | Structured using HTML5 semantic tags for accessibility and clarity. |
+| **State Management** | Uses AngularJS to handle data flow and view transitions without page reloads. |
+| **Responsive Grid** | A custom CSS grid and Bootstrap-based design for kios k-like compatibility. |
+| **Interactive UX** | Smooth transitions, instant fare calculation, and simulated printing workflow. |
+| **Data Handling** | Client-side management of station data and ticket details. |
+
+### Tech Stack
+- **Languages**: HTML5, CSS3, JavaScript
+- **Framework**: AngularJS (1.x), Bootstrap
+- **Deployment**: GitHub Actions (Staging Workflow)
+- **Hosting**: GitHub Pages
+
+---
+
+<!-- STRUCTURE -->
+<a name="project-structure"></a>
+## Project Structure
+
+```python
+ATVM-INTERFACE/
+│
+├── .github/                         # GitHub Actions & Automation
+│   └── workflows/
+│       └── deploy.yml               # Automated Staging & Deployment Flow
+│
+├── docs/                            # Technical Documentation
+│   └── SPECIFICATION.md             # Architecture & Design Specification
+│
+├── Mega/                            # Project Resources & Assets
+│
+├── Source Code/                     # Primary Application Layer
+│   ├── css/                         # Design System & Stylesheets
+│   ├── js/                          # Application Logic (AngularJS)
+│   ├── images/                      # Visual Assets
+│   └── index.html                   # Application Gateway
+│
+├── .gitattributes                   # Git configuration
+├── CITATION.cff                     # Scholarly Citation Metadata
+├── codemeta.json                    # Machine-Readable Project Metadata
+├── LICENSE                          # MIT License Terms
+├── README.md                        # Comprehensive Archival Entrance
+└── SECURITY.md                      # Security Policy & Protocol
+```
+
+---
+
+<!-- RESULTS -->
+<a name="system-architecture--design-gallery"></a>
+## System Architecture & Design Gallery
 
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/54937357/155710329-1b1447b7-ac68-4e2a-9f20-8e52eac1d331.png" alt="ATVM Interface Screens" width="80%">
-  <br><br>
-  <img src="https://user-images.githubusercontent.com/54937357/155710391-6693d70b-1d1c-4429-8a01-b567df5c2e0a.png" alt="Ticket Generation" width="60%">
+  <img src="Source%20Code/images/atvm_screenshot.png" alt="ATVM Interface" width="80%">
+  <br>
+  *Interface Simulation*
 </div>
 
 ---
 
-<!-- TECHNICAL IMPLEMENTATION -->
-<a name="technical-implementation"></a>
-## Technical Implementation
+<!-- QUICK START -->
+<a name="quick-start"></a>
+## Quick Start
 
-This project is built using standard web technologies to ensure compatibility and ease of deployment.
+### 1. Prerequisites
+- **Browser**: Any modern standards-compliant web browser (Chrome, Firefox, Edge, Safari).
+- **Environment**: No server-side runtime is required; this is a static client-side application.
 
-- **Structure**: Semantic **HTML5** for accessible and logical content organization.
-- **Logic**: **AngularJS (1.x)** controls the application state, managing station data, fare calculation, and view transitions without server-side processing.
-- **Styling**: **CSS3** and **Bootstrap** provide a responsive, grid-based layout that adapts to different screen sizes.
-- **Deployment**: Automated via **GitHub Actions** to GitHub Pages (`gh-pages`).
+> [!WARNING]
+> **Local Execution**
+>
+> While the project can be executed by opening `index.html` directly, certain features may require an active internet connection to resolve external libraries correctly.
+
+### 2. Setup & Deployment
+1.  **Clone the Repository**:
+    ```bash
+    git clone https://github.com/Amey-Thakur/ATVM-INTERFACE.git
+    cd ATVM-INTERFACE
+    ```
+2.  **Launch**:
+    Open `Source Code/index.html` in your preferred browser.
 
 ---
 
-<!-- USAGE -->
-<a name="usage"></a>
-## Usage
+<!-- =========================================================================================
+                                     USAGE SECTION
+     ========================================================================================= -->
+## Usage Guidelines
 
-1. **Access the Application**: Visit the live deployment at [https://amey-thakur.github.io/ATVM-INTERFACE](https://amey-thakur.github.io/ATVM-INTERFACE).
-2. **Select Destination**: Choose your destination station from the provided interface.
-3. **Generate Ticket**: The system calculates the fare and generates a digital ticket preview.
-4. **Simulate Print**: Use the interface controls to simulate the printing process.
+This repository is openly shared to support learning and knowledge exchange across the academic community.
+
+**For Students**  
+Use this project as a reference for HMI design, state management in simulated interfaces, and the organization of static web projects.
+
+**For Educators**  
+This project may be used as a supplementary resource for teaching Human-Computer Interaction basics. Attribution is appreciated when utilizing content.
+
+**For Researchers**  
+The technical specification and metadata provide insights into the implementation of public utility interface simulations.
 
 ---
 
@@ -85,7 +164,31 @@ This project is built using standard web technologies to ensure compatibility an
 <a name="license"></a>
 ## License
 
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+This repository and all its creative and technical assets are made available under the **MIT License**. See the [LICENSE](LICENSE) file for complete terms.
+
+> [!NOTE]
+> **Summary**: You are free to share and adapt this content for any purpose, even commercially, as long as you provide appropriate attribution to the original authors.
+
+Copyright © 2022 Amey Thakur & Mega Satish
+
+---
+
+<!-- ABOUT -->
+<a name="about-this-repository"></a>
+## About This Repository
+
+**Created & Maintained by**: [Amey Thakur](https://github.com/Amey-Thakur)  
+**Academic Journey**: Bachelor of Engineering in Computer Engineering (2018-2022)  
+**Institution**: [Terna Engineering College](https://ternaengg.ac.in/), Navi Mumbai  
+**University**: [University of Mumbai](https://mu.ac.in/)
+
+This project features the **ATVM Interface**, developed as a **Human Machine Interaction** project during the engineering curriculum. It showcases the use of web technologies to build interactive, simulation-based digital experiences.
+
+**Connect:** [GitHub](https://github.com/Amey-Thakur) &nbsp;·&nbsp; [LinkedIn](https://www.linkedin.com/in/amey-thakur) &nbsp;·&nbsp; [ORCID](https://orcid.org/0000-0001-5644-1575)
+
+Grateful acknowledgment to the faculty members of the **Department of Computer Engineering** at Terna Engineering College for their guidance and instruction.
+
+Special thanks to the **mentors and peers** whose encouragement, discussions, and support contributed meaningfully to this learning experience.
 
 ---
 
@@ -93,19 +196,15 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 
   [↑ Back to Top](#readme-top)
 
-  [Authors](#authors) &nbsp;·&nbsp; [Overview](#overview) &nbsp;·&nbsp; [Technical Implementation](#technical-implementation) &nbsp;·&nbsp; [Usage](#usage) &nbsp;·&nbsp; [License](#license) &nbsp;·&nbsp; [Acknowledgments](#acknowledgments)
+  [Authors](#authors) &nbsp;·&nbsp; [Overview](#overview) &nbsp;·&nbsp; [Features](#features) &nbsp;·&nbsp; [Structure](#project-structure) &nbsp;·&nbsp; [Results](#system-architecture--design-gallery) &nbsp;·&nbsp; [Quick Start](#quick-start) &nbsp;·&nbsp; [Usage Guidelines](#usage-guidelines) &nbsp;·&nbsp; [License](#license) &nbsp;·&nbsp; [About](#about-this-repository) &nbsp;·&nbsp; [Acknowledgments](#acknowledgments)
 
   <br>
 
   🔬 **[Human Machine Interaction Laboratory](https://github.com/Amey-Thakur/HUMAN-MACHINE-INTERACTION-AND-HUMAN-MACHINE-INTERACTION-LAB)** &nbsp; · &nbsp; 🎫 **[ATVM-INTERFACE](https://amey-thakur.github.io/ATVM-INTERFACE)**
 
-</div>
+  ---
 
----
-
-<div align="center">
-
-  ### [🎓 Computer Engineering Repository](https://github.com/Amey-Thakur/COMPUTER-ENGINEERING)
+  ### 🎓 [Computer Engineering Repository](https://github.com/Amey-Thakur/COMPUTER-ENGINEERING)
 
   **Computer Engineering (B.E.) - University of Mumbai**
 
