@@ -38,6 +38,23 @@
 </head>
 
 <body ng-controller="atvmController">
+    <!-- Loading Screen -->
+    <div id="loader">
+        <img src="images/logo.png" class="loader-logo" alt="Logo">
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+        <p style="color: white; margin-top: 20px; font-weight: 500; letter-spacing: 1px;">INITIALIZING KIOSK...</p>
+    </div>
+
+    <script>
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                document.body.classList.add('loaded');
+            }, 1000);
+        });
+    </script>
+
     <div class="main-container full-height">
         <div class="container-fluid full-height-container">
             <div class="panel main-panel">
@@ -69,7 +86,7 @@
                                     <h3>Choose Destination</h3>
                                 </div>
                                 <div class="primary-destinations">
-                                    <div class="btn-group btn-group-justified btn-group-kiosk">
+                                    <div class="btn-group-justified btn-group-kiosk">
                                         <div class="btn-group" ng-repeat="mainStation in mainStations track by $index">
                                             <button type="button" class="btn btn-kiosk"
                                                 ng-class="getSelectedStationStylePrimary(mainStation)"
@@ -118,19 +135,20 @@
                                     </div>
 
                                     <div class="ticket-body">
-                                        <div class="row info-row">
+                                        <div class="row info-row" style="margin-bottom: 10px;">
                                             <div class="col-xs-6">
                                                 <div class="info-label">FROM / पासून</div>
-                                                <div class="info-value text-warning">{{stations[source].name}}</div>
+                                                <div class="info-value text-warning" style="font-size: 1.5rem;">
+                                                    {{stations[source].name}}</div>
                                             </div>
                                             <div class="col-xs-6 text-right">
                                                 <div class="info-label">TO / पर्यंत</div>
-                                                <div class="info-value text-success">{{stations[selectedStation].name}}
-                                                </div>
+                                                <div class="info-value text-success" style="font-size: 1.5rem;">
+                                                    {{stations[selectedStation].name}}</div>
                                             </div>
                                         </div>
 
-                                        <div class="row type-row">
+                                        <div class="row type-row" style="margin: 10px 0;">
                                             <div class="col-xs-4">
                                                 <div class="info-label">JOURNEY TYPE</div>
                                             </div>
@@ -150,7 +168,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="row passenger-row">
+                                        <div class="row passenger-row" style="margin-top: 10px;">
                                             <div class="col-xs-6">
                                                 <div class="info-label text-center">ADULTS / प्रौढ</div>
                                                 <div class="passenger-icons">
@@ -171,7 +189,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="ticket-footer">
                                         <div class="row footer-row">
                                             <div class="col-xs-8">
