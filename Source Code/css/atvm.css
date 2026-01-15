@@ -883,6 +883,27 @@ body::after {
     width: 6px;
 }
 
+/* Active Station Sign Contrast (White Theme) */
+.station-item.active .station-sign .diamond {
+    background: #fff;
+    /* Solid white diamond */
+    border-color: #fff;
+    box-shadow: none;
+}
+
+.station-item.active .station-sign .circle {
+    border-color: #fff;
+    /* White ring */
+}
+
+.station-item.active .station-sign .bar {
+    background: #fff;
+    /* White bar */
+    color: var(--mumbai-blue);
+    /* Blue Text */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 .station-name-group {
     display: flex;
     flex-direction: column;
