@@ -466,25 +466,27 @@ body::after {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(10px);
-    color: rgba(255, 255, 255, 0.8);
+    background: #ffffff;
+    border-top: 5px solid var(--wr-red);
+    border-bottom: 5px solid var(--mumbai-blue);
+    color: #333;
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.5px;
     z-index: 100;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
 }
 
 .attribution a {
-    color: #5ac8fa;
-    font-weight: 800;
+    color: var(--mumbai-blue);
+    font-weight: 900;
     text-decoration: none;
     margin-left: 4px;
 }
 
 .attribution a:hover {
     text-decoration: underline;
+    color: var(--wr-red);
 }
 
 .premium-loader {
