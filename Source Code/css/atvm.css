@@ -618,89 +618,30 @@ body::after {
     letter-spacing: 0.5px;
 }
 
-/* Specific Line Liveries */
-
-/* Western Railway: Red & White (Classic) */
-.line-card.western-line {
-    background: linear-gradient(135deg, #d1121d 0%, #b3000b 100%);
-    color: #fff;
-}
-
-.line-card.western-line::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 6px;
-    background: #fff;
-    /* White stripe */
-}
-
-/* Central Railway: Yellow & Maroon (Siemens Rake) */
-.line-card.central-line {
-    background: linear-gradient(135deg, #ffde00 0%, #ffb700 100%);
-    color: #800000;
-    /* Maroon Text */
-}
-
-.line-card.central-line::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 6px;
-    background: #800000;
-    /* Maroon stripe */
-}
-
-/* Harbour Line: Blue (Representing Sea/Port) */
-.line-card.harbour-line {
-    background: linear-gradient(135deg, #005eb8 0%, #003366 100%);
-    color: #fff;
-}
-
-.line-card.harbour-line::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 6px;
-    background: #ffd700;
-    /* Gold accent */
-}
-
-/* Trans-Harbour: Teal/Green (Newer vibe)/* Authentic Coach Colors & Vibe */
+/* Authentic Coach Colors & Vibe */
 .line-card.wr {
-    --line-color: #0074D9;
-    /* Western: Bombardier Blue */
+    --line-color: #005eb8;
+    /* Western: Standard Blue (slightly richer) */
     --line-bg: #f0f7ff;
-    /* Subtle Blue Tint */
 }
 
 .line-card.cr {
-    --line-color: #902a4b;
-    /* Central: Siemens Purple/Pink */
-    --line-bg: #fff5f8;
-    /* Subtle Purple Tint */
+    --line-color: #C71585;
+    /* Central: Distinct Magenta ("Siemens Pink") */
+    --line-bg: #fff0f5;
 }
 
 .line-card.hb {
     --line-color: #800000;
-    /* Harbour: Historic DC Maroon */
-    --line-bg: #fef6f6;
-    /* Subtle Maroon Tint */
+    /* Harbour: Deep Maroon */
+    --line-bg: #fffafa;
 }
 
 .line-card.th {
     --line-color: #28B463;
-    /* Trans-Harbour: Map Green */
-    --line-bg: #f4fcf6;
-    /* Subtle Green Tint */
+    /* Trans-Harbour: Green */
+    --line-bg: #f6fff9;
     background-color: #f6fff9;
-    /* Fallback */
 }
 
 .line-card {
@@ -738,13 +679,14 @@ body::after {
     background: var(--line-color);
     opacity: 0.8;
     transition: width 0.3s ease, opacity 0.3s ease;
+    border-radius: 4px 0 0 4px;
 }
 
 /* Hover Effects (Premium & Smooth) */
 .line-card:hover {
     transform: scale(1.03) translateY(-4px);
-    box-shadow: 0 20px 40px -10px var(--line-color);
-    /* Colored Glow */
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.15);
+    /* Soft natural shadow */
     border-color: transparent;
     z-index: 10;
     filter: brightness(1.02);
@@ -759,7 +701,8 @@ body::after {
 .line-card.active {
     background: var(--line-color);
     transform: scale(1.0);
-    box-shadow: 0 10px 20px -5px var(--line-color);
+    /* Removed colored shadow to fix "horizontal line" issue */
+    box-shadow: 0 8px 20px -5px rgba(0, 0, 0, 0.25);
 }
 
 .line-card.active .line-info {
