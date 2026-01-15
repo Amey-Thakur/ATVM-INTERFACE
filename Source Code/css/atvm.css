@@ -534,6 +534,8 @@ body::after {
     align-items: center;
     gap: 5px;
     color: #c7c7cc;
+    position: relative;
+    padding: 0 10px;
 }
 
 .line-segment {
@@ -541,6 +543,66 @@ body::after {
     height: 2px;
     background: #c7c7cc;
     border-radius: 2px;
+    transition: background 0.3s;
+}
+
+.route-line-connector .fa-train {
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    /* Bouncy train */
+    z-index: 2;
+}
+
+/* --- INTERACTIVE ANIMATIONS (Cross-Link) --- */
+
+/* 1. Hover AMEY (Left) */
+.dev-route:has(.amey-link:hover) .fa-train {
+    transform: translateX(-24px) scale(1.4);
+    color: var(--wr-red);
+    /* Train becomes Red */
+}
+
+.dev-route:has(.amey-link:hover) .line-segment {
+    background: rgba(209, 18, 29, 0.3);
+    /* Track glows red */
+}
+
+/* Mega Reacts to Amey */
+.dev-route:has(.amey-link:hover) .mega-link .dev-station {
+    transform: translateX(5px);
+    /* Nudge away slightly */
+    opacity: 0.8;
+}
+
+.dev-route:has(.amey-link:hover) .mega-link .station-dot {
+    background: var(--wr-red);
+    /* Mega's dot turns Red (Sync) */
+    box-shadow: 0 0 10px var(--wr-red);
+}
+
+
+/* 2. Hover MEGA (Right) */
+.dev-route:has(.mega-link:hover) .fa-train {
+    transform: translateX(24px) scale(1.4);
+    color: var(--mumbai-blue);
+    /* Train becomes Blue */
+}
+
+.dev-route:has(.mega-link:hover) .line-segment {
+    background: rgba(0, 51, 153, 0.3);
+    /* Track glows blue */
+}
+
+/* Amey Reacts to Mega */
+.dev-route:has(.mega-link:hover) .amey-link .dev-station {
+    transform: translateX(-5px);
+    /* Nudge away slightly */
+    opacity: 0.8;
+}
+
+.dev-route:has(.mega-link:hover) .amey-link .station-dot {
+    background: var(--mumbai-blue);
+    /* Amey's dot turns Blue (Sync) */
+    box-shadow: 0 0 10px var(--mumbai-blue);
 }
 
 /* Ensure links are handled if we want clickability, but for now just visual badges as requested */
