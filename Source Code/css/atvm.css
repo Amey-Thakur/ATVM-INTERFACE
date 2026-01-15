@@ -836,14 +836,38 @@ body::after {
 }
 
 /* Dynamic Line Colors on Hover/Active */
+/* Dynamic Line Colors on Hover/Active */
 .station-item:hover::before {
     background: var(--mumbai-blue);
+    width: 8px;
+    /* Slightly wider on hover */
 }
 
 .station-item:hover {
-    transform: translateX(5px) scale(1.01);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px) scale(1.005);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 0, 0, 0.05);
+    z-index: 5;
+}
+
+/* Active State (Selected) */
+.station-item.active {
+    background: var(--mumbai-blue);
+    /* User liked this */
+    border-color: transparent;
+    box-shadow: 0 8px 20px rgba(0, 94, 184, 0.25);
+    transform: scale(1.0);
+}
+
+.station-item.active .station-name-en,
+.station-item.active .station-name-mr {
+    color: #fff;
+}
+
+.station-item.active::before {
+    background: #ef4444;
+    /* RED Line as requested */
+    width: 6px;
 }
 
 .station-name-group {
