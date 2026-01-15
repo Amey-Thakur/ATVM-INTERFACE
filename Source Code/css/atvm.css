@@ -969,35 +969,30 @@ body::after {
     /* Styles for the mini sign icon if used */
 }
 
-/* --- Dashboard Header --- */
-.dash-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-    padding: 0 10px;
-}
-
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-/* LED Map Button (Header Version) */
-.map-header-img-wrapper {
+/* --- Floating System Map Button --- */
+.floating-map-btn {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    z-index: 100;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    transition: transform 0.2s;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.map-header-img {
-    height: 48px;
-    /* Perfectly sized for header */
+.floating-map-btn img {
+    height: 70px;
+    /* Big and Prominent */
     width: auto;
-    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
-    transition: filter 0.2s;
+    filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.2));
+    transition: filter 0.3s ease;
+}
+
+.floating-map-btn:hover {
+    transform: scale(1.08) rotate(-2deg);
+}
+
+.floating-map-btn:hover img {
+    filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.3));
 }
 
 .map-header-img-wrapper:hover {
