@@ -1,15 +1,3 @@
-<!--
-  Project: ATVM Interface
-  File: index.html
-  Date: January 15, 2026
-  Description: Refined HTML structure for the ATVM Interface following HMI principles.
-  
-  HMI Enhancements:
-  - High visibility layout with focus on ticket generation.
-  - Large click targets for touch interaction simulation.
-  - Clear feedback loops via selection states.
-  - Accessibility-first structure.
--->
 <!DOCTYPE html>
 <html lang="en" ng-app>
 
@@ -17,173 +5,160 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>WESTERN RAILWAY | ATVM</title>
-    <meta name="author" content="Amey Thakur & Mega Satish">
-    <link rel="icon" type="image/png" href="favicon.png">
+    <title>MUMBAI RAILWAY | ATVM</title>
 
-    <!-- Security & Premium Fonts -->
-    <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:;">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    <!-- Premium Assets -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <!-- Core Assets -->
+    <!-- Core Styles -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/atvm.css" rel="stylesheet">
 </head>
 
 <body ng-controller="atvmController">
-    <!-- Smooth Loading Screen -->
-    <div id="loader" class="premium-loader">
-        <div class="loader-content">
-            <img src="images/logo.png" class="loader-logo">
-            <div class="loader-bar-bg">
-                <div class="loader-bar-fill"></div>
-            </div>
-            <p>Initializing Secure Interface...</p>
+    <!-- Premium Loading Screen -->
+    <div class="premium-loader">
+        <img src="images/logo.png" style="width: 80px; filter: grayscale(1); opacity: 0.3;">
+        <div class="loader-bar">
+            <div class="loader-fill"></div>
         </div>
+        <p style="font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #8e8e93;">Initializing Mumbai
+            Rail Network...</p>
     </div>
+
+    <!-- Script to trigger load finish -->
+    <script>
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                document.body.classList.add('loaded');
+            }, 1500);
+        });
+    </script>
 
     <div class="main-container">
         <div class="main-panel">
-            <div class="kiosk-grid">
-                <!-- Left: Station Discovery -->
-                <div class="side-panel">
-                    <div class="panel-header">
-                        <i class="fas fa-magnifying-glass"></i>
-                        <h3>Stations</h3>
-                    </div>
+            <!-- Sidebar: Station Navigator -->
+            <div class="side-panel">
+                <h3>Mumbai Rail</h3>
 
-                    <div class="search-box">
-                        <input type="text" ng-model="searchQuery" placeholder="Search station / शोध..."
-                            class="form-control premium-search">
-                    </div>
+                <div class="line-tabs">
+                    <div class="line-tab" ng-class="{active: currentLine == 'Western'}" ng-click="setLine('Western')">
+                        West</div>
+                    <div class="line-tab" ng-class="{active: currentLine == 'Central'}" ng-click="setLine('Central')">
+                        Cent</div>
+                    <div class="line-tab" ng-class="{active: currentLine == 'Harbour'}" ng-click="setLine('Harbour')">
+                        Harb</div>
+                </div>
 
-                    <div class="station-list-container scrollable">
-                        <div class="list-group">
-                            <a href="#" class="list-group-item"
-                                ng-repeat="station in getFilteredStations() track by $index"
-                                ng-class="getSelectedStationStyle($index)" ng-click="setSelectedStation($index)">
-                                <span class="en-name">{{station.name}}</span>
-                                <span class="hi-name">{{station.devng}}</span>
-                            </a>
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search station / शोध..."
+                        ng-model="searchQuery">
+                </div>
+
+                <div class="station-list">
+                    <div class="station-item" ng-repeat="station in getFilteredStations()"
+                        ng-class="{active: (selectionMode == 'source' && sourceStation == station) || (selectionMode == 'destination' && destinationStation == station)}"
+                        ng-click="selectStation(station)">
+                        <div class="names">
+                            <span class="en">{{station.name}}</span>
+                            <span class="hi">{{station.devng}}</span>
                         </div>
+                        <i class="fas fa-chevron-right" style="opacity: 0.2; font-size: 12px;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Dashboard -->
+            <div class="main-interface">
+                <div class="dash-header">
+                    <h2>Ticket Dashboard</h2>
+                    <div class="mode-selector">
+                        <div class="mode-btn" ng-class="{active: selectionMode == 'source'}"
+                            ng-click="setSelectionMode('source')">SET SOURCE</div>
+                        <div class="mode-btn" ng-class="{active: selectionMode == 'destination'}"
+                            ng-click="setSelectionMode('destination')">SET DEST</div>
                     </div>
                 </div>
 
-                <!-- Right: Configuration & Ticket -->
-                <div class="main-interface">
-                    <div class="dest-browser">
-                        <div class="section-header">
-                            <h3>Quick Select</h3>
-                        </div>
-                        <div class="btn-group-kiosk">
-                            <div class="flex-item" ng-repeat="mainStation in mainStations track by $index">
-                                <button type="button" class="btn btn-kiosk"
-                                    ng-class="getSelectedStationStylePrimary(mainStation)"
-                                    ng-click="setSelectedMainStation($index)">
-                                    <div class="btn-content">
-                                        <span class="main-text">{{getStation(mainStation)}}</span>
-                                        <span class="sub-text">{{stations[mainStation].devng}}</span>
-                                    </div>
-                                </button>
+                <div class="ticket-canvas">
+                    <div class="ticket">
+                        <div class="ticket-header">
+                            <img src="images/logo.png" class="ticket-logo">
+                            <div class="railway-label">
+                                <h3>{{currentLine}} Railway</h3>
+                                <p>Automated Ticket Vending Machine</p>
                             </div>
                         </div>
 
-                        <div class="sub-destinations">
-                            <div class="btn-grid">
-                                <button type="button" class="btn btn-sub"
-                                    ng-repeat="subStation in getSubstations(selectedMainStation)"
-                                    ng-class="getSelectedStationStylePrimary(subStation[1])"
-                                    ng-click="setSelectedStation(subStation[1])">
-                                    {{subStation[0]}}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="ticket-section">
-                        <div class="ticket">
-                            <div class="ticket-header">
-                                <img src="images/logo.png" class="logo">
-                                <h4>Western Railway</h4>
+                        <div class="ticket-body">
+                            <div class="route-row">
+                                <div class="route-point">
+                                    <div class="label">From</div>
+                                    <div class="city text-warning">{{sourceStation.name}}</div>
+                                </div>
+                                <div class="route-point">
+                                    <div class="label">To</div>
+                                    <div class="city text-success">{{destinationStation.name}}</div>
+                                </div>
                             </div>
 
-                            <div class="ticket-body">
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <div class="info-label">From / पासून</div>
-                                        <div class="info-value text-warning">{{stations[source].name}}</div>
-                                    </div>
-                                    <div class="col-xs-6 text-right">
-                                        <div class="info-label">To / पर्यंत</div>
-                                        <div class="info-value text-success">{{stations[selectedStation].name}}</div>
+                            <div class="ticket-controls">
+                                <div class="control-group">
+                                    <div class="control-label">Journey Type</div>
+                                    <div class="selector-grid">
+                                        <div class="selector-item" ng-class="{active: !returnTicket}"
+                                            ng-click="returnTicket = false">SINGLE</div>
+                                        <div class="selector-item" ng-class="{active: returnTicket}"
+                                            ng-click="returnTicket = true">RETURN</div>
                                     </div>
                                 </div>
-
-                                <div class="journey-type-selector">
-                                    <div class="journey-toggle" ng-class="{active: !returnTicket}"
-                                        ng-click="returnTicket = false">
-                                        <strong>SINGLE</strong>
-                                        <p>एकेरी</p>
-                                    </div>
-                                    <div class="journey-toggle" ng-class="{active: returnTicket}"
-                                        ng-click="returnTicket = true">
-                                        <strong>RETURN</strong>
-                                        <p>परतीचा</p>
-                                    </div>
-                                </div>
-
-                                <div class="passenger-row">
-                                    <div class="passenger-group">
-                                        <div class="info-label">Adults / प्रौढ</div>
-                                        <div class="p-icons">
-                                            <img src="images/person-icon.png" ng-repeat="i in range(5) track by $index"
+                                <div class="control-group">
+                                    <div class="control-label">Passengers</div>
+                                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                                        <div class="p-icons-row">
+                                            <span style="font-size: 10px; width: 40px; color: #8e8e93;">ADULT</span>
+                                            <img src="images/person-icon.png" class="p-icon"
+                                                ng-repeat="i in range(5) track by $index"
                                                 ng-class="{active: $index < noOfAdults}"
-                                                ng-click="setNoOfAdults($index + 1)" class="p-icon" />
+                                                ng-click="setAdults($index + 1)">
                                         </div>
-                                    </div>
-                                    <div class="passenger-group">
-                                        <div class="info-label">Children / मुले</div>
-                                        <div class="p-icons">
-                                            <img src="images/person-icon.png" ng-repeat="i in range(5) track by $index"
+                                        <div class="p-icons-row">
+                                            <span style="font-size: 10px; width: 40px; color: #8e8e93;">CHILD</span>
+                                            <img src="images/person-icon.png" class="p-icon"
+                                                ng-repeat="i in range(5) track by $index"
                                                 ng-class="{active: $index < noOfChildren}"
-                                                ng-click="setNoOfChildren($index + 1)" class="p-icon" />
+                                                ng-click="setChildren($index + 1)">
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="ticket-footer">
-                                <div class="total-fare">
-                                    <span class="info-label">Total Fare</span><br>
-                                    Rs. {{calculateFare()}}
-                                </div>
-                                <button class="btn-print" onclick="window.print()">PRINT</button>
+                        <div class="ticket-footer">
+                            <div class="fare-block">
+                                <h4>Total Fare</h4>
+                                <div class="price">Rs. {{calculateFare()}}</div>
                             </div>
+                            <button class="print-btn" onclick="window.print()">PRINT TICKET</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="footer-simple">
+        <div class="attribution">
             2022 &copy; All Rights Reserved | Designed and Developed by
             <a href="https://github.com/Amey-Thakur">Amey Thakur</a> &
             <a href="https://github.com/msatmod">Mega Satish</a>
         </div>
     </div>
 
-    <!-- External Assets -->
-
-
-    <!-- Scripts -->
+    <!-- Core Scripts -->
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="js/angular.min.js"></script>
-    <script src="js/angular-touch.min.js"></script>
     <script src="js/atvm-controller.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 
 </html>
