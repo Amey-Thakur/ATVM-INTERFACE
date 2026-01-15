@@ -265,46 +265,84 @@ body.loaded #loader {
 .panel-header h3 {
     margin: 0;
     font-weight: 700;
-    font-size: 22px;
+    font-size: 20px;
+    /* Slightly smaller for Apple look */
     color: var(--text-primary);
+    letter-spacing: -0.5px;
+}
+
+.search-box {
+    margin-bottom: 20px;
+}
+
+.premium-search {
+    background: rgba(255, 255, 255, 0.5) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    border-radius: 12px !important;
+    padding: 10px 15px !important;
+    font-size: 14px !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02) !important;
+    transition: all 0.3s ease !important;
+}
+
+.premium-search:focus {
+    background: #fff !important;
+    border-color: var(--metro-blue) !important;
+    box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.1) !important;
 }
 
 .station-list-container {
     flex: 1;
     overflow-y: auto;
-    padding-right: 10px;
+    padding-right: 5px;
 }
 
 .list-group-item {
     border: none !important;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
+    /* Reduced gap */
     border-radius: 12px !important;
-    padding: 12px 16px;
+    padding: 10px 14px;
+    /* Slightly tighter */
     background: transparent;
-    transition: all 0.2s;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
 }
 
 .list-group-item .en-name {
     font-weight: 600;
-    font-size: 15px;
+    font-size: 14px;
+    /* Smaller, cleaner */
     color: var(--text-primary);
 }
 
 .list-group-item .hi-name {
-    font-size: 13px;
+    font-size: 11px;
+    /* Smaller for sub-text */
     color: var(--text-secondary);
 }
 
-.list-group-item:hover {
-    background: rgba(2, 132, 199, 0.1);
-    transform: translateX(5px);
+.list-group-item:hover:not(.grayed) {
+    background: rgba(2, 132, 199, 0.08);
+    transform: scale(0.98);
+    /* Native iOS like feel */
+}
+
+.list-group-item.btn-success,
+.list-group-item.green {
+    background: var(--metro-blue) !important;
+    transform: scale(1.02);
+}
+
+.list-group-item.green .en-name,
+.list-group-item.green .hi-name {
+    color: #fff;
 }
 
 .list-group-item.grayed {
-    background: #e2e8f0 !important;
-    opacity: 0.6;
+    background: #f1f5f9 !important;
+    opacity: 0.4;
     cursor: not-allowed;
 }
 
@@ -337,98 +375,113 @@ body.loaded #loader {
 
 .section-header h3 {
     margin: 0;
-    font-weight: 600;
-    font-size: 18px;
-    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 14px;
+    /* Smaller header */
+    color: var(--text-secondary);
+    /* Softer */
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
 }
 
 /* Primary Destiny Buttons (HMI: Touch Scale) */
 .btn-group-kiosk {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 8px;
+    /* Tighter gap */
+    margin-bottom: 15px;
 }
 
 .btn-kiosk {
-    background: #fff !important;
-    border: 2px solid #e2e8f0 !important;
-    border-radius: 14px !important;
-    padding: 15px 10px !important;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    height: 75px;
+    background: rgba(255, 255, 255, 0.6) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    border-radius: 16px !important;
+    padding: 12px 8px !important;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    /* Apple cubic motion */
+    height: 65px;
+    /* Shorter */
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 .btn-content {
     display: flex;
     flex-direction: column;
+    text-align: center;
 }
 
 .btn-content .main-text {
     font-weight: 700;
-    font-size: 14px;
-    line-height: 1.2;
+    font-size: 13px;
+    line-height: 1.1;
+    color: var(--text-primary);
 }
 
 .btn-content .sub-text {
-    font-size: 11px;
+    font-size: 10px;
     color: var(--text-secondary);
+    margin-top: 2px;
 }
 
-.btn-kiosk:hover {
-    border-color: var(--metro-blue-light) !important;
-    background: var(--metro-blue-light) !important;
-    color: #fff !important;
-    transform: scale(1.05);
-}
-
-.btn-kiosk:hover .sub-text {
-    color: rgba(255, 255, 255, 0.8);
+.btn-kiosk:hover:not(.grayed) {
+    background: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .btn-kiosk.green {
     background: var(--metro-blue) !important;
     border-color: var(--metro-blue) !important;
     color: #fff !important;
+    box-shadow: 0 8px 20px rgba(2, 132, 199, 0.3);
+}
+
+.btn-kiosk.green .sub-text {
+    color: rgba(255, 255, 255, 0.8);
 }
 
 /* Sub-Station Grid (HMI: Organization) */
 .sub-destinations {
-    background: #f8fafc;
-    padding: 15px;
-    border-radius: 18px;
+    background: rgba(0, 0, 0, 0.02);
+    padding: 12px;
+    border-radius: 20px;
     margin-bottom: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.02);
 }
 
 .btn-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    /* More compact */
+    gap: 8px;
 }
 
 .btn-sub {
     background: #fff;
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
-    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    padding: 8px;
     font-weight: 600;
-    font-size: 13px;
-    transition: all 0.2s;
+    font-size: 12px;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
 }
 
-.btn-sub:hover {
-    background: #f1f5f9;
-    border-color: var(--metro-blue);
+.btn-sub:hover:not(.grayed) {
+    background: #fff;
+    border-color: var(--metro-blue-light);
+    transform: scale(1.03);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
 }
 
 .btn-sub.green {
-    background: var(--metro-blue) !important;
+    background: linear-gradient(135deg, var(--metro-blue) 0%, var(--metro-blue-dark) 100%) !important;
     color: #fff !important;
-    border-color: var(--metro-blue) !important;
+    border: none;
+    box-shadow: 0 5px 15px rgba(2, 132, 199, 0.3);
 }
 
 /* =========================================
