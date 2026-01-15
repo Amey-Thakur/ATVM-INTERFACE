@@ -180,16 +180,9 @@
 
             <!-- Main Dashboard -->
             <div class="main-interface">
-                <div class="dash-header">
-                    <div class="header-left">
-                        <h2>TICKET DASHBOARD</h2>
-                    </div>
-                    <div class="header-right">
-                        <!-- LED Map Button (Restored & Resized) -->
-                        <div class="map-header-img-wrapper" ng-click="toggleMap(true)">
-                            <img src="images/led_map_btn.png" alt="View Map" class="map-header-img">
-                        </div>
-                    </div>
+                <!-- Floating Map Button (Prominent Right Side) -->
+                <div class="floating-map-btn" ng-click="toggleMap(true)" title="View System Map">
+                    <img src="images/led_map_btn.png" alt="View Map">
                 </div>
 
                 <div class="ticket-canvas">
