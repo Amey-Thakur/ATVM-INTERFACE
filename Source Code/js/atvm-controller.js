@@ -312,15 +312,37 @@ function atvmController($scope) {
      * Primary calculation engine for railway fares.
      * Incorporates distance stages and passenger counts.
      */
+    // --- Initialization: Inject Line Info ---
+    angular.forEach($scope.railwayData, function (stations, lineName) {
+        stations.forEach(function (s) { s.type = lineName; });
+    });
+
+    /**
+     * Primary calculation engine for railway fares.
+     * Smartly handles cross-line via 'Dadar' interchange heuristic.
+     */
     $scope.calculateFare = function () {
         if (!$scope.sourceStation || !$scope.destinationStation) return 0;
 
-        // Calculate absolute distance between stations
-        const distance = Math.abs($scope.sourceStation.km - $scope.destinationStation.km);
+        let distance = 0;
+        const src = $scope.sourceStation;
+        const dest = $scope.destinationStation;
+
+        if (src.type === dest.type) {
+            // Same Line: Simple subtraction
+            distance = Math.abs(src.km - dest.km);
+        } else {
+            // Different Lines: Calculate via Interchange Helper
+            // Heuristic: Most transfers happen at Dadar (approx 10km mark)
+            // WR Dadar ~ 10km | CR Dadar ~ 9km
+            const distToHub1 = Math.abs(src.km - 10);
+            const distToHub2 = Math.abs(dest.km - 9);
+            distance = distToHub1 + distToHub2;
+        }
 
         // Find corresponding fare stage
         const stage = FARE_STAGES.find(s => distance <= s.maxDist);
-        const baseFare = stage ? stage.fare : 30;
+        const baseFare = stage ? stage.fare : 35; // Cap at 35 for long distances
 
         // Calculate total for multiple passengers
         let total = (baseFare * $scope.noOfAdults) +
