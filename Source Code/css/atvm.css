@@ -1372,8 +1372,8 @@ body::after {
     display: flex;
     flex-direction: column;
     position: relative;
-    overflow: hidden;
-    /* Contain the watermark */
+    overflow: auto;
+    /* Allow scrolling if needed */
 }
 
 /* Background Watermark (Full Section Centered) */
@@ -1463,6 +1463,8 @@ body::after {
     gap: 10px;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .ticket-footer .print-btn:hover {
