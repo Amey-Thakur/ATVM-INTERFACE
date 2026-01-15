@@ -544,28 +544,6 @@ body::after {
     }
 }
 
-@keyframes trainChug {
-    0% {
-        transform: translateX(var(--tx)) scale(1.4) translateY(0) rotate(0deg);
-    }
-
-    25% {
-        transform: translateX(var(--tx)) scale(1.4) translateY(-1px) rotate(-5deg);
-    }
-
-    50% {
-        transform: translateX(var(--tx)) scale(1.4) translateY(0) rotate(0deg);
-    }
-
-    75% {
-        transform: translateX(var(--tx)) scale(1.4) translateY(-1px) rotate(5deg);
-    }
-
-    100% {
-        transform: translateX(var(--tx)) scale(1.4) translateY(0) rotate(0deg);
-    }
-}
-
 /* Trigger Animations */
 .station-link:hover .station-dot::after {
     animation: sonarWave 1s infinite cubic-bezier(0, 0, 0.2, 1);
@@ -613,11 +591,9 @@ body::after {
 
 /* 1. Hover AMEY (Left) */
 .dev-route:has(.amey-link:hover) .fa-train {
-    --tx: -24px;
-    transform: translateX(var(--tx)) scale(1.4);
+    transform: translateX(-24px) scale(1.4);
     color: var(--wr-red);
-    animation: trainChug 0.4s infinite linear;
-    /* Wiggle as it moves */
+    /* Train becomes Red */
 }
 
 .dev-route:has(.amey-link:hover) .line-segment {
@@ -641,11 +617,9 @@ body::after {
 
 /* 2. Hover MEGA (Right) */
 .dev-route:has(.mega-link:hover) .fa-train {
-    --tx: 24px;
-    transform: translateX(var(--tx)) scale(1.4);
+    transform: translateX(24px) scale(1.4);
     color: var(--mumbai-blue);
-    animation: trainChug 0.4s infinite linear;
-    /* Wiggle as it moves */
+    /* Train becomes Blue */
 }
 
 .dev-route:has(.mega-link:hover) .line-segment {
