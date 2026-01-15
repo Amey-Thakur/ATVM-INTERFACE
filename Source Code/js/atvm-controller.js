@@ -1,3 +1,13 @@
+/**
+ * Project: ATVM Interface
+ * File: atvm-controller.js
+ * Date: February 25, 2022
+ * Description: AngularJS controller for handling ATVM logic, state management, and ticket calculation.
+ * 
+ * Created by: Amey Thakur (https://github.com/Amey-Thakur) & Mega Satish (https://github.com/msatmod)
+ * Repository: https://github.com/Amey-Thakur/ATVM-INTERFACE
+ * License: MIT
+ */
 function num2hindi(num) {
     var hnum = "०१२३४५६७८९";
     var trans = "";
