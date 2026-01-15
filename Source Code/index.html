@@ -14,6 +14,10 @@
 
     <!-- Core Styles -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/modules/themes.css" rel="stylesheet">
+    <link href="css/modules/components.css" rel="stylesheet">
+    <link href="css/modules/layout.css" rel="stylesheet">
+    <link href="css/modules/map.css" rel="stylesheet">
     <link href="css/atvm.css" rel="stylesheet">
 </head>
 
@@ -38,19 +42,79 @@
     </script>
 
     <div class="main-container">
+        <!-- Interactive Map Overlay -->
+        <div class="map-overlay" ng-class="{active: showMap}">
+            <div class="map-header">
+                <div class="map-title">
+                    <i class="fas fa-map-marked-alt"></i> Mumbai Suburban Network
+                </div>
+                <div class="close-map-btn" ng-click="toggleMap(false)">CLOSE MAP ✕</div>
+            </div>
+            <div class="map-container">
+                <!-- Western Line -->
+                <div class="rail-line-col line-wr">
+                    <div class="rail-line-label">Western</div>
+                    <div class="track-line"></div>
+                    <div class="map-station-node" ng-repeat="s in railwayData['Western Railway']"
+                        ng-click="selectFromMap('Western Railway', s)">
+                        <div class="map-station-name">{{s.name}}</div>
+                    </div>
+                </div>
+
+                <!-- Central Line -->
+                <div class="rail-line-col line-cr">
+                    <div class="rail-line-label">Central</div>
+                    <div class="track-line"></div>
+                    <div class="map-station-node" ng-repeat="s in railwayData['Central Railway']"
+                        ng-click="selectFromMap('Central Railway', s)">
+                        <div class="map-station-name">{{s.name}}</div>
+                    </div>
+                </div>
+
+                <!-- Harbour Line -->
+                <div class="rail-line-col line-hr">
+                    <div class="rail-line-label">Harbour</div>
+                    <div class="track-line"></div>
+                    <div class="map-station-node" ng-repeat="s in railwayData['Harbour Line']"
+                        ng-click="selectFromMap('Harbour Line', s)">
+                        <div class="map-station-name">{{s.name}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="main-panel">
             <!-- Sidebar: Station Navigator -->
             <div class="side-panel">
                 <h3>Mumbai Rail</h3>
 
-                <div class="line-tabs">
-                    <div class="line-tab" ng-class="{active: currentLine == 'Western'}" ng-click="setLine('Western')">
-                        West</div>
-                    <div class="line-tab" ng-class="{active: currentLine == 'Central'}" ng-click="setLine('Central')">
-                        Cent</div>
-                    <div class="line-tab" ng-class="{active: currentLine == 'Harbour'}" ng-click="setLine('Harbour')">
-                        Harb</div>
+                <div class="line-selector">
+                    <div class="line-card wr" ng-class="{active: currentLine == 'Western Railway'}"
+                        ng-click="setLine('Western Railway')">
+                        <div class="dot"></div>
+                        <span>Western Railway</span>
+                    </div>
+                    <div class="line-card cr" ng-class="{active: currentLine == 'Central Railway'}"
+                        ng-click="setLine('Central Railway')">
+                        <div class="dot"></div>
+                        <span>Central Railway</span>
+                    </div>
+                    <div class="line-card hr" ng-class="{active: currentLine == 'Harbour Line'}"
+                        ng-click="setLine('Harbour Line')">
+                        <div class="dot"></div>
+                        <span>Harbour Line</span>
+                    </div>
+                    <div class="line-card th" ng-class="{active: currentLine == 'Trans-Harbour Line'}"
+                        ng-click="setLine('Trans-Harbour Line')">
+                        <div class="dot"></div>
+                        <span>Trans-Harbour Line</span>
+                    </div>
                 </div>
+
+                <!-- Map Trigger -->
+                <button class="map-trigger-btn" ng-click="toggleMap(true)">
+                    <i class="fas fa-map"></i> View System Map
+                </button>
 
                 <div class="search-container">
                     <input type="text" class="search-input" placeholder="Search station / शोध..."
@@ -61,11 +125,16 @@
                     <div class="station-item" ng-repeat="station in getFilteredStations()"
                         ng-class="{active: (selectionMode == 'source' && sourceStation == station) || (selectionMode == 'destination' && destinationStation == station)}"
                         ng-click="selectStation(station)">
+                        <div class="station-sign">
+                            <div class="diamond"></div>
+                            <div class="circle"></div>
+                            <div class="bar">{{station.name}}</div>
+                        </div>
                         <div class="names">
                             <span class="en">{{station.name}}</span>
                             <span class="hi">{{station.devng}}</span>
                         </div>
-                        <i class="fas fa-chevron-right" style="opacity: 0.2; font-size: 12px;"></i>
+                        <i class="fas fa-chevron-right" style="opacity: 0.2; font-size: 12px; margin-left: auto;"></i>
                     </div>
                 </div>
             </div>
@@ -87,78 +156,60 @@
                         <div class="ticket-header">
                             <img src="images/logo.png" class="ticket-logo">
                             <div class="railway-label">
-                                <h3>{{currentLine}} Railway</h3>
-                                <p>Automated Ticket Vending Machine</p>
+                                <h3>{{currentLine}}</h3>
+                                <p>Unreserved Ticketing System</p>
                             </div>
                         </div>
 
-                        <div class="ticket-body">
+                        <div class="ticket-body" style="padding: 0; flex: 1;">
                             <div class="route-row">
                                 <div class="route-point">
-                                    <div class="label">From</div>
-                                    <div class="city text-warning">{{sourceStation.name}}</div>
+                                    <div class="label">Source</div>
+                                    <div class="station-sign large">
+                                        <div class="diamond"></div>
+                                        <div class="circle"></div>
+                                        <div class="bar">{{sourceStation.name}}</div>
+                                    </div>
+                                    <div class="city-name">{{sourceStation.name}}</div>
                                 </div>
                                 <div class="route-point">
-                                    <div class="label">To</div>
-                                    <div class="city text-success">{{destinationStation.name}}</div>
+                                    <div class="label">Destination</div>
+                                    <div class="station-sign large">
+                                        <div class="diamond"></div>
+                                        <div class="circle"></div>
+                                        <div class="bar">{{destinationStation.name}}</div>
+                                    </div>
+                                    <div class="city-name">{{destinationStation.name}}</div>
                                 </div>
                             </div>
 
                             <div class="ticket-controls">
-                                <div class="control-group">
-                                    <div class="control-label">Journey Type</div>
-                                    <div class="selector-grid">
-                                        <div class="selector-item" ng-class="{active: !returnTicket}"
-                                            ng-click="returnTicket = false">SINGLE</div>
-                                        <div class="selector-item" ng-class="{active: returnTicket}"
-                                            ng-click="returnTicket = true">RETURN</div>
+                                <div class="ticket-footer">
+                                    <div class="fare-block">
+                                        <h4
+                                            style="margin: 0; font-size: 11px; font-weight: 900; color: #8e8e93; text-transform: uppercase; letter-spacing: 1px;">
+                                            Total Fare / एकूण भाडे</h4>
+                                        <div class="price">₹ {{calculateFare()}}</div>
                                     </div>
-                                </div>
-                                <div class="control-group">
-                                    <div class="control-label">Passengers</div>
-                                    <div style="display: flex; flex-direction: column; gap: 10px;">
-                                        <div class="p-icons-row">
-                                            <span style="font-size: 10px; width: 40px; color: #8e8e93;">ADULT</span>
-                                            <img src="images/person-icon.png" class="p-icon"
-                                                ng-repeat="i in range(5) track by $index"
-                                                ng-class="{active: $index < noOfAdults}"
-                                                ng-click="setAdults($index + 1)">
-                                        </div>
-                                        <div class="p-icons-row">
-                                            <span style="font-size: 10px; width: 40px; color: #8e8e93;">CHILD</span>
-                                            <img src="images/person-icon.png" class="p-icon"
-                                                ng-repeat="i in range(5) track by $index"
-                                                ng-class="{active: $index < noOfChildren}"
-                                                ng-click="setChildren($index + 1)">
-                                        </div>
-                                    </div>
+                                    <button class="print-btn" onclick="window.print()"><i class="fas fa-print"
+                                            style="margin-right: 10px;"></i> PRINT TICKET</button>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="ticket-footer">
-                            <div class="fare-block">
-                                <h4>Total Fare</h4>
-                                <div class="price">Rs. {{calculateFare()}}</div>
-                            </div>
-                            <button class="print-btn" onclick="window.print()">PRINT TICKET</button>
                         </div>
                     </div>
                 </div>
+
+                <div class="attribution">
+                    2022 &copy; All Rights Reserved | Designed and Developed by
+                    <a href="https://github.com/Amey-Thakur">Amey Thakur</a>&nbsp;&amp;&nbsp;<a
+                        href="https://github.com/msatmod">Mega Satish</a>
+                </div>
             </div>
-        </div>
 
-        <div class="attribution">
-            2022 &copy; All Rights Reserved | Designed and Developed by
-            <a href="https://github.com/Amey-Thakur">Amey Thakur</a> &
-            <a href="https://github.com/msatmod">Mega Satish</a>
-        </div>
-    </div>
-
-    <!-- Core Scripts -->
-    <script src="js/jquery-1.11.0.min.js"></script>
-    <script src="js/angular.min.js"></script>
-    <script src="js/atvm-controller.js"></script>
+            <!-- Core Scripts -->
+            <script src="js/jquery-1.11.0.min.js"></script>
+            <script src="js/angular.min.js"></script>
+            <script src="js/atvm-controller.js"></script>
 </body>
 
 </html>

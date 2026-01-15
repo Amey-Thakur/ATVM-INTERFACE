@@ -1,0 +1,39 @@
+:root {
+    /* --- Modern Apple Base --- */
+    --apple-bg: rgba(255, 255, 255, 0.85);
+    --apple-bg-accent: rgba(242, 242, 247, 0.5);
+    --apple-border: rgba(255, 255, 255, 0.7);
+    --apple-text: #1c1c1e;
+    --apple-text-sec: #86868b;
+    --apple-blue: #007aff;
+    --apple-green: #34c759;
+    --apple-red: #ff3b30;
+    --apple-shadow: 0 40px 100px rgba(0, 0, 0, 0.12);
+    --apple-blur: blur(50px) saturate(200%);
+
+    /* --- Mumbai Railway Official Liveries --- */
+    --cr-maroon: #7B241C;
+    /* Central Railway (Official Maroon) */
+    --wr-red: #E31E24;
+    /* Western Railway (Bright Red) */
+    --hr-blue: #003399;
+    /* Harbour Line (Dark Blue) */
+    --th-purple: #9B59B6;
+    /* Trans-Harbour (Purple) */
+
+    --metro-blue: #00AEEF;
+    /* Metro Line 1 */
+    --metro-yellow: #FCD206;
+    /* Metro Line 2A */
+    --mono-green: #8BC53E;
+    /* Monorail */
+
+    --mumbai-blue: #003399;
+    /* Classic Signage Blue */
+    --mumbai-red: #E74C3C;
+    /* Signage Red */
+    --mumbai-yellow: #F1C40F;
+    /* Safety Yellow */
+    --kiosk-bg: #f8f9fa;
+    --station-sign-border: #1a1a1a;
+}

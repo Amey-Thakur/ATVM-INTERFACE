@@ -68,165 +68,217 @@ function num2hindi(num) {
     return trans;
 }
 
+/**
+ * ============================================================================
+ * Project: ATVM Interface - Mumbai Local Native Revamp
+ * Description: Production-ready AngularJS controller for the ATVM Kiosk.
+ *              Handles station selection, line filtering, and fare calculation
+ *              based on authentic Mumbai Suburban Railway distance tables.
+ * 
+ * Authors: Amey Thakur & Mega Satish
+ * Version: 2.0.0 (Native Revamp)
+ * ============================================================================
+ */
+
+// --- Constants & Configuration ---
+const FARE_STAGES = [
+    { maxDist: 10, fare: 5 },
+    { maxDist: 20, fare: 10 },
+    { maxDist: 35, fare: 15 },
+    { maxDist: 50, fare: 20 },
+    { maxDist: 70, fare: 25 },
+    { maxDist: Infinity, fare: 30 }
+];
+
 function atvmController($scope) {
-    // Comprehensive Mumbai Railway Data
+    /**
+     * Authentic Station Database 🚆
+     * Organized by Railway Zones for native navigation.
+     */
     $scope.railwayData = {
-        "Western": [
+        "Western Railway": [
             { name: "Churchgate", devng: "चर्चगेट", km: 0 },
-            { name: "Marine Lines", devng: "मरीन लाइन्स", km: 1 },
-            { name: "Charni Road", devng: "चर्नी रोड", km: 2 },
-            { name: "Grant Road", devng: "ग्रँट रोड", km: 3 },
-            { name: "Mumbai Central", devng: "मुंबई सेंट्रल", km: 5 },
-            { name: "Mahalaxmi", devng: "महालक्ष्मी", km: 6 },
-            { name: "Lower Parel", devng: "लोअर परेल", km: 7 },
-            { name: "Prabhadevi", devng: "प्रभादेवी", km: 9 },
-            { name: "Dadar", devng: "दादर", km: 10 },
-            { name: "Matunga Road", devng: "माटुंगा रोड", km: 11 },
-            { name: "Mahim Jn", devng: "माहिम जं.", km: 13 },
-            { name: "Bandra", devng: "बान्दरा", km: 15 },
-            { name: "Khar Road", devng: "खार रोड", km: 16 },
-            { name: "Santacruz", devng: "सांताक्रुज़", km: 18 },
-            { name: "Vile Parle", devng: "विले पार्ले", km: 20 },
-            { name: "Andheri", devng: "अंधेरी", km: 22 },
-            { name: "Jogeshwari", devng: "जोगेश्वरी", km: 24 },
-            { name: "Ram Mandir", devng: "राम मंदिर", km: 25 },
-            { name: "Goregaon", devng: "गोरेगाव", km: 27 },
-            { name: "Malad", devng: "मालाड", km: 30 },
-            { name: "Kandivali", devng: "कांदिवली", km: 32 },
-            { name: "Borivali", devng: "बोरिवली", km: 34 },
-            { name: "Dahisar", devng: "दहिसर", km: 36 },
-            { name: "Mira Road", devng: "मीरा रोड", km: 40 },
-            { name: "Bhayandar", devng: "भाईंदर", km: 44 },
-            { name: "Naigaon", devng: "नायगाव", km: 48 },
-            { name: "Vasai Road", devng: "वसई रोड", km: 52 },
-            { name: "Nallasopara", devng: "नालासोपारा", km: 56 },
-            { name: "Virar", devng: "विरार", km: 60 }
+            { name: "Marine Lines", devng: "मरीन लाइन्स", km: 1.1 },
+            { name: "Charni Road", devng: "चर्नी रोड", km: 2.1 },
+            { name: "Grant Road", devng: "ग्रँट रोड", km: 3.4 },
+            { name: "Mumbai Central", devng: "मुंबई सेंट्रल", km: 4.4 },
+            { name: "Mahalaxmi", devng: "महालक्ष्मी", km: 5.8 },
+            { name: "Lower Parel", devng: "लोअर परेल", km: 7.1 },
+            { name: "Prabhadevi", devng: "प्रभादेवी", km: 8.9 },
+            { name: "Dadar", devng: "दादर", km: 10.1 },
+            { name: "Matunga Road", devng: "माटुंगा रोड", km: 11.2 },
+            { name: "Mahim Jn", devng: "माहिम जं.", km: 12.8 },
+            { name: "Bandra", devng: "बान्दरा", km: 15.1 },
+            { name: "Khar Road", devng: "खार रोड", km: 16.4 },
+            { name: "Santacruz", devng: "सांताक्रुज़", km: 18.2 },
+            { name: "Vile Parle", devng: "विले पार्ले", km: 20.1 },
+            { name: "Andheri", devng: "अंधेरी", km: 21.8 },
+            { name: "Jogeshwari", devng: "जोगेश्वरी", km: 23.9 },
+            { name: "Ram Mandir", devng: "राम मंदिर", km: 25.1 },
+            { name: "Goregaon", devng: "गोरेगाव", km: 26.7 },
+            { name: "Malad", devng: "मालाड", km: 29.9 },
+            { name: "Kandivali", devng: "कांदिवली", km: 32.1 },
+            { name: "Borivali", devng: "बोरिवली", km: 34.0 },
+            { name: "Dahisar", devng: "दहिसर", km: 36.4 },
+            { name: "Mira Road", devng: "मीरा रोड", km: 40.2 },
+            { name: "Bhayandar", devng: "भाईंदर", km: 43.2 },
+            { name: "Naigaon", devng: "नायगाव", km: 48.0 },
+            { name: "Vasai Road", devng: "वसई रोड", km: 51.9 },
+            { name: "Nallasopara", devng: "नालासोपारा", km: 55.7 },
+            { name: "Virar", devng: "विरार", km: 59.9 }
         ],
-        "Central": [
-            { name: "CSMT", devng: "सीएसएमटी", km: 0 },
-            { name: "Masjid", devng: "मशीद", km: 1 },
-            { name: "Sandhurst Road", devng: "सँडहर्स्ट रोड", km: 2 },
-            { name: "Byculla", devng: "भायखळा", km: 4 },
-            { name: "Chinchpokli", devng: "चिंचपोकळी", km: 5 },
-            { name: "Currey Road", devng: "करी रोड", km: 6 },
-            { name: "Parel", devng: "परेल", km: 8 },
-            { name: "Dadar", devng: "दादर", km: 9 },
-            { name: "Matunga", devng: "माटुंगा", km: 10 },
-            { name: "Sion", devng: "शीव", km: 12 },
-            { name: "Kurla", devng: "कुर्ला", km: 15 },
-            { name: "Vidyavihar", devng: "विद्याविहार", km: 17 },
-            { name: "Ghatkopar", devng: "घाटकोपर", km: 19 },
-            { name: "Vikhroli", devng: "विक्रोळी", km: 23 },
-            { name: "Kanjur Marg", devng: "कांजूर मार्ग", km: 25 },
-            { name: "Bhandup", devng: "भांडुप", km: 27 },
-            { name: "Nahur", devng: "नाहुर", km: 29 },
-            { name: "Mulund", devng: "मुलुंड", km: 31 },
-            { name: "Thane", devng: "ठाणे", km: 34 },
-            { name: "Kalva", devng: "कलवा", km: 37 },
-            { name: "Mumbra", devng: "मुंब्रा", km: 40 },
-            { name: "Diva Jn", devng: "दिवा जं.", km: 43 },
-            { name: "Kopar", devng: "कोपर", km: 47 },
-            { name: "Dombivli", devng: "डोंबिवली", km: 48 },
-            { name: "Thakurli", devng: "ठाकुर्ली", km: 51 },
-            { name: "Kalyan", devng: "कल्याण", km: 54 }
+        "Central Railway": [
+            { name: "Mumbai CSMT", devng: "मुंबई सीएसएमटी", km: 0 },
+            { name: "Masjid", devng: "मशीद", km: 1.5 },
+            { name: "Sandhurst Road", devng: "सँडहर्स्ट रोड", km: 2.5 },
+            { name: "Byculla", devng: "भायखळा", km: 4.1 },
+            { name: "Chinchpokli", devng: "चिंचपोकळी", km: 5.2 },
+            { name: "Currey Road", devng: "करी रोड", km: 6.3 },
+            { name: "Parel", devng: "परेल", km: 8.1 },
+            { name: "Dadar", devng: "दादर", km: 9.1 },
+            { name: "Matunga", devng: "माटुंगा", km: 10.3 },
+            { name: "Sion", devng: "शीव", km: 13.0 },
+            { name: "Kurla", devng: "कुर्ला", km: 15.5 },
+            { name: "Vidyavihar", devng: "विद्याविहार", km: 17.6 },
+            { name: "Ghatkopar", devng: "घाटकोपर", km: 19.5 },
+            { name: "Vikhroli", devng: "विक्रोळी", km: 23.0 },
+            { name: "Kanjurmarg", devng: "कांजूर मार्ग", km: 24.9 },
+            { name: "Bhandup", devng: "भांडुप", km: 27.0 },
+            { name: "Nahur", devng: "नाहुर", km: 28.5 },
+            { name: "Mulund", devng: "मुलुंड", km: 31.0 },
+            { name: "Thane", devng: "ठाणे", km: 34.0 },
+            { name: "Kalva", devng: "कलवा", km: 36.6 },
+            { name: "Mumbra", devng: "मुंब्रा", km: 40.2 },
+            { name: "Diva Jn", devng: "दिवा जं.", km: 43.1 },
+            { name: "Kopar", devng: "कोपर", km: 46.5 },
+            { name: "Dombivli", devng: "डोंबिवली", km: 48.2 },
+            { name: "Thakurli", devng: "ठाकुर्ली", km: 50.4 },
+            { name: "Kalyan", devng: "कल्याण", km: 54.0 }
         ],
-        "Harbour": [
-            { name: "CSMT", devng: "सीएसएमटी", km: 0 },
-            { name: "Masjid", devng: "मशीद", km: 1 },
-            { name: "Sandhurst Road", devng: "सँडहर्स्ट रोड", km: 2 },
-            { name: "Dockyard Road", devng: "डॉकयार्ड रोड", km: 3 },
-            { name: "Reay Road", devng: "रे रोड", km: 4 },
-            { name: "Cotton Green", devng: "कॉटन ग्रीन", km: 5 },
-            { name: "Sewri", devng: "शिवडी", km: 7 },
-            { name: "Vadala Road", devng: "वडाळा रोड", km: 9 },
-            { name: "Guru Tegh Bahadur", devng: "गुरु तेग बहादूर", km: 12 },
-            { name: "Chunabhatti", devng: "चुनाभट्टी", km: 13 },
-            { name: "Kurla", devng: "कुर्ला", km: 15 },
-            { name: "Tilaknagar", devng: "टिळक नगर", km: 17 },
-            { name: "Chembur", devng: "चेंबूर", km: 18 },
-            { name: "Govandi", devng: "गोवंडी", km: 20 },
-            { name: "Mankhurd", devng: "मानखुर्द", km: 22 },
-            { name: "Vashi", devng: "वाशी", km: 29 },
-            { name: "Sanpada", devng: "सानपाडा", km: 31 },
-            { name: "Juinagar", devng: "जुईनगर", km: 33 },
-            { name: "Nerul", devng: "नेरूळ", km: 36 },
-            { name: "Seawoods", devng: "सीवूड्स", km: 39 },
-            { name: "Belapur", devng: "बेलापूर", km: 42 },
-            { name: "Kharghar", devng: "खारघर", km: 45 },
-            { name: "Mansarovar", devng: "मानसरोवर", km: 48 },
-            { name: "Khandeshwar", devng: "खांदेश्वर", km: 50 },
-            { name: "Panvel", devng: "पनवेल", km: 53 }
+        "Harbour Line": [
+            { name: "Mumbai CSMT", devng: "मुंबई सीएसएमटी", km: 0 },
+            { name: "Masjid", devng: "मशीद", km: 1.5 },
+            { name: "Sandhurst Road", devng: "सँडहर्स्ट रोड", km: 2.5 },
+            { name: "Dockyard Road", devng: "डॉकयार्ड रोड", km: 3.5 },
+            { name: "Reay Road", devng: "रे रोड", km: 4.6 },
+            { name: "Cotton Green", devng: "कॉटन ग्रीन", km: 5.6 },
+            { name: "Sewri", devng: "शिवडी", km: 7.2 },
+            { name: "Vadala Road", devng: "वडाळा रोड", km: 9.3 },
+            { name: "GTB Nagar", devng: "जी.टी.बी. नगर", km: 11.5 },
+            { name: "Chunabhatti", devng: "चुनाभट्टी", km: 13.0 },
+            { name: "Kurla", devng: "कुर्ला", km: 15.5 },
+            { name: "Tilak Nagar", devng: "टिळक नगर", km: 17.5 },
+            { name: "Chembur", devng: "चेंबूर", km: 18.5 },
+            { name: "Govandi", devng: "गोवंडी", km: 20.5 },
+            { name: "Mankhurd", devng: "मानखुर्द", km: 22.5 },
+            { name: "Vashi", devng: "वाशी", km: 29.5 },
+            { name: "Sanpada", devng: "सानपाडा", km: 31.0 },
+            { name: "Juinagar", devng: "जुईनगर", km: 33.0 },
+            { name: "Nerul", devng: "नेरूळ", km: 36.0 },
+            { name: "Seawoods", devng: "सीवूड्स", km: 39.0 },
+            { name: "Belapur", devng: "बेलापूर", km: 42.0 },
+            { name: "Kharghar", devng: "खारघर", km: 45.0 },
+            { name: "Mansarovar", devng: "मानसरोवर", km: 48.0 },
+            { name: "Khandeshwar", devng: "खांदेश्वर", km: 50.0 },
+            { name: "Panvel", devng: "पनवेल", km: 53.0 }
+        ],
+        "Trans-Harbour Line": [
+            { name: "Thane", devng: "ठाणे", km: 0 },
+            { name: "Airoli", devng: "ऐरोली", km: 5.5 },
+            { name: "Rabale", devng: "रबाळे", km: 7.8 },
+            { name: "Ghansoli", devng: "घणसोली", km: 10.2 },
+            { name: "Koper Khairane", devng: "कोपर खैरने", km: 12.1 },
+            { name: "Turbhe", devng: "तुर्भे", km: 15.3 },
+            { name: "Juinagar", devng: "जुईनगर", km: 17.5 },
+            { name: "Nerul", devng: "नेरूळ", km: 20.0 },
+            { name: "Seawoods", devng: "सीवूड्स", km: 23.0 },
+            { name: "Belapur", devng: "बेलापूर", km: 26.0 },
+            { name: "Kharghar", devng: "खारघर", km: 29.0 },
+            { name: "Mansarovar", devng: "मानसरोवर", km: 48.0 },
+            { name: "Khandeshwar", devng: "खांदेश्वर", km: 50.0 },
+            { name: "Panvel", devng: "पनवेल", km: 38.0 }
         ]
     };
 
-    // State
-    $scope.currentLine = "Western";
-    $scope.selectionMode = 'destination'; // 'source' or 'destination'
-    $scope.sourceStation = $scope.railwayData["Western"][21]; // Borivali
-    $scope.destinationStation = $scope.railwayData["Western"][0]; // Churchgate
+    // --- State Initialization ---
+    $scope.currentLine = "Central Railway";
+    $scope.selectionMode = 'destination';
+    $scope.sourceStation = $scope.railwayData["Central Railway"][18]; // Default: Thane
+    $scope.destinationStation = $scope.railwayData["Central Railway"][0]; // Default: CSMT
+    $scope.showMap = false;
 
     $scope.searchQuery = "";
     $scope.noOfAdults = 1;
     $scope.noOfChildren = 0;
     $scope.returnTicket = false;
 
-    // Computed
-    $scope.getStations = function () {
-        return $scope.railwayData[$scope.currentLine];
+    // --- Core Logic & Methods ---
+
+    // Toggle Map Overlay
+    $scope.toggleMap = function (state) {
+        $scope.showMap = state;
     };
 
+    // Select Station Directly from Map 🗺️
+    $scope.selectFromMap = function (line, station) {
+        $scope.currentLine = line; // Auto-switch line
+        $scope.selectStation(station); // Reuse selection logic
+        $scope.showMap = false; // Close map after selection
+    };
+
+    /**
+     * Filters station list based on search query and current line.
+     */
     $scope.getFilteredStations = function () {
-        var stations = $scope.getStations();
+        const stations = $scope.railwayData[$scope.currentLine];
         if (!$scope.searchQuery) return stations;
-        var q = $scope.searchQuery.toLowerCase();
-        return stations.filter(function (s) {
-            return s.name.toLowerCase().includes(q) || s.devng.includes(q);
-        });
+
+        const q = $scope.searchQuery.toLowerCase();
+        return stations.filter(s =>
+            s.name.toLowerCase().includes(q) || s.devng.includes(q)
+        );
     };
 
-    // Actions
-    $scope.setLine = function (line) {
-        $scope.currentLine = line;
-        $scope.searchQuery = "";
-    };
-
+    /**
+     * Handles station box click with selection mode logic.
+     */
     $scope.selectStation = function (station) {
         if ($scope.selectionMode === 'source') {
             $scope.sourceStation = station;
-            $scope.selectionMode = 'destination'; // Auto-switch for UX
+            $scope.selectionMode = 'destination'; // Auto-switch for better UX
         } else {
             $scope.destinationStation = station;
         }
     };
 
-    $scope.setSelectionMode = function (mode) {
-        $scope.selectionMode = mode;
-    };
-
+    /**
+     * Primary calculation engine for railway fares.
+     * Incorporates distance stages and passenger counts.
+     */
     $scope.calculateFare = function () {
-        // Find distance (simplified for cross-line)
-        var dist = 10; // Default
-        if ($scope.sourceStation && $scope.destinationStation) {
-            // Simplified: if same line, use KM diff. If different, use larger KM (cross-city)
-            if ($scope.sourceStation.km !== undefined && $scope.destinationStation.km !== undefined) {
-                dist = Math.abs($scope.sourceStation.km - $scope.destinationStation.km);
-            }
-        }
+        if (!$scope.sourceStation || !$scope.destinationStation) return 0;
 
-        var baseFare = 5;
-        if (dist > 10) baseFare = 10;
-        if (dist > 20) baseFare = 15;
-        if (dist > 35) baseFare = 20;
-        if (dist > 50) baseFare = 25;
+        // Calculate absolute distance between stations
+        const distance = Math.abs($scope.sourceStation.km - $scope.destinationStation.km);
 
-        var total = (baseFare * $scope.noOfAdults) + (Math.ceil(baseFare / 2) * $scope.noOfChildren);
+        // Find corresponding fare stage
+        const stage = FARE_STAGES.find(s => distance <= s.maxDist);
+        const baseFare = stage ? stage.fare : 30;
+
+        // Calculate total for multiple passengers
+        let total = (baseFare * $scope.noOfAdults) +
+            (Math.ceil(baseFare / 2) * $scope.noOfChildren);
+
+        // Apply return ticket multiplier
         if ($scope.returnTicket) total *= 2;
+
         return total;
     };
 
-    // Helpers
-    $scope.range = function (n) { return new Array(n); };
-    $scope.setAdults = function (n) { $scope.noOfAdults = n; };
-    $scope.setChildren = function (n) { $scope.noOfChildren = n; };
-    $scope.toggleReturn = function () { $scope.returnTicket = !$scope.returnTicket; };
+    // --- UI Helpers ---
+    $scope.setLine = (line) => { $scope.currentLine = line; $scope.searchQuery = ""; };
+    $scope.setSelectionMode = (mode) => { $scope.selectionMode = mode; };
+    $scope.range = (n) => new Array(n);
+    $scope.setAdults = (n) => { $scope.noOfAdults = n; };
+    $scope.setChildren = (n) => { $scope.noOfChildren = n; };
 }

@@ -1,0 +1,108 @@
+/* --- Main Structure & Layout --- */
+.main-container {
+    height: 100vh;
+    width: 100vw;
+    padding: 0;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    /* Use the generated cinematic background */
+    background-image: url("../../images/mumbai_railway_background.png");
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.2) blur(20px);
+    /* Darker background for pop */
+    z-index: -2;
+}
+
+.main-panel {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    border: none;
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.92);
+    /* Higher opacity for readability */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: none;
+    display: flex;
+    overflow: hidden;
+}
+
+.side-panel {
+    width: 420px;
+    /* Wider sidebar for comfortable touch targets */
+    background: #fff;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.05);
+    z-index: 10;
+}
+
+.main-interface {
+    flex: 1;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    background: #f5f5f7;
+    /* Very light cool gray */
+    position: relative;
+    overflow: hidden;
+}
+
+.main-interface::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 300px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 100%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* --- Line Selector (Reference Match) --- */
+.line-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* 2 Column Grid */
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.line-card {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    /* Subtle border */
+    border-radius: 16px;
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    .line-card.active {
+        border-color: rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        transform: scale(1.02);
+    }
+
+    .line-card span {
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: var(--apple-text-sec);
+    }
+
+    .line-card.active span {
+        color: var(--apple-text);
+    }
