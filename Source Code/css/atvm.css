@@ -585,6 +585,7 @@ body::after {
 }
 
 /* --- LINE SELECTOR (Vibrant & Native) --- */
+/* --- LINE SELECTOR (Vibrant & Native) --- */
 .line-selector {
     padding: 24px;
     display: grid;
@@ -592,7 +593,8 @@ body::after {
     gap: 16px;
     background: transparent;
     /* Changed from opaque to transparent so animation shows through */
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: none;
+    /* Seamless flow */
 }
 
 .line-card {
@@ -750,27 +752,38 @@ body::after {
 
 /* --- SEARCH BAR --- */
 .search-wrapper {
-    padding: 16px 24px;
-    background: #fff;
+    padding: 20px 30px;
+    /* Better spacing */
+    background: transparent;
+    /* Seamless with side-panel pattern */
 }
 
 .search-input {
     width: 100%;
-    padding: 14px 20px;
-    border-radius: 12px;
-    border: 2px solid #e1e1e6;
-    background: #f7f7f9;
+    box-sizing: border-box;
+    /* Fix sizing issues */
+    padding: 16px 24px;
+    border-radius: 18px;
+    /* High-end rounded look */
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    /* Softer border */
+    background: #fff;
+    /* Crisp white */
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     color: #1c1c1e;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    /* Subtle float */
 }
 
 .search-input:focus {
     border-color: var(--mumbai-blue);
     background: #fff;
-    box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
+    box-shadow: 0 8px 25px rgba(0, 94, 184, 0.15);
+    /* Premium colored glow */
     outline: none;
+    transform: translateY(-1px);
 }
 
 
