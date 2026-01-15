@@ -103,46 +103,52 @@
         <div class="main-panel">
             <!-- Sidebar: Station Navigator -->
             <div class="side-panel">
-                <h3>Mumbai Rail</h3>
-
                 <!-- Hero Asset: Mumbai Lifeline -->
                 <div class="lifeline-header">
-                    <img src="../../brain/7ad066ba-8d4f-4278-b7de-1c83c88931a/mumbai_local_trains_lifeline_1768507002825.png"
+                    <img src="../../brain/7ad066ba-8d4f-4278-b7de-1c83c889c31a/mumbai_local_trains_lifeline_1768507002825.png"
                         alt="Mumbai Lifeline">
                 </div>
 
                 <div class="line-selector">
                     <div class="line-card wr" ng-class="{active: currentLine == 'Western Railway'}"
                         ng-click="setLine('Western Railway')">
-                        <div class="dot"></div>
-                        <span>Western Railway</span>
+                        <div class="line-info">
+                            <span class="line-name">Western</span>
+                            <span class="line-route">Churchgate ⇄ Dahanu</span>
+                        </div>
                     </div>
                     <div class="line-card cr" ng-class="{active: currentLine == 'Central Railway'}"
                         ng-click="setLine('Central Railway')">
-                        <div class="dot"></div>
-                        <span>Central Railway</span>
+                        <div class="line-info">
+                            <span class="line-name">Central</span>
+                            <span class="line-route">CSMT ⇄ Kasara/Khopoli</span>
+                        </div>
                     </div>
-                    <div class="line-card hr" ng-class="{active: currentLine == 'Harbour Line'}"
+                    <div class="line-card hb" ng-class="{active: currentLine == 'Harbour Line'}"
                         ng-click="setLine('Harbour Line')">
-                        <div class="dot"></div>
-                        <span>Harbour Line</span>
+                        <div class="line-info">
+                            <span class="line-name">Harbour</span>
+                            <span class="line-route">CSMT ⇄ Panvel/Goregaon</span>
+                        </div>
                     </div>
-                    <div class="line-card th" ng-class="{active: currentLine == 'Trans-Harbour Line'}"
-                        ng-click="setLine('Trans-Harbour Line')">
-                        <div class="dot"></div>
-                        <span>Trans-Harbour Line</span>
+                    <div class="line-card th" ng-class="{active: currentLine == 'Trans-Harbour'}"
+                        ng-click="setLine('Trans-Harbour')">
+                        <div class="line-info">
+                            <span class="line-name">Trans-Harbour</span>
+                            <span class="line-route">Thane ⇄ Vashi/Panvel</span>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Map Trigger (LED Board) -->
-                <div class="map-trigger-container" ng-click="toggleMap()">
-                    <img src="../../brain/7ad066ba-8d4f-4278-b7de-1c83c88931a/led_map_button_1768507018018.png"
-                        class="led-map-btn">
+                <div class="map-trigger-container" ng-click="toggleMap(true)">
+                    <img src="../../brain/7ad066ba-8d4f-4278-b7de-1c83c889c31a/led_map_button_1768507018018.png"
+                        class="led-map-btn" alt="View Map">
                 </div>
 
                 <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Search station / शोध..."
-                        ng-model="searchQuery">
+                    <input type="text" class="search-input" placeholder="Search station / शोध..." ng-model="searchText">
+                    <i class="fas fa-search search-icon"></i>
                 </div>
 
                 <div class="station-list">

@@ -464,20 +464,75 @@ body::after {
     left: 0;
     right: 0;
     height: 50px;
-    /* Slightly taller for the visualization */
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Centered Layout */
-    gap: 60px;
-    /* Nice separation */
+    /* Centered Linear Layout */
+    gap: 25px;
+    /* Tighter gap for cohesion */
     padding: 0 40px;
-    /* Horizontal padding */
     background: #ffffff;
     border-top: 4px solid var(--wr-red);
     border-bottom: 4px solid var(--mumbai-blue);
     z-index: 1000;
     box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.footer-separator {
+    height: 20px;
+    width: 2px;
+    background-color: #e5e5ea;
+    border-radius: 2px;
+}
+
+/* --- ASSET INTEGRATION STYLES --- */
+
+/* Mumbai Lifeline Hero Header */
+.lifeline-header {
+    background: #005eb8;
+    /* Match the generated image blue BG */
+    padding: 15px 0 10px 0;
+    text-align: center;
+    border-bottom: 4px solid #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    border-radius: 12px 12px 0 0;
+    /* Top rounding to match panel */
+}
+
+.lifeline-header img {
+    max-width: 90%;
+    height: auto;
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+    transition: transform 0.3s;
+}
+
+.lifeline-header:hover img {
+    transform: scale(1.05);
+}
+
+/* LED Map Button */
+.map-trigger-container {
+    background: transparent;
+    text-align: center;
+    padding: 10px 0;
+    cursor: pointer;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.led-map-btn {
+    width: 240px;
+    /* Make it prominent */
+    height: auto;
+    transition: all 0.2s;
+    filter: brightness(1);
+}
+
+.map-trigger-container:hover .led-map-btn {
+    filter: brightness(1.2) drop-shadow(0 0 15px rgba(0, 255, 0, 0.6));
+    transform: scale(1.02);
 }
 
 .copyright-text {
