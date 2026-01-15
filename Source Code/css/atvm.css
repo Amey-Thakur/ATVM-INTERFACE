@@ -1414,12 +1414,10 @@ body::after {
 /* --- New Ticket Dashboard Layout (Compact) --- */
 .ticket-body {
     padding: 15px 25px;
-    /* Reduced Padding */
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 15px;
-    /* Reduced Gap */
 }
 
 .ticket-controls {
