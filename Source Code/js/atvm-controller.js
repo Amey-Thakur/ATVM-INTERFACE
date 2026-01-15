@@ -8,6 +8,14 @@
  * Repository: https://github.com/Amey-Thakur/ATVM-INTERFACE
  * License: MIT
  */
+/**
+ * Utility Function: num2hindi
+ * Converts standard Arabic numerals (0-9) to Hindi digits (०-९).
+ * This supports the localization requirement for the Mumbai Metro interface.
+ * 
+ * @param {number} num - The number to convert
+ * @returns {string} - The string representation in Hindi digits
+ */
 function num2hindi(num) {
     var hnum = "०१२३४५६७८९";
     var trans = "";
@@ -21,6 +29,8 @@ function num2hindi(num) {
 }
 
 function atvmController($scope) {
+    // State Initialization
+    // Initialize default values for source station (5: Andheri), passenger counts, and selection.
     $scope.source = 5;
     $scope.noOfAdults = 1;
     $scope.noOfChildren = 0;
@@ -116,6 +126,13 @@ function atvmController($scope) {
         $scope.noOfChildren = num;
     }
 
+    /**
+     * Fare Calculation Method
+     * Computes the total ticket price based on:
+     * 1. Costs matrix for the current source station vs destination.
+     * 2. Journey type (Return ticket doubles the base fare).
+     * 3. Passenger composition (Adults pay full, Children pay half).
+     */
     $scope.getTotal = function (dest, ret, ad, ch) {
         var total = 0;
         total = $scope.stations[$scope.source].costs[dest];
@@ -128,6 +145,14 @@ function atvmController($scope) {
 
     $scope.mainStations = [0, 5, 9, 12, 16, 20];
 
+    /**
+     * Station Data Structure
+     * Represents the graph of the metro network. Each station object contains:
+     * - name: English name
+     * - devng: Devanagari (Hindi/Marathi) name
+     * - costs: Array representing the fare cost to every other station index.
+     * - time: Array representing the travel time to every other station index.
+     */
     $scope.stations = [
         {
             "name": "Borivali",
