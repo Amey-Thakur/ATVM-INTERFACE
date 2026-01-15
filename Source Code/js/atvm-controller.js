@@ -319,7 +319,7 @@ function atvmController($scope) {
 
     /**
      * Primary calculation engine for railway fares.
-     * Smartly handles cross-line via 'Dadar' interchange heuristic.
+     * Uses a Universal Hub Routing System for precise cross-line distances.
      */
     $scope.calculateFare = function () {
         if (!$scope.sourceStation || !$scope.destinationStation) return 0;
@@ -327,22 +327,72 @@ function atvmController($scope) {
         let distance = 0;
         const src = $scope.sourceStation;
         const dest = $scope.destinationStation;
+        
+        // Define Hub Locations (km markers)
+        const HUBS = {
+            WR_DADAR: 10.1,
+            CR_DADAR: 9.1,
+            CR_KURLA: 15.5,
+            HB_KURLA: 15.5,
+            CR_THANE: 34.0,
+            TH_THANE: 0.0,
+            HB_NERUL: 36.0,
+            TH_NERUL: 20.0
+        };
+
+        const DADAR_TO_KURLA = Math.abs(HUBS.CR_KURLA - HUBS.CR_DADAR); // ~6.4km
+        const DADAR_TO_THANE = Math.abs(HUBS.CR_THANE - HUBS.CR_DADAR); // ~24.9km
 
         if (src.type === dest.type) {
-            // Same Line: Simple subtraction
+            // Same Line: Direct
             distance = Math.abs(src.km - dest.km);
         } else {
-            // Different Lines: Calculate via Interchange Helper
-            // Heuristic: Most transfers happen at Dadar (approx 10km mark)
-            // WR Dadar ~ 10km | CR Dadar ~ 9km
-            const distToHub1 = Math.abs(src.km - 10);
-            const distToHub2 = Math.abs(dest.km - 9);
-            distance = distToHub1 + distToHub2;
+            // Cross-Line Routing
+            // Normalize pair key (alphabetical sort to handle A->B or B->A)
+            const types = [src.type, dest.type].sort();
+            const pair = types.join('|');
+
+            if (pair === "Central Railway|Western Railway") {
+                // Via Dadar
+                distance = Math.abs(src.km - (src.type === 'Western Railway' ? HUBS.WR_DADAR : HUBS.CR_DADAR)) +
+                           Math.abs(dest.km - (dest.type === 'Western Railway' ? HUBS.WR_DADAR : HUBS.CR_DADAR));
+            } 
+            else if (pair === "Harbour Line|Western Railway") {
+                // Via Dadar -> Kurla (Approximated)
+                const wrDist = Math.abs((src.type === 'Western Railway' ? src.km : dest.km) - HUBS.WR_DADAR);
+                const hbDist = Math.abs((src.type === 'Harbour Line' ? src.km : dest.km) - HUBS.HB_KURLA);
+                distance = wrDist + DADAR_TO_KURLA + hbDist;
+            }
+            else if (pair === "Trans-Harbour Line|Western Railway") {
+                // Via Dadar -> Thane
+                const wrDist = Math.abs((src.type === 'Western Railway' ? src.km : dest.km) - HUBS.WR_DADAR);
+                const thDist = Math.abs((src.type === 'Trans-Harbour Line' ? src.km : dest.km) - HUBS.TH_THANE);
+                distance = wrDist + DADAR_TO_THANE + thDist;
+            }
+            else if (pair === "Central Railway|Harbour Line") {
+                // Via Kurla
+                distance = Math.abs(src.km - (src.type === 'Central Railway' ? HUBS.CR_KURLA : HUBS.HB_KURLA)) +
+                           Math.abs(dest.km - (dest.type === 'Central Railway' ? HUBS.CR_KURLA : HUBS.HB_KURLA));
+            }
+            else if (pair === "Central Railway|Trans-Harbour Line") {
+                // Via Thane
+                distance = Math.abs(src.km - (src.type === 'Central Railway' ? HUBS.CR_THANE : HUBS.TH_THANE)) +
+                           Math.abs(dest.km - (dest.type === 'Central Railway' ? HUBS.CR_THANE : HUBS.TH_THANE));
+            }
+            else if (pair === "Harbour Line|Trans-Harbour Line") {
+                // Via Nerul
+                distance = Math.abs(src.km - (src.type === 'Harbour Line' ? HUBS.HB_NERUL : HUBS.TH_NERUL)) +
+                           Math.abs(dest.km - (dest.type === 'Harbour Line' ? HUBS.HB_NERUL : HUBS.TH_NERUL));
+            }
+            else {
+                // Fallback
+                distance = src.km + dest.km;
+            }
         }
 
         // Find corresponding fare stage
         const stage = FARE_STAGES.find(s => distance <= s.maxDist);
-        const baseFare = stage ? stage.fare : 35; // Cap at 35 for long distances
+        const baseFare = stage ? stage.fare : 35; // Cap at 35
 
         // Calculate total for multiple passengers
         let total = (baseFare * $scope.noOfAdults) +
