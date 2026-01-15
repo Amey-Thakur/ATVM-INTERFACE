@@ -100,18 +100,7 @@ body::after {
     text-transform: uppercase;
 }
 
-/* Specific Line Selection colors */
-.line-card.active[ng-click*="Central"] {
-    border-bottom: 4px solid var(--cr-maroon);
-}
-
-.line-card.active[ng-click*="Western"] {
-    border-bottom: 4px solid var(--wr-red);
-}
-
-.line-card.active[ng-click*="Harbour"] {
-    border-bottom: 4px solid var(--mumbai-blue);
-}
+/* Specific Line Selection colors removed - now handled by premium card styles */
 
 .search-input {
     width: 100%;
@@ -701,8 +690,8 @@ body::after {
 .line-card.active {
     background: var(--line-color);
     transform: scale(1.0);
-    /* Removed colored shadow to fix "horizontal line" issue */
-    box-shadow: 0 8px 20px -5px rgba(0, 0, 0, 0.25);
+    /* Restored the glowing colored shadow */
+    box-shadow: 0 12px 30px -8px var(--line-color);
 }
 
 .line-card.active .line-info {
