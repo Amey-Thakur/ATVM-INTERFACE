@@ -8,6 +8,11 @@
   Repository: https://github.com/Amey-Thakur/ATVM-INTERFACE
   License: MIT
 */
+/* 
+    Global Layout:
+    Sets the document to full height and prevents scrolling on the main body to simulate 
+    a fixed kiosk interface. Background image is centered and covers the viewport.
+*/
 body,
 html {
     height: 99%;
@@ -18,27 +23,39 @@ html {
     background-size: cover;
 
 }
-.main-panel{
+
+.main-panel {
     background-color: #ffffff;
-    opacity:0.95;
+    opacity: 0.95;
     margin-top: 15px;
 }
+
 .grayed {
     background-color: #e3e3e3;
 }
+
 .green {
     background-color: #47a447;
     color: #ffffff;
 }
+
 .set-height {
     height: 95%;
 }
+
 .full-height {
     height: 99%;
 }
+
 .scrollable {
     overflow: auto;
 }
+
+/* 
+    Ticket Visual Styling:
+    Simulates the appearance of a physical paper ticket using a cream background (#fff0d9),
+    rounded corners (border-radius: 20px), and a dashed border.
+*/
 .ticket {
     height: 63%;
     width: 95%;
@@ -48,24 +65,29 @@ html {
     border-width: 2px;
     padding: 10px;
 }
+
 .pointer {
     cursor: pointer;
 }
+
 .opaque {
     opacity: 0.2;
 }
+
 .ticket hr {
     border-color: #b4b4b4;
-    margin-top:0px;
-    margin-bottom:0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
+
 .adult {
     height: 30px;
     width: 25px;
     margin-right: 10px;
     margin-bottom: 7px;
 }
-.logo{
+
+.logo {
     height: 50px;
-    width:50px;
+    width: 50px;
 }

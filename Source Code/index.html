@@ -23,6 +23,12 @@
     <link href="css/atvm.css" rel="stylesheet">
 </head>
 
+<!-- 
+    AngularJS Controller Initialization:
+    The 'atvmController' manages the application logic, binding data models (stations, ticket details) 
+    to this view. The scope of this controller encompasses the entire body of the interface.
+-->
+
 <body ng-controller="atvmController">
     <div class="main-container full-height">
         <div class="container full-height">
@@ -33,6 +39,11 @@
                             <h3>All Stations</h3>
                             <hr />
                             <div class="list-group set-height scrollable">
+                                <!-- 
+                                    Station List Iteration:
+                                    Uses ng-repeat to dynamically generate the list of stations from the $scope.stations array.
+                                    track by $index ensures efficient DOM updates.
+                                -->
                                 <a href="#" class="list-group-item" ng-repeat="station in stations track by $index"
                                     ng-class="getSelectedStationStyle($index)"
                                     ng-click="setSelectedStation($index)">{{station.name}} - {{station.devng}}</a>
