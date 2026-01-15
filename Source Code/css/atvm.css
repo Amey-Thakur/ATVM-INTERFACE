@@ -73,69 +73,197 @@ body {
     background: #0f172a;
 }
 
+/* Premium Loader Area */
+.premium-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.loader-content {
+    text-align: center;
+    width: 300px;
+}
+
+.loader-logo {
+    width: 100px;
+    margin-bottom: 30px;
+    animation: pulseLogo 2s infinite ease-in-out;
+}
+
+.loader-bar-bg {
+    height: 4px;
+    background: #f2f2f7;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.loader-bar-fill {
+    height: 100%;
+    width: 0;
+    background: var(--apple-blue);
+    border-radius: 10px;
+    animation: fillBar 2.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes pulseLogo {
+
+    0%,
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0));
+    }
+
+    50% {
+        transform: scale(1.05);
+        filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+    }
+}
+
+@keyframes fillBar {
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Helper Utilities */
+.grayed {
+    pointer-events: none;
+    opacity: 0.3 !important;
+    filter: grayscale(1);
+}
+
+.green {
+    background: var(--apple-green) !important;
+    color: #fff !important;
+}
+
 body {
     background-image: url("../images/background.jpg");
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
+    filter: brightness(0.7) contrast(1.1);
+    z-index: -2;
 }
 
-/* Kiosk Overlay: Dims and Blurs background for focus (HMI: Focus) */
-body::before {
+body::after {
     content: '';
     position: fixed;
-    inset: 0;
-    background: radial-gradient(circle at center, rgba(15, 23, 42, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, transparent, rgba(0, 0, 0, 0.5));
+    z-index: -1;
 }
 
 .main-container {
-    position: relative;
-    z-index: 10;
+    height: 100vh;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    padding: 2vh 2vw;
-}
-
-.full-height-container {
-    width: 100%;
-    max-width: 1400px;
-    height: 96vh;
+    align-items: center;
+    padding: 20px;
 }
 
 /* =========================================
    MAIN PANEL (Glassmorphism)
    ========================================= */
 .main-panel {
-    background: var(--glass-bg);
-    border: none;
-    border-radius: 32px;
-    /* Smoother corners for Apple feel */
-    box-shadow: var(--shadow-premium);
-    height: 94vh;
-    /* Set back to fixed height */
-    margin: 3vh auto;
+    width: 1200px;
+    max-width: 95vw;
+    height: 85vh;
+    /* Fixed height for kiosk feel */
+    background: var(--apple-bg);
+    backdrop-filter: var(--apple-blur);
+    -webkit-backdrop-filter: var(--apple-blur);
+    border: 1px solid var(--apple-border);
+    border-radius: 36px;
+    box-shadow: var(--apple-shadow);
     overflow: hidden;
-    display: flex;
-    /* Flex container for dual-pane */
-    flex-direction: row;
-    animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    position: relative;
+    animation: panelAppear 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.panel-body {
-    padding: 0 !important;
-    height: 100%;
+@keyframes panelAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 .kiosk-grid {
     display: flex;
     height: 100%;
-    width: 100%;
+}
+
+/* Sidebar Styling */
+.side-panel {
+    width: 320px;
+    background: var(--apple-bg-accent);
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    padding: 40px 24px;
+}
+
+.main-interface {
+    flex: 1;
+    padding: 40px 50px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Prevent ugly internal scrollbars */
+}
+
+/* Custom Scrollbar for Sidebar */
+.scrollable::-webkit-scrollbar {
+    width: 4px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
 /* =========================================
@@ -485,88 +613,68 @@ body.loaded #loader {
 }
 
 /* =========================================
-   TICKET VISUAL (Premium Printed Style)
+   TICKET STYLING (Premium Paper Look)
    ========================================= */
+.ticket-section {
+    flex: 1;
+    /* Pushes ticket to fill space or stay centered */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .ticket {
-    background: #fffef0;
-    width: 650px;
-    max-width: 100%;
-    border-radius: 24px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-    position: relative;
-    border: 1px solid rgba(226, 232, 240, 0.8);
-    padding: 0;
-    overflow: hidden;
-    margin: 0 auto;
-    transition: transform 0.3s ease;
-}
-
-.ticket:hover {
-    transform: translateY(-5px) scale(1.01);
-}
-
-/* Ticket Side Notches */
-.ticket::before,
-.ticket::after {
-    content: '';
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    background: var(--glass-bg);
-    border-radius: 50%;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.ticket::before {
-    left: -15px;
-}
-
-.ticket::after {
-    right: -15px;
-}
-
-.ticket-top {
     background: #fff;
-    padding: 20px 30px;
-    border-bottom: 1px dashed #d4d4d8;
+    width: 600px;
+    max-width: 100%;
+    border-radius: 32px;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    margin: 0 auto;
 }
 
-.logo {
-    height: 50px;
-    width: 50px;
+/* Ticket Side Notches - REMOVED */
+
+.ticket-header {
+    background: #fafafc;
+    padding: 20px 40px;
+    border-bottom: 1px dashed #e5e5ea;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.ticket-brand {
+.ticket-header .logo {
+    height: 45px;
+}
+
+.ticket-header h4 {
     margin: 0;
     font-weight: 800;
-    font-size: 24px;
-    color: var(--wr-red);
-    letter-spacing: -0.5px;
-}
-
-.ticket-subbrand {
-    margin: 0;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text-secondary);
+    color: #8e8e93;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 .ticket-body {
-    padding: 20px 30px;
+    padding: 40px;
 }
 
 .info-label {
     font-size: 11px;
+    color: var(--apple-text-sec);
     font-weight: 700;
-    color: var(--text-secondary);
     letter-spacing: 1px;
+    text-transform: uppercase;
     margin-bottom: 4px;
 }
 
 .info-value {
-    font-size: 1.8rem;
-    font-weight: 700;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -1px;
 }
 
 .type-row {
@@ -577,15 +685,23 @@ body.loaded #loader {
     border-radius: 12px;
 }
 
+/* Premium Selectors (Single/Return) */
+.journey-type-selector {
+    display: flex;
+    gap: 15px;
+    margin: 30px 0;
+}
+
 .journey-toggle {
+    flex: 1;
+    background: #f2f2f7;
+    border-radius: 16px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
-    padding: 8px;
-    border-radius: 8px;
-    background: #fff;
-    border: 2px solid var(--metro-blue);
-    cursor: pointer;
-    transition: all 0.2s;
 }
 
 .journey-toggle .en {
@@ -597,67 +713,78 @@ body.loaded #loader {
     font-size: 12px;
 }
 
-.journey-toggle.opaque {
-    border-color: #e2e8f0;
-    opacity: 0.5;
+.journey-toggle.active {
+    background: var(--apple-blue);
+    color: #fff;
+    box-shadow: 0 10px 20px rgba(0, 113, 227, 0.3);
 }
 
-.passenger-icons {
+/* Passenger Icons */
+.passenger-row {
+    margin-top: 25px;
+    display: flex;
+    gap: 40px;
+}
+
+.passenger-group {
+    flex: 1;
+    text-align: center;
+}
+
+.p-icons {
     display: flex;
     justify-content: center;
-    gap: 8px;
-    margin-top: 10px;
+    gap: 10px;
+    margin-top: 15px;
 }
 
 .p-icon {
-    height: 35px;
+    width: 28px;
+    opacity: 0.2;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: all 0.2s;
+}
+
+.p-icon.active {
+    opacity: 1;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .p-icon:hover {
-    transform: scale(1.2) rotate(5deg);
+    opacity: 0.5;
 }
 
-.p-icon.opaque {
-    opacity: 0.2;
-    filter: grayscale(1);
-}
-
+/* Ticket Footer (Total & Print) */
 .ticket-footer {
-    background: #f1f5f9;
-    padding: 20px 30px;
+    padding: 24px 40px;
+    background: #fafafc;
+    border-top: 1px dashed #e5e5ea;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.total-label {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--text-secondary);
-}
-
-.total-value {
-    font-size: 26px;
+.total-fare {
+    font-size: 38px;
     font-weight: 800;
-    color: var(--text-primary);
+    color: var(--apple-text);
 }
 
 .btn-print {
-    background: var(--wr-red);
+    background: var(--apple-red);
     color: #fff;
-    border: none;
-    border-radius: 12px;
-    padding: 12px 30px;
+    padding: 16px 50px;
+    border-radius: 20px;
     font-weight: 700;
-    font-size: 18px;
-    box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
+    font-size: 20px;
+    border: none;
+    box-shadow: 0 15px 30px rgba(255, 59, 48, 0.3);
     transition: all 0.3s;
 }
 
 .btn-print:hover {
-    background: var(--wr-red-dark);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 25px rgba(220, 38, 38, 0.4);
-    color: #fff;
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(255, 59, 48, 0.4);
 }
 
 /* =========================================

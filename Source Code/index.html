@@ -16,198 +16,151 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>HMI | ATVM INTERFACE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WESTERN RAILWAY | ATVM</title>
     <meta name="author" content="Amey Thakur & Mega Satish">
-
-    <!-- Security Meta Tags -->
-    <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com;">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="canonical" href="https://amey-thakur.github.io/ATVM-INTERFACE/">
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Security & Premium Fonts -->
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:;">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <!-- Bootstrap & Custom Styles -->
+    <!-- Core Assets -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/atvm.css" rel="stylesheet">
 </head>
 
 <body ng-controller="atvmController">
-    <!-- Loading Screen -->
-    <div id="loader">
-        <img src="images/logo.png" class="loader-logo" alt="Logo">
-        <div class="loader-bar">
-            <div class="loader-progress"></div>
+    <!-- Smooth Loading Screen -->
+    <div id="loader" class="premium-loader">
+        <div class="loader-content">
+            <img src="images/logo.png" class="loader-logo">
+            <div class="loader-bar-bg">
+                <div class="loader-bar-fill"></div>
+            </div>
+            <p>Initializing Secure Interface...</p>
         </div>
-        <p style="color: white; margin-top: 20px; font-weight: 500; letter-spacing: 1px;">INITIALIZING KIOSK...</p>
     </div>
 
-    <script>
-        window.addEventListener('load', function () {
-            setTimeout(function () {
-                document.body.classList.add('loaded');
-            }, 1000);
-        });
-    </script>
+    <div class="main-container">
+        <div class="main-panel">
+            <div class="kiosk-grid">
+                <!-- Left: Station Discovery -->
+                <div class="side-panel">
+                    <div class="panel-header">
+                        <i class="fas fa-magnifying-glass"></i>
+                        <h3>Stations</h3>
+                    </div>
 
-    <div class="main-container full-height">
-        <div class="container-fluid full-height-container">
-            <div class="panel main-panel">
-                <div class="panel-body">
-                    <div class="kiosk-grid">
-                        <!-- Left Panel: All Stations -->
-                        <div class="side-panel">
-                            <div class="panel-header">
-                                <i class="fas fa-search"></i>
-                                <h3>Stations</h3>
-                            </div>
-                            <div class="search-box">
-                                <input type="text" ng-model="searchQuery" placeholder="Search station / शोध स्टेशन..."
-                                    class="form-control premium-search">
-                            </div>
-                            <div class="station-list-container scrollable">
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item"
-                                        ng-repeat="station in getFilteredStations() track by $index"
-                                        ng-class="getSelectedStationStyle($index)"
-                                        ng-click="setSelectedStation($index)">
-                                        <span class="en-name">{{station.name}}</span>
-                                        <span class="hi-name">{{station.devng}}</span>
-                                    </a>
-                                </div>
+                    <div class="search-box">
+                        <input type="text" ng-model="searchQuery" placeholder="Search station / शोध..."
+                            class="form-control premium-search">
+                    </div>
+
+                    <div class="station-list-container scrollable">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item"
+                                ng-repeat="station in getFilteredStations() track by $index"
+                                ng-class="getSelectedStationStyle($index)" ng-click="setSelectedStation($index)">
+                                <span class="en-name">{{station.name}}</span>
+                                <span class="hi-name">{{station.devng}}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Configuration & Ticket -->
+                <div class="main-interface">
+                    <div class="dest-browser">
+                        <div class="section-header">
+                            <h3>Quick Select</h3>
+                        </div>
+                        <div class="btn-group-kiosk">
+                            <div class="flex-item" ng-repeat="mainStation in mainStations track by $index">
+                                <button type="button" class="btn btn-kiosk"
+                                    ng-class="getSelectedStationStylePrimary(mainStation)"
+                                    ng-click="setSelectedMainStation($index)">
+                                    <div class="btn-content">
+                                        <span class="main-text">{{getStation(mainStation)}}</span>
+                                        <span class="sub-text">{{stations[mainStation].devng}}</span>
+                                    </div>
+                                </button>
                             </div>
                         </div>
 
-                        <!-- Right Panel: Main Interface -->
-                        <div class="main-interface">
-                            <div class="destination-section">
-                                <div class="section-header">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <h3>Choose Destination</h3>
-                                </div>
-                                <div class="primary-destinations">
-                                    <div class="btn-group-justified btn-group-kiosk">
-                                        <div class="btn-group" ng-repeat="mainStation in mainStations track by $index">
-                                            <button type="button" class="btn btn-kiosk"
-                                                ng-class="getSelectedStationStylePrimary(mainStation)"
-                                                ng-click="setSelectedMainStation($index)"
-                                                title="{{getStation(mainStation)}}">
-                                                <div class="btn-content">
-                                                    <span class="main-text">{{getStation(mainStation)}}</span>
-                                                    <span class="sub-text">{{stations[mainStation].devng}}</span>
-                                                </div>
-                                            </button>
-                                        </div>
+                        <div class="sub-destinations">
+                            <div class="btn-grid">
+                                <button type="button" class="btn btn-sub"
+                                    ng-repeat="subStation in getSubstations(selectedMainStation)"
+                                    ng-class="getSelectedStationStylePrimary(subStation[1])"
+                                    ng-click="setSelectedStation(subStation[1])">
+                                    {{subStation[0]}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ticket-section">
+                        <div class="ticket">
+                            <div class="ticket-header">
+                                <img src="images/logo.png" class="logo">
+                                <h4>Western Railway</h4>
+                            </div>
+
+                            <div class="ticket-body">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="info-label">From / पासून</div>
+                                        <div class="info-value text-warning">{{stations[source].name}}</div>
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        <div class="info-label">To / पर्यंत</div>
+                                        <div class="info-value text-success">{{stations[selectedStation].name}}</div>
                                     </div>
                                 </div>
 
-                                <div class="sub-destinations">
-                                    <div class="btn-grid">
-                                        <button type="button" class="btn btn-sub"
-                                            ng-repeat="subStation in getSubstations(selectedMainStation)"
-                                            ng-class="getSelectedStationStylePrimary(subStation[1])"
-                                            ng-click="setSelectedStation(subStation[1])">
-                                            {{subStation[0]}}
-                                        </button>
+                                <div class="journey-type-selector">
+                                    <div class="journey-toggle" ng-class="{active: !returnTicket}"
+                                        ng-click="returnTicket = false">
+                                        <strong>SINGLE</strong>
+                                        <p>एकेरी</p>
+                                    </div>
+                                    <div class="journey-toggle" ng-class="{active: returnTicket}"
+                                        ng-click="returnTicket = true">
+                                        <strong>RETURN</strong>
+                                        <p>परतीचा</p>
+                                    </div>
+                                </div>
+
+                                <div class="passenger-row">
+                                    <div class="passenger-group">
+                                        <div class="info-label">Adults / प्रौढ</div>
+                                        <div class="p-icons">
+                                            <img src="images/person-icon.png" ng-repeat="i in range(5) track by $index"
+                                                ng-class="{active: $index < noOfAdults}"
+                                                ng-click="setNoOfAdults($index + 1)" class="p-icon" />
+                                        </div>
+                                    </div>
+                                    <div class="passenger-group">
+                                        <div class="info-label">Children / मुले</div>
+                                        <div class="p-icons">
+                                            <img src="images/person-icon.png" ng-repeat="i in range(5) track by $index"
+                                                ng-class="{active: $index < noOfChildren}"
+                                                ng-click="setNoOfChildren($index + 1)" class="p-icon" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <hr class="section-divider">
-
-                            <div class="ticket-generation-section">
-                                <div class="section-header">
-                                    <i class="fas fa-ticket-alt"></i>
-                                    <h3>Ticket Configuration</h3>
+                            <div class="ticket-footer">
+                                <div class="total-fare">
+                                    <span class="info-label">Total Fare</span><br>
+                                    Rs. {{calculateFare()}}
                                 </div>
-
-                                <div class="ticket center-block">
-                                    <div class="ticket-top">
-                                        <div class="row">
-                                            <div class="col-xs-2">
-                                                <img src="images/logo.png" alt="Metro Logo" class="logo">
-                                            </div>
-                                            <div class="col-xs-10 text-right">
-                                                <h2 class="ticket-brand">Western Railway</h2>
-                                                <p class="ticket-subbrand">Automated Ticket Vending Machine</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="ticket-body">
-                                        <div class="row info-row" style="margin-bottom: 10px;">
-                                            <div class="col-xs-6">
-                                                <div class="info-label">FROM / पासून</div>
-                                                <div class="info-value text-warning" style="font-size: 1.5rem;">
-                                                    {{stations[source].name}}</div>
-                                            </div>
-                                            <div class="col-xs-6 text-right">
-                                                <div class="info-label">TO / पर्यंत</div>
-                                                <div class="info-value text-success" style="font-size: 1.5rem;">
-                                                    {{stations[selectedStation].name}}</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row type-row" style="margin: 10px 0;">
-                                            <div class="col-xs-4">
-                                                <div class="info-label">JOURNEY TYPE</div>
-                                            </div>
-                                            <div class="col-xs-4 text-center">
-                                                <div class="journey-toggle" ng-class="getSingleClass()"
-                                                    ng-click="returnTicket = false">
-                                                    <span class="en">SINGLE</span>
-                                                    <span class="hi">एकेरी</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-4 text-center">
-                                                <div class="journey-toggle" ng-class="getReturnClass()"
-                                                    ng-click="returnTicket = true">
-                                                    <span class="en">RETURN</span>
-                                                    <span class="hi">परतीचा</span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row passenger-row" style="margin-top: 10px;">
-                                            <div class="col-xs-6">
-                                                <div class="info-label text-center">ADULTS / प्रौढ</div>
-                                                <div class="passenger-icons">
-                                                    <img src="images/person-icon.png"
-                                                        ng-repeat="i in range(5) track by $index"
-                                                        ng-class="getPersonClass($index, noOfAdults)"
-                                                        ng-click="setNoOfAdults($index + 1)" class="p-icon" />
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <div class="info-label text-center">CHILDREN / मुले</div>
-                                                <div class="passenger-icons">
-                                                    <img src="images/person-icon.png"
-                                                        ng-repeat="i in range(5) track by $index"
-                                                        ng-class="getPersonClass($index, noOfChildren)"
-                                                        ng-click="setNoOfChildren($index + 1)" class="p-icon" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="ticket-footer">
-                                        <div class="row footer-row">
-                                            <div class="col-xs-8">
-                                                <div class="total-label">TOTAL FARE / एकूण भाडे</div>
-                                                <div class="total-value">{{getTotal()}}</div>
-                                            </div>
-                                            <div class="col-xs-4 text-right">
-                                                <button class="btn btn-print">
-                                                    <i class="fas fa-print"></i> PRINT
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <button class="btn-print" onclick="window.print()">PRINT</button>
                             </div>
                         </div>
                     </div>
@@ -215,17 +168,15 @@
             </div>
         </div>
 
-        <div class="footer-simple text-center">
-            <p>2022 &copy; All Rights Reserved | Designed and Developed by
-                <a href="https://github.com/Amey-Thakur" target="_blank" rel="noopener noreferrer">Amey
-                    Thakur</a> &
-                <a href="https://github.com/msatmod" target="_blank" rel="noopener noreferrer">Mega Satish</a>
-            </p>
+        <div class="footer-simple">
+            2022 &copy; All Rights Reserved | Designed and Developed by
+            <a href="https://github.com/Amey-Thakur">Amey Thakur</a> &
+            <a href="https://github.com/msatmod">Mega Satish</a>
         </div>
     </div>
 
     <!-- External Assets -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 
     <!-- Scripts -->
     <script src="js/jquery-1.11.0.min.js"></script>
