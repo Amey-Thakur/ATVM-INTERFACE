@@ -50,23 +50,27 @@
                 </div>
                 <div class="close-map-btn" ng-click="toggleMap(false)">CLOSE MAP ✕</div>
             </div>
-            <div class="map-container">
-                <!-- Western Line -->
+            <!-- Schematic Map Container -->
+            <div class="map-diagram">
+
+                <!-- Western Railway -->
                 <div class="rail-line-col line-wr">
                     <div class="rail-line-label">Western</div>
                     <div class="track-line"></div>
                     <div class="map-station-node" ng-repeat="s in railwayData['Western Railway']"
-                        ng-click="selectFromMap('Western Railway', s)">
+                        ng-click="selectFromMap('Western Railway', s)"
+                        ng-class="{'interchange': s.name === 'Dadar' || s.name === 'Mumbai Central' || s.name === 'Andheri'}">
                         <div class="map-station-name">{{s.name}}</div>
                     </div>
                 </div>
 
-                <!-- Central Line -->
+                <!-- Central Railway -->
                 <div class="rail-line-col line-cr">
                     <div class="rail-line-label">Central</div>
                     <div class="track-line"></div>
                     <div class="map-station-node" ng-repeat="s in railwayData['Central Railway']"
-                        ng-click="selectFromMap('Central Railway', s)">
+                        ng-click="selectFromMap('Central Railway', s)"
+                        ng-class="{'interchange': s.name === 'Dadar' || s.name === 'Kurla' || s.name === 'Thane' || s.name === 'Mumbai CSMT'}">
                         <div class="map-station-name">{{s.name}}</div>
                     </div>
                 </div>
@@ -76,10 +80,23 @@
                     <div class="rail-line-label">Harbour</div>
                     <div class="track-line"></div>
                     <div class="map-station-node" ng-repeat="s in railwayData['Harbour Line']"
-                        ng-click="selectFromMap('Harbour Line', s)">
+                        ng-click="selectFromMap('Harbour Line', s)"
+                        ng-class="{'interchange': s.name === 'Kurla' || s.name === 'Vadala Road' || s.name === 'Panvel' || s.name === 'Mumbai CSMT'}">
                         <div class="map-station-name">{{s.name}}</div>
                     </div>
                 </div>
+
+                <!-- Trans-Harbour Line -->
+                <div class="rail-line-col line-th">
+                    <div class="rail-line-label">Trans-Harbour</div>
+                    <div class="track-line"></div>
+                    <div class="map-station-node" ng-repeat="s in railwayData['Trans-Harbour Line']"
+                        ng-click="selectFromMap('Trans-Harbour Line', s)"
+                        ng-class="{'interchange': s.name === 'Thane' || s.name === 'Vashi' || s.name === 'Panvel' || s.name === 'Nerul'}">
+                        <div class="map-station-name">{{s.name}}</div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
