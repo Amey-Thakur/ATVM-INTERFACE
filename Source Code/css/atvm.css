@@ -1414,6 +1414,10 @@ body::after {
     /* Reduced Gap */
 }
 
+.ticket-controls {
+    width: 100%;
+}
+
 /* Journey Type Segmented Control (Apple Sliding Pill) */
 .journey-type-control,
 .mode-selector {
