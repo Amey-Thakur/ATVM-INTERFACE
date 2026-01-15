@@ -1415,7 +1415,8 @@ body::after {
 }
 
 /* Journey Type Segmented Control (Apple Sliding Pill) */
-.journey-type-control {
+.journey-type-control,
+.mode-selector {
     background: #e3e3e8;
     /* Apple Gray Content Background */
     border-radius: 9px;
@@ -1445,11 +1446,13 @@ body::after {
 }
 
 /* Slide to Right when Return is active */
-.journey-type-control.mode-return .glider {
+.journey-type-control.mode-return .glider,
+.mode-selector.mode-dest .glider {
     transform: translateX(100%);
 }
 
-.segment-option {
+.segment-option,
+.mode-btn {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -1463,13 +1466,18 @@ body::after {
     transition: color 0.2s;
     color: #8e8e93;
     /* Default Inactive */
+    font-weight: 700;
+    font-size: 13px;
+    text-align: center;
 }
 
-.segment-option:hover {
+.segment-option:hover,
+.mode-btn:hover {
     color: #000;
 }
 
-.segment-option.active {
+.segment-option.active,
+.mode-btn.active {
     background: transparent !important;
     /* Remove old bg */
     box-shadow: none !important;
