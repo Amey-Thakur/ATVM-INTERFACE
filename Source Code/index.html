@@ -147,7 +147,8 @@
                 </div>
 
                 <!-- Mode Selector (Relocated for Accessibility) -->
-                <div class="mode-selector">
+                <div class="mode-selector" ng-class="{'mode-dest': selectionMode == 'destination'}">
+                    <div class="glider"></div>
                     <div class="mode-btn" ng-class="{active: selectionMode == 'source'}"
                         ng-click="setSelectionMode('source')">SOURCE / उगम</div>
                     <div class="mode-btn" ng-class="{active: selectionMode == 'destination'}"
