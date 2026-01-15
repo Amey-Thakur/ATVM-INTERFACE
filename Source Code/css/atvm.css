@@ -54,30 +54,24 @@ body::after {
 }
 
 .main-container {
+    width: 100vw;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 40px;
-    /* Space for footer */
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
 }
 
 .main-panel {
-    width: 1300px;
-    /* Slightly narrower for better fit */
-    max-width: 96vw;
-    height: 86vh;
-    /* Reduced height to ensure footer fits below */
-    background: var(--apple-bg);
-    backdrop-filter: var(--apple-blur);
-    -webkit-backdrop-filter: var(--apple-blur);
-    border: 1px solid var(--apple-border);
-    border-radius: 40px;
-    box-shadow: var(--apple-shadow);
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    background: #fff;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
     display: flex;
     overflow: hidden;
-    animation: dashEnter 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes dashEnter {

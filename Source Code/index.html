@@ -59,7 +59,7 @@
                     <div class="track-line"></div>
                     <div class="map-station-node" ng-repeat="s in railwayData['Western Railway']"
                         ng-click="selectFromMap('Western Railway', s)"
-                        ng-class="{'interchange': s.name === 'Dadar' || s.name === 'Mumbai Central' || s.name === 'Andheri'}">
+                        ng-class="{'interchange': ['Dadar','Mumbai Central','Andheri','Borivali'].includes(s.name)}">
                         <div class="map-station-name">{{s.name}}</div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                     <div class="track-line"></div>
                     <div class="map-station-node" ng-repeat="s in railwayData['Central Railway']"
                         ng-click="selectFromMap('Central Railway', s)"
-                        ng-class="{'interchange': s.name === 'Dadar' || s.name === 'Kurla' || s.name === 'Thane' || s.name === 'Mumbai CSMT'}">
+                        ng-class="{'interchange': ['Dadar','Kurla','Thane','Mumbai CSMT','Kalyan'].includes(s.name)}">
                         <div class="map-station-name">{{s.name}}</div>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                     <div class="track-line"></div>
                     <div class="map-station-node" ng-repeat="s in railwayData['Harbour Line']"
                         ng-click="selectFromMap('Harbour Line', s)"
-                        ng-class="{'interchange': s.name === 'Kurla' || s.name === 'Vadala Road' || s.name === 'Panvel' || s.name === 'Mumbai CSMT'}">
+                        ng-class="{'interchange': ['Kurla','Vadala Road','Panvel','Mumbai CSMT'].includes(s.name)}">
                         <div class="map-station-name">{{s.name}}</div>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                     <div class="track-line"></div>
                     <div class="map-station-node" ng-repeat="s in railwayData['Trans-Harbour Line']"
                         ng-click="selectFromMap('Trans-Harbour Line', s)"
-                        ng-class="{'interchange': s.name === 'Thane' || s.name === 'Vashi' || s.name === 'Panvel' || s.name === 'Nerul'}">
+                        ng-class="{'interchange': ['Thane','Vashi','Panvel','Nerul'].includes(s.name)}">
                         <div class="map-station-name">{{s.name}}</div>
                     </div>
                 </div>
@@ -176,6 +176,11 @@
                                 <h3>{{currentLine}}</h3>
                                 <p>Unreserved Ticketing System</p>
                             </div>
+                            <!-- Creative Assets -->
+                            <img src="images/mumbai_local_vector.png"
+                                style="height: 120px; position: absolute; right: 20px; top: 10px; opacity: 0.9;">
+                            <img src="images/mumbai_lifeline_badge.png"
+                                style="height: 80px; position: absolute; right: 350px; top: 30px; transform: rotate(-15deg); opacity: 0.8;">
                         </div>
 
                         <div class="ticket-body" style="padding: 0; flex: 1;">
