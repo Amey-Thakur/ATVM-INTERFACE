@@ -204,50 +204,86 @@
                             </div>
                         </div>
 
-                        <div class="ticket-body" style="padding: 0; flex: 1;">
-                            <div class="route-row">
-                                <div class="route-point">
-                                    <div class="label">Source</div>
-                                    <div class="station-sign large">
-                                        <div class="diamond"></div>
-                                        <div class="circle"></div>
-                                        <div class="bar">{{sourceStation.name}}</div>
-                                    </div>
-                                    <div class="city-name">{{sourceStation.name}}</div>
+                        <div class="ticket-body">
+
+                            <!-- Journey Type Selector (Segmented Control) -->
+                            <div class="journey-type-control">
+                                <div class="segment-option" ng-class="{active: journeyType === 'Single'}"
+                                    ng-click="setJourneyType('Single')">
+                                    <div class="seg-label">SINGLE</div>
+                                    <div class="seg-sub">Single Journey</div>
                                 </div>
-                                <div class="route-point">
-                                    <div class="label">Destination</div>
-                                    <div class="station-sign large">
-                                        <div class="diamond"></div>
-                                        <div class="circle"></div>
-                                        <div class="bar">{{destinationStation.name}}</div>
-                                    </div>
-                                    <div class="city-name">{{destinationStation.name}}</div>
+                                <div class="segment-option" ng-class="{active: journeyType === 'Return'}"
+                                    ng-click="setJourneyType('Return')">
+                                    <div class="seg-label">RETURN</div>
+                                    <div class="seg-sub">Valid for 24 hours</div>
                                 </div>
                             </div>
 
-                            <div class="ticket-controls">
-                                <div class="ticket-footer">
-                                    <div class="fare-block">
-                                        <h4
-                                            style="margin: 0; font-size: 11px; font-weight: 900; color: #8e8e93; text-transform: uppercase; letter-spacing: 1px;">
-                                            Total Fare / एकूण भाडे</h4>
-                                        <div class="price">₹ {{calculateFare()}}</div>
-                                    </div>
-                                    <button class="print-btn" onclick="window.print()"><i class="fas fa-print"
-                                            style="margin-right: 10px;"></i> PRINT TICKET</button>
+                            <!-- Route Visuals (Compact) -->
+                            <div class="route-visual-row">
+                                <div class="station-node src">
+                                    <div class="node-dot"></div>
+                                    <div class="node-name">{{sourceStation.name}}</div>
+                                </div>
+                                <div class="route-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                    <div class="journey-badge" ng-show="journeyType === 'Return'">RETURN</div>
+                                </div>
+                                <div class="station-node dest">
+                                    <div class="node-dot"></div>
+                                    <div class="node-name">{{destinationStation.name}}</div>
                                 </div>
                             </div>
+
+                            <!-- Passenger Controls -->
+                            <div class="passenger-controls-grid">
+                                <div class="pax-control-card">
+                                    <div class="pax-label">ADULT</div>
+                                    <div class="stepper">
+                                        <button class="step-btn minus" ng-click="updatePassenger('adults', -1)"
+                                            ng-disabled="adults <= 1"><i class="fas fa-minus"></i></button>
+                                        <span class="step-val">{{adults}}</span>
+                                        <button class="step-btn plus" ng-click="updatePassenger('adults', 1)"
+                                            ng-disabled="adults >= 4"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                </div>
+                                <div class="pax-control-card">
+                                    <div class="pax-label">CHILD</div>
+                                    <div class="stepper">
+                                        <button class="step-btn minus" ng-click="updatePassenger('children', -1)"
+                                            ng-disabled="children <= 0"><i class="fas fa-minus"></i></button>
+                                        <span class="step-val">{{children}}</span>
+                                        <button class="step-btn plus" ng-click="updatePassenger('children', 1)"
+                                            ng-disabled="children >= 4"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                        <h4
-                            style="margin: 0; font-size: 11px; font-weight: 900; color: #8e8e93; text-transform: uppercase; letter-spacing: 1px;">
-                            Total Fare / एकूण भाडे</h4>
-                        <div class="price">₹ {{calculateFare()}}</div>
+
+                        <div class="ticket-controls">
+                            <div class="ticket-footer">
+                                <div class="fare-block">
+                                    <h4
+                                        style="margin: 0; font-size: 11px; font-weight: 900; color: #8e8e93; text-transform: uppercase; letter-spacing: 1px;">
+                                        Total Fare / एकूण भाडे</h4>
+                                    <div class="price">₹ {{calculateFare()}}</div>
+                                </div>
+                                <button class="print-btn" onclick="window.print()"><i class="fas fa-print"
+                                        style="margin-right: 10px;"></i> PRINT TICKET</button>
+                            </div>
+                        </div>
                     </div>
-                    <!-- Duplicate Button Removed -->
+                    <h4
+                        style="margin: 0; font-size: 11px; font-weight: 900; color: #8e8e93; text-transform: uppercase; letter-spacing: 1px;">
+                        Total Fare / एकूण भाडे</h4>
+                    <div class="price">₹ {{calculateFare()}}</div>
                 </div>
+                <!-- Duplicate Button Removed -->
             </div>
         </div>
+    </div>
     </div>
     </div>
     </div>
