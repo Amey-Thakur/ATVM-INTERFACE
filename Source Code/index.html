@@ -220,19 +220,34 @@
                                 </div>
                             </div>
 
-                            <!-- Route Visuals (Compact) -->
+                            <!-- Route Visuals (Restored Station Signs) -->
                             <div class="route-visual-row">
-                                <div class="station-node src">
-                                    <div class="node-dot"></div>
-                                    <div class="node-name">{{sourceStation.name}}</div>
+                                <div class="route-point">
+                                    <div class="label"
+                                        style="font-size: 10px; color: #888; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;">
+                                        Source</div>
+                                    <div class="station-sign">
+                                        <div class="diamond"></div>
+                                        <div class="circle"></div>
+                                        <div class="bar">{{sourceStation.name}}</div>
+                                    </div>
                                 </div>
+
                                 <div class="route-arrow">
-                                    <i class="fas fa-arrow-right"></i>
-                                    <div class="journey-badge" ng-show="journeyType === 'Return'">RETURN</div>
+                                    <i class="fas fa-arrow-right" style="color: #ccc; font-size: 16px;"></i>
+                                    <div class="journey-badge" ng-show="journeyType === 'Return'"
+                                        style="font-size: 10px; margin-top: 5px;">RETURN</div>
                                 </div>
-                                <div class="station-node dest">
-                                    <div class="node-dot"></div>
-                                    <div class="node-name">{{destinationStation.name}}</div>
+
+                                <div class="route-point">
+                                    <div class="label"
+                                        style="font-size: 10px; color: #888; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;">
+                                        Destination</div>
+                                    <div class="station-sign">
+                                        <div class="diamond"></div>
+                                        <div class="circle"></div>
+                                        <div class="bar">{{destinationStation.name}}</div>
+                                    </div>
                                 </div>
                             </div>
 
