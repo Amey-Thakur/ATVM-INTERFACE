@@ -505,6 +505,7 @@ body::after {
     transform: translateY(-2px);
 }
 
+/* Station Dot Sonar Ripple */
 .station-dot {
     width: 8px;
     height: 8px;
@@ -512,6 +513,62 @@ body::after {
     border: 2px solid #fff;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
+    position: relative;
+    z-index: 1;
+}
+
+.station-dot::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: inherit;
+    z-index: -1;
+    opacity: 0;
+}
+
+/* Animations Keyframes */
+@keyframes sonarWave {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(4);
+        opacity: 0;
+    }
+}
+
+@keyframes trainChug {
+    0% {
+        transform: translateX(var(--tx)) scale(1.4) translateY(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateX(var(--tx)) scale(1.4) translateY(-1px) rotate(-5deg);
+    }
+
+    50% {
+        transform: translateX(var(--tx)) scale(1.4) translateY(0) rotate(0deg);
+    }
+
+    75% {
+        transform: translateX(var(--tx)) scale(1.4) translateY(-1px) rotate(5deg);
+    }
+
+    100% {
+        transform: translateX(var(--tx)) scale(1.4) translateY(0) rotate(0deg);
+    }
+}
+
+/* Trigger Animations */
+.station-link:hover .station-dot::after {
+    animation: sonarWave 1s infinite cubic-bezier(0, 0, 0.2, 1);
 }
 
 .wr-dot {
@@ -556,9 +613,11 @@ body::after {
 
 /* 1. Hover AMEY (Left) */
 .dev-route:has(.amey-link:hover) .fa-train {
-    transform: translateX(-24px) scale(1.4);
+    --tx: -24px;
+    transform: translateX(var(--tx)) scale(1.4);
     color: var(--wr-red);
-    /* Train becomes Red */
+    animation: trainChug 0.4s infinite linear;
+    /* Wiggle as it moves */
 }
 
 .dev-route:has(.amey-link:hover) .line-segment {
@@ -582,9 +641,11 @@ body::after {
 
 /* 2. Hover MEGA (Right) */
 .dev-route:has(.mega-link:hover) .fa-train {
-    transform: translateX(24px) scale(1.4);
+    --tx: 24px;
+    transform: translateX(var(--tx)) scale(1.4);
     color: var(--mumbai-blue);
-    /* Train becomes Blue */
+    animation: trainChug 0.4s infinite linear;
+    /* Wiggle as it moves */
 }
 
 .dev-route:has(.mega-link:hover) .line-segment {
