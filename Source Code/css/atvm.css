@@ -492,19 +492,30 @@ body::after {
 .lifeline-header {
     background: #005eb8;
     /* Match the generated image blue BG */
-    padding: 15px 0 10px 0;
-    text-align: center;
-    border-bottom: 4px solid #fff;
+    height: 80px;
+    /* FIXED HEIGHT TO SAVE SPACE */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
-    border-radius: 12px 12px 0 0;
-    /* Top rounding to match panel */
+    margin-bottom: 5px;
+    /* Reduced margin */
+    border-radius: 0;
+    /* Full width strip look? Or keep rounded top? Keep rounded if panel has it. */
+    flex-shrink: 0;
+    /* Prevent collapsing */
 }
 
 .lifeline-header img {
-    max-width: 90%;
-    height: auto;
-    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+    height: 100%;
+    width: auto;
+    /* Maintain aspect ratio */
+    max-width: 100%;
+    object-fit: contain;
+    /* Ensure whole banner is visible */
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
     transition: transform 0.3s;
 }
 
