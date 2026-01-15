@@ -541,6 +541,17 @@ body::after {
 }
 
 /* Ensure links are handled if we want clickability, but for now just visual badges as requested */
+.station-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.station-link:hover .dev-station {
+    background: #e5e5ea;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
 
 .premium-loader {
     position: fixed;
