@@ -531,7 +531,7 @@ body::after {
     opacity: 0;
 }
 
-/* Animations Keyframes */
+/* Station Dot Sonar Ripple */
 @keyframes sonarWave {
     0% {
         transform: translate(-50%, -50%) scale(1);
@@ -541,6 +541,31 @@ body::after {
     100% {
         transform: translate(-50%, -50%) scale(4);
         opacity: 0;
+    }
+}
+
+/* Train Sway Animation (New Vibe) */
+@keyframes swayLeft {
+
+    0%,
+    100% {
+        transform: translateX(-24px) scale(1.4) rotate(-3deg);
+    }
+
+    50% {
+        transform: translateX(-24px) scale(1.4) rotate(3deg);
+    }
+}
+
+@keyframes swayRight {
+
+    0%,
+    100% {
+        transform: translateX(24px) scale(1.4) rotate(3deg);
+    }
+
+    50% {
+        transform: translateX(24px) scale(1.4) rotate(-3deg);
     }
 }
 
@@ -582,8 +607,8 @@ body::after {
 }
 
 .route-line-connector .fa-train {
-    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    /* Bouncy train */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Smooth elastic transition */
     z-index: 2;
 }
 
@@ -591,9 +616,10 @@ body::after {
 
 /* 1. Hover AMEY (Left) */
 .dev-route:has(.amey-link:hover) .fa-train {
-    transform: translateX(-24px) scale(1.4);
+    /* Base transform handled by animation */
     color: var(--wr-red);
-    /* Train becomes Red */
+    animation: swayLeft 2s infinite ease-in-out;
+    /* Gentle idle sway */
 }
 
 .dev-route:has(.amey-link:hover) .line-segment {
@@ -617,9 +643,10 @@ body::after {
 
 /* 2. Hover MEGA (Right) */
 .dev-route:has(.mega-link:hover) .fa-train {
-    transform: translateX(24px) scale(1.4);
+    /* Base transform handled by animation */
     color: var(--mumbai-blue);
-    /* Train becomes Blue */
+    animation: swayRight 2s infinite ease-in-out;
+    /* Gentle idle sway */
 }
 
 .dev-route:has(.mega-link:hover) .line-segment {
