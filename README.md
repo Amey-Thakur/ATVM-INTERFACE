@@ -150,13 +150,13 @@ ATVM-INTERFACE/
 This repository is openly shared to support learning and knowledge exchange across the academic community.
 
 **For Students**  
-Use this project as a reference for HMI design, state management in simulated interfaces, and the organization of static web projects.
+Use this project as reference material for understanding interactive system design, web development patterns, and Human Machine Interaction principles. The source code is available for study to facilitate self-paced learning.
 
 **For Educators**  
-This project may be used as a supplementary resource for teaching Human-Computer Interaction basics. Attribution is appreciated when utilizing content.
+This project may serve as a practical lab example or supplementary teaching resource for Human Machine Interaction courses. Attribution is appreciated when utilizing content.
 
 **For Researchers**  
-The technical specification and metadata provide insights into the implementation of public utility interface simulations.
+The documentation and design approach may provide insights into academic project structuring and interactive web application development.
 
 ---
 
