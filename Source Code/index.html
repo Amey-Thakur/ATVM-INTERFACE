@@ -207,7 +207,8 @@
                         <div class="ticket-body">
 
                             <!-- Journey Type Selector (Segmented Control) -->
-                            <div class="journey-type-control">
+                            <div class="journey-type-control" ng-class="{'mode-return': journeyType === 'Return'}">
+                                <div class="glider"></div>
                                 <div class="segment-option" ng-class="{active: journeyType === 'Single'}"
                                     ng-click="setJourneyType('Single')">
                                     <div class="seg-label">SINGLE</div>
