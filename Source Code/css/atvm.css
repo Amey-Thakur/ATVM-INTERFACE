@@ -1090,26 +1090,24 @@ body::after {
     /* Contain the watermark */
 }
 
-/* Background Watermark (Right Section) */
+/* Background Watermark (Full Section Centered) */
 .main-interface::after {
     content: '';
     position: absolute;
     top: 0;
     bottom: 0;
+    left: 0;
     right: 0;
-    width: 60%;
-    /* Cover slightly more than half */
-    background: url('../images/mumbai_lifeline_header.png') no-repeat right center;
-    background-size: auto 100%;
-    /* Full height */
-    opacity: 0.12;
-    /* Visible but subtle */
+    width: 100%;
+    height: 100%;
+    background: url('../images/mumbai_lifeline_header.png') no-repeat center center;
+    background-size: 85%;
+    /* Large, centered, proportional */
+    opacity: 0.08;
+    /* Very subtle texture */
     pointer-events: none;
     z-index: 0;
     mix-blend-mode: multiply;
-    mask-image: linear-gradient(to right, transparent, black 80%);
-    /* Fade in */
-    -webkit-mask-image: linear-gradient(to right, transparent, black 80%);
 }
 
 /* Ticket Card (Clean white) */
