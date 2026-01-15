@@ -590,8 +590,8 @@ body::after {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
+    background: transparent;
+    /* Changed from opaque to transparent so animation shows through */
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
