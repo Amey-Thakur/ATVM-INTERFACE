@@ -146,7 +146,7 @@
 
                 <div class="search-container">
                     <input type="text" class="search-input" placeholder="Search Station / स्थानक शोधा..."
-                        ng-model="searchText">
+                        ng-model="searchText" ng-keydown="$event.keyCode === 13 && selectFirstResult()">
                     <i class="fas fa-search search-icon"></i>
                 </div>
 
