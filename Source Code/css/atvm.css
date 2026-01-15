@@ -755,41 +755,38 @@ body::after {
 /* --- SEARCH BAR --- */
 /* --- SEARCH BAR --- */
 .search-container {
-    padding: 5px 30px 20px;
+    padding: 10px 30px;
+    /* Balanced padding for easier centering */
     background: transparent;
-    /* Seamless with side-panel pattern */
     position: relative;
-    /* For icon positioning */
 }
 
 .search-input {
     width: 100%;
     box-sizing: border-box;
     padding: 16px 24px 16px 54px;
-    /* Left padding for icon space */
+    /* Space for icon */
     border-radius: 18px;
     border: 1px solid rgba(0, 0, 0, 0.08);
-    /* Softer border */
     background: #fff;
-    /* Crisp white */
     font-size: 16px;
     font-weight: 600;
     color: #1c1c1e;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-    /* Subtle float */
 }
 
 .search-icon {
     position: absolute;
-    top: 40%;
-    left: 50px;
-    /* 30px padding + 20px margin roughly */
+    top: 50%;
+    transform: translateY(-50%);
+    left: 48px;
+    /* 30px container pad + 18px indent */
     font-size: 18px;
     color: var(--mumbai-blue);
-    opacity: 0.7;
+    opacity: 0.8;
     pointer-events: none;
-    transform: translateY(-5px);
+    z-index: 2;
 }
 
 .search-input:focus {
