@@ -753,20 +753,21 @@ body::after {
 
 
 /* --- SEARCH BAR --- */
-.search-wrapper {
+/* --- SEARCH BAR --- */
+.search-container {
     padding: 5px 30px 20px;
-    /* Reduced top padding significantly */
     background: transparent;
     /* Seamless with side-panel pattern */
+    position: relative;
+    /* For icon positioning */
 }
 
 .search-input {
     width: 100%;
     box-sizing: border-box;
-    /* Fix sizing issues */
-    padding: 16px 24px;
+    padding: 16px 24px 16px 54px;
+    /* Left padding for icon space */
     border-radius: 18px;
-    /* High-end rounded look */
     border: 1px solid rgba(0, 0, 0, 0.08);
     /* Softer border */
     background: #fff;
@@ -777,6 +778,18 @@ body::after {
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
     /* Subtle float */
+}
+
+.search-icon {
+    position: absolute;
+    top: 40%;
+    left: 50px;
+    /* 30px padding + 20px margin roughly */
+    font-size: 18px;
+    color: var(--mumbai-blue);
+    opacity: 0.7;
+    pointer-events: none;
+    transform: translateY(-5px);
 }
 
 .search-input:focus {
