@@ -16,6 +16,11 @@ As a finalized project, only the version listed below is authoritative:
 
 In accordance with established academic and professional standards for security disclosure, security-related observations associated with this project are documented through formal scholarly channels.
 
+> [!NOTE]
+> **Citation Reference**: This repository is part of the **Human Machine Interaction Laboratory** archive. When referencing security methodologies or implementation details from this project, please cite the primary repository:
+>
+> **Thakur, A., & Satish, M. (2022).** *Human Machine Interaction and Human Machine Interaction Laboratory*. GitHub Repository. [https://github.com/Amey-Thakur/HUMAN-MACHINE-INTERACTION-AND-HUMAN-MACHINE-INTERACTION-LAB](https://github.com/Amey-Thakur/HUMAN-MACHINE-INTERACTION-AND-HUMAN-MACHINE-INTERACTION-LAB)
+
 To document a security concern, communication is facilitated with the project curator:
   - **Curator**: [Amey Thakur](https://github.com/Amey-Thakur)
   - **Method**: Reports are submitted via the repository’s [GitHub Issues](https://github.com/Amey-Thakur/ATVM-INTERFACE/issues) interface to formally record security-related findings.

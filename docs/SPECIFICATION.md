@@ -1,4 +1,4 @@
-# Technical Specification: ATVM-INTERFACE
+# ATVM | Interface
 
 ## Architectural Overview
 
