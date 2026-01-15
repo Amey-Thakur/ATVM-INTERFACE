@@ -429,11 +429,11 @@ function atvmController($scope) {
         const baseFare = stage ? stage.fare : 35; // Cap at 35
 
         // Calculate total for multiple passengers
-        let total = (baseFare * $scope.noOfAdults) +
-            (Math.ceil(baseFare / 2) * $scope.noOfChildren);
+        let total = (baseFare * $scope.adults) +
+            (Math.ceil(baseFare / 2) * $scope.children);
 
         // Apply return ticket multiplier
-        if ($scope.returnTicket) total *= 2;
+        if ($scope.journeyType === 'Return') total *= 2;
 
         return total;
     };
