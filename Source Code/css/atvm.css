@@ -609,8 +609,8 @@ body::after {
     left: -26px;
     /* Move Left using Left property */
     color: var(--wr-red);
-    animation: sway 2.5s infinite ease-in-out;
-    /* Sway using Transform */
+    animation: sway 0.6s infinite ease-in-out;
+    /* Energetic Sway */
 }
 
 .dev-route:has(.amey-link:hover) .line-segment {
@@ -637,8 +637,8 @@ body::after {
     left: 26px;
     /* Move Right using Left property */
     color: var(--mumbai-blue);
-    animation: sway 2.5s infinite ease-in-out -1.25s;
-    /* Sway with offset */
+    animation: sway 0.6s infinite ease-in-out -0.3s;
+    /* Energetic Sway with offset */
 }
 
 .dev-route:has(.mega-link:hover) .line-segment {
