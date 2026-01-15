@@ -1078,6 +1078,50 @@ body::after {
     box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
 }
 
+/* --- Main Interface Area --- */
+.main-interface {
+    flex: 1;
+    background: #f5f5f7;
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    /* Contain the watermark */
+}
+
+/* Background Watermark */
+.main-interface::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    /* Slight offset */
+    right: -20px;
+    width: 600px;
+    /* Large but not overwhelming */
+    height: 400px;
+    background: url('../images/mumbai_lifeline_header.png') no-repeat bottom right;
+    background-size: contain;
+    opacity: 0.1;
+    /* Subtle watermark feel */
+    pointer-events: none;
+    z-index: 0;
+    mix-blend-mode: multiply;
+    /* Better blending with grey bg */
+}
+
+.ticket-canvas,
+.dash-header {
+    position: relative;
+    z-index: 2;
+    /* Ensure content stays above watermark */
+}
+
+h2 {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
 .premium-loader {
     position: fixed;
     inset: 0;
