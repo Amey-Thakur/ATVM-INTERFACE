@@ -1418,6 +1418,16 @@ body::after {
     width: 100%;
 }
 
+.ticket-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 25px;
+    /* Match ticket-body padding */
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
 /* Journey Type Segmented Control (Apple Sliding Pill) */
 .journey-type-control,
 .mode-selector {
