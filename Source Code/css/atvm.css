@@ -478,11 +478,12 @@ body::after {
     box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
 }
 
-.footer-separator {
-    height: 20px;
-    width: 2px;
-    background-color: #e5e5ea;
-    border-radius: 2px;
+.footer-pipe {
+    color: #c7c7cc;
+    font-size: 20px;
+    font-weight: 300;
+    margin: 0 10px;
+    /* Adjust gap/spacing handled by flex gap, but this fine tunes it */
 }
 
 /* --- ASSET INTEGRATION STYLES --- */
