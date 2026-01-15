@@ -861,15 +861,30 @@ body::after {
     /* Slide Right */
 }
 
-/* Active State (Premium Apple Gradient) */
+/* Active State (Premium Apple Gradient with Animation) */
 .station-item.active {
-    background: linear-gradient(135deg, #007aff, #0056b3);
-    /* Vibrant Blue Gradient */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    /* Subtle Glass Edge */
-    box-shadow: 0 8px 25px rgba(0, 122, 255, 0.35);
-    /* Premium Glow */
+    background: linear-gradient(120deg, #007aff, #005ecb, #007aff);
+    /* Extended Gradient */
+    background-size: 200% 200%;
+    animation: gradientShift 4s ease infinite;
+    /* Subtle continuous movement */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 25px rgba(0, 122, 255, 0.4);
     transform: scale(1.0);
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .station-item.active .station-name-en,
@@ -877,8 +892,7 @@ body::after {
 .station-item.active .fa-chevron-right {
     color: #fff !important;
     opacity: 1 !important;
-    text-shadow: none;
-    /* Clean Look */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Remove the colored strip in active state for a cleaner look */
@@ -886,22 +900,12 @@ body::after {
     display: none;
 }
 
-/* Active Station Sign Contrast (Glassy White Theme) */
-.station-item.active .station-sign .diamond {
-    background: #fff;
-    border-color: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.station-item.active .station-sign .circle {
-    border-color: rgba(255, 255, 255, 0.9);
-}
-
-.station-item.active .station-sign .bar {
-    background: #fff;
-    color: #007aff;
-    /* Blue Text inside white bar */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+/* Ensure Station Sign is Visible on Blue Background (Halo Effect) */
+.station-item.active .station-sign {
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+    /* White Glow to separate from background */
+    transform: scale(0.75);
+    /* Slight pop */
 }
 
 .station-name-group {
