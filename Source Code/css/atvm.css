@@ -854,6 +854,17 @@ body::after {
     color: #1c1c1e;
 }
 
+/* Lifeline Logo in Header */
+.lifeline-logo-header {
+    height: 55px;
+    /* Matches header scale */
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.15));
+    border-radius: 8px;
+    /* Slight rounding if it has square corners */
+}
+
 .side-header p {
     margin: 4px 0 0 0;
     font-size: 12px;
