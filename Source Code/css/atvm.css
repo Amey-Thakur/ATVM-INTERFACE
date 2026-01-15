@@ -836,7 +836,6 @@ body::after {
 }
 
 /* Dynamic Line Colors on Hover/Active */
-/* Dynamic Line Colors on Hover/Active */
 .station-item:hover::before {
     background: var(--mumbai-blue);
     width: 8px;
@@ -850,6 +849,18 @@ body::after {
     z-index: 5;
 }
 
+/* Arrow Animation */
+.station-item .fa-chevron-right {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.station-item:hover .fa-chevron-right {
+    opacity: 1 !important;
+    color: var(--mumbai-blue);
+    transform: translateX(4px);
+    /* Slide Right */
+}
+
 /* Active State (Selected) */
 .station-item.active {
     background: var(--mumbai-blue);
@@ -860,8 +871,10 @@ body::after {
 }
 
 .station-item.active .station-name-en,
-.station-item.active .station-name-mr {
-    color: #fff;
+.station-item.active .station-name-mr,
+.station-item.active .fa-chevron-right {
+    color: #fff !important;
+    opacity: 0.9 !important;
 }
 
 .station-item.active::before {
