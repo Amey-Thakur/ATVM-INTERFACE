@@ -1426,47 +1426,70 @@ body::after {
     z-index: -1;
 }
 
-/* The Moving Dot (Train) */
+/* The Moving Train */
 .ticket::after {
-    content: '●';
+    content: '🚆';
     position: absolute;
-    color: #007aff;
-    font-size: 14px;
-    text-shadow: 0 0 10px rgba(0, 122, 255, 0.5);
+    font-size: 20px;
     z-index: 0;
     pointer-events: none;
-    animation: trainMove 8s infinite linear;
+    animation: trainMove 10s infinite linear;
+    filter: drop-shadow(0 0 5px rgba(0, 122, 255, 0.4));
 }
 
 @keyframes trainMove {
     0% {
         top: 10px;
         left: 10px;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    24.9% {
+        top: 10px;
+        left: calc(100% - 10px);
+        transform: translate(-50%, -50%) rotate(90deg);
     }
 
     25% {
         top: 10px;
         left: calc(100% - 10px);
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%) rotate(180deg);
+    }
+
+    49.9% {
+        top: calc(100% - 10px);
+        left: calc(100% - 10px);
+        transform: translate(-50%, -50%) rotate(180deg);
     }
 
     50% {
         top: calc(100% - 10px);
         left: calc(100% - 10px);
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%) rotate(270deg);
+    }
+
+    74.9% {
+        top: calc(100% - 10px);
+        left: 10px;
+        transform: translate(-50%, -50%) rotate(270deg);
     }
 
     75% {
         top: calc(100% - 10px);
         left: 10px;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    99.9% {
+        top: 10px;
+        left: 10px;
+        transform: translate(-50%, -50%) rotate(0deg);
     }
 
     100% {
         top: 10px;
         left: 10px;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%) rotate(90deg);
     }
 }
 
