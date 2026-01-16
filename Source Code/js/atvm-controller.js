@@ -2,7 +2,7 @@
  * Project: ATVM Interface
  * File: atvm-controller.js
  * Date: January 16, 2026
- * Description: AngularJS controller for handling ATVM logic with real Mumbai Western Line data. (v2.7)
+ * Description: AngularJS controller for handling ATVM logic with real Mumbai Western Line data. (v2.8)
  * 
  * Created by: Amey Thakur (https://github.com/Amey-Thakur) & Mega Satish (https://github.com/msatmod)
  * Repository: https://github.com/Amey-Thakur/ATVM-INTERFACE
@@ -18,7 +18,7 @@
 //   CONSOLE EASTER EGG 🚇
 // =========================================
 console.log(
-    "%c🚇 ATVM Interface - Mumbai Western Railway (v2.7)",
+    "%c🚇 ATVM Interface - Mumbai Western Railway (v2.8)",
     "font-size: 24px; font-weight: bold; color: #ef4444; text-shadow: 2px 2px 0 #0f172a;"
 );
 console.log(
@@ -269,41 +269,33 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
         }
     };
 
-    // 3. Share Ticket (Custom Overlay)
-    $scope.showShareOptions = false;
+    // 3. Share Ticket (Universal Native Share)
     $scope.shareTicket = function () {
-        $scope.showShareOptions = true;
-    };
+        var journeyInfo = "🎫 MUMBAI LOCAL TICKET\n" +
+            "Journey: " + $scope.sourceStation.name + " ➔ " + $scope.destinationStation.name + "\n" +
+            "Type: " + $scope.journeyType + " (" + $scope.ticketClass + ")\n" +
+            "Fare: ₹ " + $scope.calculateFare() + ".00\n\n";
 
-    $scope.sendSocial = function (platform) {
-        var baseMsg = "🎫 MUMBAI LOCAL TICKET\n" +
-            "I've booked my journey from " + $scope.sourceStation.name + " to " + $scope.destinationStation.name + "!\n\n" +
-            "\"Wishing you a safe and pleasant journey on Mumbai Lifeline!\"\n\n" +
+        var shareMessage = "\"Wishing you a safe and pleasant journey on Mumbai Lifeline!\"\n\n" +
             "✨ DESIGNED & DEVELOPED BY:\n" +
             "• AMEY THAKUR (https://github.com/Amey-Thakur)\n" +
             "• MEGA SATISH (https://github.com/msatmod)\n\n" +
-            "Project Link: ";
+            "Checkout Project: https://github.com/Amey-Thakur/ATVM-INTERFACE";
 
-        var url = "https://github.com/Amey-Thakur/ATVM-INTERFACE";
-        var fullText = baseMsg + url;
-        var encodedText = encodeURIComponent(fullText);
+        var fullPayload = journeyInfo + shareMessage;
 
-        var shareUrl = "";
-        switch (platform) {
-            case 'whatsapp':
-                shareUrl = "https://api.whatsapp.com/send?text=" + encodedText;
-                break;
-            case 'twitter':
-                shareUrl = "https://twitter.com/intent/tweet?text=" + encodedText;
-                break;
-            case 'linkedin':
-                shareUrl = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(url);
-                break;
-        }
-
-        if (shareUrl) {
-            window.open(shareUrl, '_blank');
-            $scope.showShareOptions = false;
+        if (navigator.share) {
+            navigator.share({
+                title: 'Mumbai Local Ticket',
+                text: fullPayload,
+                url: window.location.href // Fallback URL
+            }).catch(function (err) {
+                console.log('Native share failed or cancelled:', err);
+            });
+        } else {
+            // Fallback for browsers without share API (like some older desktop browsers)
+            $scope.copyTicketText();
+            alert("Native sharing not available. Ticket details copied to clipboard instead!");
         }
     };
 
