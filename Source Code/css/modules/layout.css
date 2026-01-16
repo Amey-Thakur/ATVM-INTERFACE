@@ -1,10 +1,13 @@
 /* --- Main Structure & Layout --- */
 .main-container {
-    height: 100vh;
+    position: fixed;
+    /* STEP 2: FIX CONTAINER SIZING */
+    inset: 0;
     width: 100%;
-    /* Fixed: avoid 100vw scroll */
-    padding: 0;
+    height: 100%;
     overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 body::before {
