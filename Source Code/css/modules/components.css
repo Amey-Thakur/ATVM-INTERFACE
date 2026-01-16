@@ -59,15 +59,15 @@
 
 /* Large Variant for Ticket Dashboard */
 .station-sign.large {
-    transform: scale(1.5);
-    /* Significantly larger */
-    margin: 20px 0;
+    transform: scale(1.8);
+    /* Even larger for hero display */
+    margin: 30px 0;
 }
 
 .station-sign.large .bar {
-    min-width: 90px;
-    font-size: 9px;
-    height: 20px;
+    min-width: 100px;
+    font-size: 10px;
+    height: 22px;
 }
 
 /* --- Station Item Wrapper (M-Indicator Style) --- */

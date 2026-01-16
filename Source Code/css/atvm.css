@@ -2148,15 +2148,16 @@ body::after {
 
 /* Compact Route Visual */
 /* Compact Route Visual */
+/* Expanded Route Visual */
 .route-visual-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     background: #f9f9fa;
-    padding: 10px 15px;
-    /* Compressed padding */
-    border-radius: 12px;
+    padding: 30px 40px;
+    border-radius: 20px;
     border: 1px solid rgba(0, 0, 0, 0.05);
+    margin: 15px 0;
 }
 
 .station-node {
