@@ -2534,7 +2534,8 @@ input {
 .controls-row {
     display: flex;
     gap: 15px;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
+    /* Reduced from 25px to fix whitespace */
 }
 
 /* --- Class Selector (Toggle) --- */
@@ -2558,9 +2559,9 @@ input {
 }
 
 .class-selector-control.class-first {
-    background: #fdf4d8;
-    /* Pale Gold for First Class */
-    border: 1px solid #d4af37;
+    /* Removed Yellow Background to match Single/Return style */
+    background: #e5e5ea;
+    border: none;
 }
 
 .class-glider {
@@ -2578,7 +2579,8 @@ input {
 
 .class-selector-control.class-first .class-glider {
     transform: translateX(100%);
-    background: linear-gradient(135deg, #d4af37 0%, #c5a028 100%);
+    background: #fff;
+    /* Changed from Gold Gradient to White to match */
 }
 
 .class-option {
@@ -2597,9 +2599,9 @@ input {
 }
 
 .class-selector-control.class-first .class-option.active {
-    color: #fff;
-    /* White text on Gold glider */
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    color: #1c1c1e;
+    /* Changed from White to Dark to match */
+    text-shadow: none;
 }
 
 .class-label {
