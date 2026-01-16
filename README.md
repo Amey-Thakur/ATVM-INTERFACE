@@ -82,7 +82,7 @@ The development of this interface was guided by core **Human-Machine Interaction
 - **Imaging**: **html2canvas** (Custom high-fidelity capture engine)
 - **UI System**: Bootstrap 3 (Customized), Font Awesome 6
 - **Deployment**: GitHub Actions (Staging Workflow), GitHub Pages
-- **Authorship**: Digitally signed ticket exports for **Amey & Mega** ✍️ 🚂
+- **Authorship**: Digitally signed ticket exports for **Amey & Mega** ✍🏻 🚂
 
 ---
 
