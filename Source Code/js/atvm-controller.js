@@ -2,7 +2,7 @@
  * Project: ATVM Interface
  * File: atvm-controller.js
  * Date: January 16, 2026
- * Description: AngularJS controller for handling ATVM logic with real Mumbai Western Line data. (v3.0)
+ * Description: AngularJS controller for handling ATVM logic with real Mumbai Western Line data. (v3.1)
  * 
  * Created by: Amey Thakur (https://github.com/Amey-Thakur) & Mega Satish (https://github.com/msatmod)
  * Repository: https://github.com/Amey-Thakur/ATVM-INTERFACE
@@ -18,7 +18,7 @@
 //   CONSOLE EASTER EGG 🚇
 // =========================================
 console.log(
-    "%c🚇 ATVM Interface - Mumbai Western Railway (v3.0)",
+    "%c🚇 ATVM Interface - Mumbai Western Railway (v3.1)",
     "font-size: 24px; font-weight: bold; color: #ef4444; text-shadow: 2px 2px 0 #0f172a;"
 );
 console.log(
@@ -262,23 +262,31 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
             container.appendChild(clone);
 
             html2canvas(clone, {
-                scale: 2, // Standard high-quality
+                scale: 2,
                 useCORS: true,
-                allowTaint: true, // Fallback for file:// protocol
+                allowTaint: true,
                 backgroundColor: "#ffffff",
                 logging: false,
                 width: 820
             }).then(function (canvas) {
                 try {
+                    var imgData = canvas.toDataURL('image/png', 1.0);
                     var link = document.createElement('a');
-                    link.download = 'MUMBAI_LOCAL_TICKET_' + $scope.ticketId + '.png';
-                    link.href = canvas.toDataURL('image/png', 1.0);
+                    link.download = 'MUMBAI_TICKET_' + $scope.ticketId + '.png';
+                    link.href = imgData;
+
+                    // Standard Download
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
+
+                    // Success Feedback
+                    console.log("Download triggered effectively.");
                 } catch (e) {
-                    console.error("Canvas toDataURL failed:", e);
-                    alert("Capture successful, but your browser blocked the file save. Try using a local server or a different browser.");
+                    console.error("Standard download failed, trying tab-fallback:", e);
+                    // Fallback: Open in new window for manual saving
+                    var win = window.open();
+                    win.document.write('<img src="' + canvas.toDataURL() + '" style="max-width:100%; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.2);"><p style="font-family:sans-serif; text-align:center; color:#666;">Right-click and "Save Image As" to download your ticket.</p>');
                 }
                 document.body.removeChild(container);
             }).catch(function (err) {
