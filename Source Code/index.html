@@ -337,78 +337,96 @@
                     </div> <!-- End of .ticket -->
                 </div> <!-- End of .ticket-canvas -->
 
-                <!-- Hidden Shareable Ticket Template -->
-                <div id="shareable-ticket-template" class="share-ticket-wrapper">
-                    <div class="share-ticket">
-                        <div class="st-header">
-                            <img src="images/mumbai_modern_monogram_logo.png" class="st-logo">
-                            <div class="st-rail-info">
-                                <h2>INDIAN RAILWAYS / भारतीय रेल</h2>
-                                <p>CENTRAL RAILWAY / मध्य रेल</p>
-                            </div>
-                            <div class="st-type-badge">UTS</div>
+                <!-- Ticket Preview Modal -->
+                <div class="ticket-modal-overlay" ng-class="{active: showTicketModal}">
+                    <div class="modal-backdrop" ng-click="closeModal()"></div>
+                    <div class="ticket-modal-content">
+                        <div class="modal-header">
+                            <h3>TICKET PREVIEW / तिकीट झलक</h3>
+                            <button class="close-modal-btn" ng-click="closeModal()">✕</button>
                         </div>
 
-                        <div class="st-main">
-                            <div class="st-route">
-                                <div class="st-point">
-                                    <span class="st-label">SOURCE</span>
-                                    <span class="st-val">{{sourceStation.name}}</span>
+                        <!-- The Ticket Element for Capture -->
+                        <div id="shareable-ticket-template" class="share-ticket-wrapper"> <!-- IDs kept for capture -->
+                            <div class="share-ticket">
+                                <div class="st-header">
+                                    <img src="images/mumbai_modern_monogram_logo.png" class="st-logo">
+                                    <div class="st-rail-info">
+                                        <h2>INDIAN RAILWAYS / भारतीय रेल</h2>
+                                        <p>CENTRAL RAILWAY / मध्य रेल</p>
+                                    </div>
+                                    <div class="st-type-badge">UTS</div>
                                 </div>
-                                <div class="st-arrow">➔</div>
-                                <div class="st-point">
-                                    <span class="st-label">DESTINATION</span>
-                                    <span class="st-val">{{destinationStation.name}}</span>
-                                </div>
-                            </div>
 
-                            <div class="st-details-grid">
-                                <div class="st-item">
-                                    <span class="st-label">JOURNEY TYPE</span>
-                                    <span class="st-val">{{journeyType}}</span>
-                                </div>
-                                <div class="st-item">
-                                    <span class="st-label">CLASS</span>
-                                    <span class="st-val">SECOND (II)</span>
-                                </div>
-                                <div class="st-item">
-                                    <span class="st-label">ADULT</span>
-                                    <span class="st-val">{{adults}}</span>
-                                </div>
-                                <div class="st-item">
-                                    <span class="st-label">CHILD</span>
-                                    <span class="st-val">{{children}}</span>
-                                </div>
-                            </div>
+                                <div class="st-main">
+                                    <div class="st-route">
+                                        <div class="st-point">
+                                            <span class="st-label">SOURCE</span>
+                                            <span class="st-val">{{sourceStation.name}}</span>
+                                        </div>
+                                        <div class="st-arrow">➔</div>
+                                        <div class="st-point">
+                                            <span class="st-label">DESTINATION</span>
+                                            <span class="st-val">{{destinationStation.name}}</span>
+                                        </div>
+                                    </div>
 
-                            <div class="st-fare-sec">
-                                <span class="st-label">TOTAL FARE</span>
-                                <span class="st-price">₹ {{calculateFare()}}.00</span>
+                                    <div class="st-details-grid">
+                                        <div class="st-item">
+                                            <span class="st-label">JOURNEY TYPE</span>
+                                            <span class="st-val">{{journeyType}}</span>
+                                        </div>
+                                        <div class="st-item">
+                                            <span class="st-label">CLASS</span>
+                                            <span class="st-val">SECOND (II)</span>
+                                        </div>
+                                        <div class="st-item">
+                                            <span class="st-label">ADULT</span>
+                                            <span class="st-val">{{adults}}</span>
+                                        </div>
+                                        <div class="st-item">
+                                            <span class="st-label">CHILD</span>
+                                            <span class="st-val">{{children}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="st-fare-sec">
+                                        <span class="st-label">TOTAL FARE</span>
+                                        <span class="st-price">₹ {{calculateFare()}}.00</span>
+                                    </div>
+                                </div>
+
+                                <div class="st-meta">
+                                    <div class="st-meta-item">
+                                        <span class="st-label">TICKET ID</span>
+                                        <span class="st-val">#{{ticketId}}</span>
+                                    </div>
+                                    <div class="st-meta-item">
+                                        <span class="st-label">DATE / TIME</span>
+                                        <span class="st-val">{{timestamp}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="st-footer">
+                                    <div class="st-message">"Wishing you a safe and pleasant journey on Mumbai
+                                        Lifeline!"</div>
+                                    <div class="st-authorship">
+                                        DESIGNED & DEVELOPED BY <br>
+                                        <strong>AMEY THAKUR & MEGA SATISH</strong>
+                                    </div>
+                                </div>
+
+                                <div class="st-qr-code">
+                                    <i class="fas fa-qrcode"></i>
+                                    <p>SECURE UTS</p>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="st-meta">
-                            <div class="st-meta-item">
-                                <span class="st-label">TICKET ID</span>
-                                <span class="st-val">#{{ticketId}}</span>
-                            </div>
-                            <div class="st-meta-item">
-                                <span class="st-label">DATE / TIME</span>
-                                <span class="st-val">{{timestamp}}</span>
-                            </div>
-                        </div>
-
-                        <div class="st-footer">
-                            <div class="st-message">"Wishing you a safe and pleasant journey on Mumbai Lifeline!"</div>
-                            <div class="st-authorship">
-                                DESIGNED & DEVELOPED BY <br>
-                                <strong>AMEY THAKUR & MEGA SATISH</strong>
-                            </div>
-                        </div>
-
-                        <div class="st-qr-code">
-                            <i class="fas fa-qrcode"></i>
-                            <p>SECURE UTS</p>
+                        <div class="modal-footer">
+                            <button class="download-btn" ng-click="downloadTicket()">
+                                <i class="fas fa-download"></i> DOWNLOAD / डाउनलोड
+                            </button>
                         </div>
                     </div>
                 </div>

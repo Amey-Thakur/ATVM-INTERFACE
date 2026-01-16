@@ -226,7 +226,9 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
     // --- Shareable Ticket Export Logic ---
     $scope.ticketId = "UTS" + Math.floor(Math.random() * 900000 + 100000);
     $scope.timestamp = "";
+    $scope.showTicketModal = false; // New modal state
 
+    // 1. Generate Ticket -> Open Modal
     $scope.exportTicket = function () {
         // Fresh metadata
         $scope.ticketId = "UTS" + Math.floor(Math.random() * 900000 + 100000);
@@ -234,31 +236,41 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
         $scope.timestamp = now.toLocaleDateString('en-GB') + " | " +
             now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
 
-        // Small delay to ensure Angular has updated the hidden template
-        setTimeout(function () {
-            var element = document.getElementById('shareable-ticket-template');
+        // Open Modal
+        $scope.showTicketModal = true;
+    };
 
-            if (window.html2canvas) {
-                html2canvas(element, {
-                    scale: 2,
-                    useCORS: true,
-                    backgroundColor: null,
-                    logging: false
-                }).then(function (canvas) {
-                    var link = document.createElement('a');
-                    link.download = 'MUMBAI_LOCAL_TICKET_' + $scope.ticketId + '.png';
-                    link.href = canvas.toDataURL('image/png');
-                    document.body.appendChild(link); // Added for better browser support
-                    link.click();
-                    document.body.removeChild(link); // Cleanup
-                }).catch(function (err) {
-                    console.error("Export failed:", err);
-                });
-            } else {
-                console.error("html2canvas not loaded. Falling back to print.");
-                window.print();
-            }
-        }, 100);
+    // 2. Download Ticket -> Capture Hidden Template
+    $scope.downloadTicket = function () {
+        var element = document.getElementById('shareable-ticket-template');
+
+        if (window.html2canvas) {
+            // Add downloading state or feedback here if needed
+            html2canvas(element, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: null,
+                logging: false,
+                allowTaint: true
+            }).then(function (canvas) {
+                var link = document.createElement('a');
+                link.download = 'MUMBAI_LOCAL_TICKET_' + $scope.ticketId + '.png';
+                link.href = canvas.toDataURL('image/png');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }).catch(function (err) {
+                console.error("Export failed:", err);
+                alert("Sorry, ticket download failed. Please try again.");
+            });
+        } else {
+            console.error("html2canvas not loaded.");
+        }
+    };
+
+    // 3. Close Modal
+    $scope.closeModal = function () {
+        $scope.showTicketModal = false;
     };
 
 
