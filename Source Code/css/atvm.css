@@ -1927,7 +1927,8 @@ body::after {
 
 /* --- New Ticket Dashboard Layout (Compact) --- */
 .ticket-body {
-    padding: 8px 20px;
+    padding: 2px 20px 8px 20px;
+    /* Reduced top padding to pull controls up */
     display: flex;
     flex-direction: column;
     gap: 10px;
