@@ -2725,7 +2725,8 @@ input {
     z-index: 5001;
     background: #fff;
     border-radius: 24px;
-    padding: 15px;
+    padding: 10px;
+    /* Extra compression */
     box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2);
     transform: scale(0.9);
     transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
@@ -2733,11 +2734,9 @@ input {
     flex-direction: column;
     align-items: center;
     max-width: 95vw;
-    /* Wider for landscape */
-    max-height: 98vh;
-    /* Use full height */
+    max-height: 94vh;
+    /* Shrunk to avoid footer overlap */
     overflow-y: hidden;
-    /* No scroll needed now */
 }
 
 .ticket-modal-overlay.active .ticket-modal-content {
@@ -2749,10 +2748,8 @@ input {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
-    /* Reduced margin */
-    padding-bottom: 10px;
-    /* Reduced padding */
+    margin-bottom: 10px;
+    padding-bottom: 8px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
@@ -2801,8 +2798,7 @@ input {
 
 /* --- Modal Actions --- */
 .modal-actions {
-    margin-top: 15px;
-    /* Reduced margin */
+    margin-top: 10px;
     width: 100%;
     display: flex;
     gap: 15px;
@@ -2903,11 +2899,12 @@ input {
 }
 
 .share-ticket {
-    width: 850px;
-    /* Wide Rectangular */
+    width: 820px;
+    /* Slightly narrower to scale better */
     max-width: 100%;
     background: #fff;
-    padding: 25px;
+    padding: 18px;
+    /* Tighter padding */
     border-radius: 24px;
     font-family: 'Outfit', sans-serif;
     color: #1c1c1e;
@@ -2938,10 +2935,8 @@ input {
     align-items: center;
     gap: 15px;
     border-bottom: 2px solid #007aff;
-    padding-bottom: 10px;
-    /* Reduced padding */
-    margin-bottom: 15px;
-    /* Reduced margin */
+    padding-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .st-logo {
@@ -3069,12 +3064,12 @@ input {
 .st-meta {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
-    padding: 10px 20px;
+    margin-bottom: 10px;
+    padding: 8px 20px;
     background: rgba(0, 122, 255, 0.03);
     border-radius: 12px;
-    width: calc(100% - 100px);
-    /* Space for QR */
+    width: calc(100% - 130px);
+    /* More space for QR */
 }
 
 .st-meta .st-val {
@@ -3085,11 +3080,9 @@ input {
 
 .st-footer {
     text-align: left;
-    /* Aligned left now */
     border-top: 1px solid #f2f2f7;
-    padding-top: 15px;
-    width: calc(100% - 120px);
-    /* Space for QR */
+    padding-top: 10px;
+    width: calc(100% - 130px);
 }
 
 .st-message {
