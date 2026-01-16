@@ -242,33 +242,68 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
 
     // 2. Download Ticket -> Capture Hidden Template
     $scope.downloadTicket = function () {
-        var element = document.getElementById('shareable-ticket-template');
+        var element = document.querySelector('.share-ticket'); // Capture the actual ticket card
 
         if (window.html2canvas) {
-            // Add downloading state or feedback here if needed
             html2canvas(element, {
-                scale: 2,
+                scale: 3, // Higher quality
                 useCORS: true,
-                backgroundColor: null,
+                backgroundColor: "#ffffff",
                 logging: false,
-                allowTaint: true
+                allowTaint: false,
+                width: 820,
+                height: element.offsetHeight
             }).then(function (canvas) {
                 var link = document.createElement('a');
                 link.download = 'MUMBAI_LOCAL_TICKET_' + $scope.ticketId + '.png';
-                link.href = canvas.toDataURL('image/png');
+                link.href = canvas.toDataURL('image/png', 1.0);
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
             }).catch(function (err) {
                 console.error("Export failed:", err);
-                alert("Sorry, ticket download failed. Please try again.");
+                alert("Download failed. Please try again.");
             });
         } else {
-            console.error("html2canvas not loaded.");
+            alert("Error: Ticket engine not ready.");
         }
     };
 
-    // 3. Close Modal
+    // 3. Share Ticket
+    $scope.shareTicket = function () {
+        var shareData = {
+            title: 'Mumbai Local Ticket',
+            text: 'I just booked a ' + $scope.journeyType + ' ticket from ' + $scope.sourceStation.name + ' to ' + $scope.destinationStation.name + '!',
+            url: window.location.href
+        };
+
+        if (navigator.share) {
+            navigator.share(shareData).catch(function (err) {
+                console.log('Share failed:', err);
+            });
+        } else {
+            alert("Sharing not supported on this browser. Try copying the link!");
+        }
+    };
+
+    // 4. Copy Ticket Text
+    $scope.copyTicketText = function () {
+        var text = "🎫 MUMBAI LOCAL TICKET\n" +
+            "ID: #" + $scope.ticketId + "\n" +
+            "FROM: " + $scope.sourceStation.name + "\n" +
+            "TO: " + $scope.destinationStation.name + "\n" +
+            "TYPE: " + $scope.journeyType + " (" + $scope.ticketClass + ")\n" +
+            "FARE: ₹ " + $scope.calculateFare() + ".00\n" +
+            "DATE: " + $scope.timestamp;
+
+        navigator.clipboard.writeText(text).then(function () {
+            alert("Ticket details copied to clipboard!");
+        }, function () {
+            alert("Failed to copy ticket details.");
+        });
+    };
+
+    // 5. Close Modal
     $scope.closeModal = function () {
         $scope.showTicketModal = false;
     };
