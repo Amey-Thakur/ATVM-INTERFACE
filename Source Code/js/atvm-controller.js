@@ -81,7 +81,7 @@ function num2hindi(num) {
  */
 
 // --- Constants & Configuration ---
-const FARE_STAGES = [
+var FARE_STAGES = [
     { maxDist: 10, fare: 5 },
     { maxDist: 30, fare: 10 },
     { maxDist: 60, fare: 15 },
@@ -90,8 +90,127 @@ const FARE_STAGES = [
     { maxDist: Infinity, fare: 35 }
 ];
 
-function atvmController($scope) {
+var app = angular.module('atvmApp', []);
 
+app.controller('atvmController', ['$scope', '$interval', function ($scope, $interval) {
+
+    // --- Live Clock & Date ---
+    $scope.currentTime = "";
+    $scope.currentDate = "";
+
+    var updateDateTime = function () {
+        var now = new Date();
+
+        // Digital Data
+        $scope.currentTime = now.toLocaleTimeString('en-US', {
+            hour12: false,
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        $scope.currentDate = now.toLocaleDateString('en-US', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric'
+        }).toUpperCase();
+
+        // Analog Clock Rotations
+        var seconds = now.getSeconds();
+        var minutes = now.getMinutes();
+        var hours = now.getHours();
+
+        $scope.secRotation = seconds * 6; // 360/60
+        $scope.minRotation = (minutes * 6) + (seconds * 0.1); // 360/60 + partial
+        $scope.hourRotation = (hours % 12 * 30) + (minutes * 0.5); // 360/12 + partial
+    };
+
+    updateDateTime();
+    $interval(updateDateTime, 1000);
+
+    // --- Station Announcement Logic (Original Railway Aura) ---
+    $scope.isAnnouncing = false;
+
+    // Web Audio API Setup for "Station Reverb" and "Echo"
+    var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    $scope.playAnnouncement = function () {
+        if ($scope.isAnnouncing) return;
+        $scope.isAnnouncing = true;
+
+        var announcementText = {
+            mr: "आपले लक्ष असू द्या... प्लॅटफॉर्म क्रमांक एक वर... येणारी जलद लोकल... छत्र-पती, शिवाजी महाराज, टर्मिनससाठी आहे... कृपया गाडी आणि फलाटातील अंतराची नोंद घ्या, आणि सुरक्षितपणे प्रवा-स करा.",
+            hi: "कृपया ध्यान दें. प्लेटफार्म क्रमांक एक पर आने वाली तेज लोकल, छत्रपति शिवाजी महाराज टर्मिनस के लिए है. यात्रीगण कृपया ध्यान दें, गाड़ी और प्लेटफार्म के बीच की दूरी का ध्यान रखते हुए सुरक्षित यात्रा करें.",
+            en: "Attention please. The fast local for Chhatrapati Shivaji Maharaj Terminus is on platform number one. Passengers are requested to mind the gap between the train and the platform for a safe journey."
+        };
+
+        var synth = window.speechSynthesis;
+
+        var getBestVoice = function (langCode) {
+            var voices = synth.getVoices();
+            var filteredVoices = voices.filter(function (v) { return v.lang.startsWith(langCode); });
+
+            if (langCode === 'en') {
+                var indianVoice = voices.find(function (v) { return v.lang.startsWith('en-IN') && v.name.includes('Google'); });
+                if (indianVoice) return indianVoice;
+                indianVoice = voices.find(function (v) { return v.lang.startsWith('en-IN'); });
+                if (indianVoice) return indianVoice;
+            }
+
+            var voice = filteredVoices.find(function (v) { return v.name.includes('Google'); });
+            if (!voice) {
+                voice = filteredVoices[0];
+            }
+
+            if (!voice && langCode === 'mr') {
+                voice = voices.find(function (v) { return v.lang.startsWith('hi') && v.name.includes('Google'); }) ||
+                    voices.find(function (v) { return v.lang.startsWith('hi'); });
+            }
+            return voice;
+        };
+
+        var playStationVoice = function (text, lang, delay) {
+            if (delay === undefined) delay = 500;
+            return new Promise(function (resolve) {
+                setTimeout(function () {
+                    var utterance = new SpeechSynthesisUtterance(text);
+                    var voice = getBestVoice(lang.split('-')[0]);
+                    if (voice) utterance.voice = voice;
+
+                    utterance.lang = lang;
+                    utterance.rate = lang.startsWith('mr') ? 0.75 : 0.82;
+                    utterance.pitch = 0.95;
+                    utterance.onend = function () { resolve(); };
+                    synth.speak(utterance);
+                }, delay);
+            });
+        };
+
+        var playChime = function () {
+            return new Promise(function (resolve) {
+                var osc = audioCtx.createOscillator();
+                var gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(330, audioCtx.currentTime + 0.4);
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.8);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.8);
+                setTimeout(resolve, 800);
+            });
+        };
+
+        playChime()
+            .then(function () { return playStationVoice(announcementText.mr, 'mr-IN', 500); })
+            .then(function () { return playStationVoice(announcementText.hi, 'hi-IN', 800); })
+            .then(function () { return playStationVoice(announcementText.en, 'en-IN', 800); })
+            .then(function () {
+                $scope.isAnnouncing = false;
+                $scope.$apply();
+            });
+    };
     // Line Translations
     $scope.lineTranslations = {
         "Western Railway": "पश्चिम रेल्वे",
@@ -104,66 +223,40 @@ function atvmController($scope) {
         return $scope.lineTranslations[line] || "";
     };
 
-    // --- Interactive Train Animation (Grab & Move) ---
-    $scope.trainProgress = 0;
-    $scope.isDraggingTrain = false;
-    $scope.trainState = 'running';
+    // --- Shareable Ticket Export Logic ---
+    $scope.ticketId = "UTS" + Math.floor(Math.random() * 900000 + 100000);
+    $scope.timestamp = "";
 
-    $scope.startTrainDrag = function (e) {
-        $scope.isDraggingTrain = true;
-        $scope.trainState = 'paused';
-        if (e.buttons === 1) $scope.moveTrainDrag(e);
+    $scope.exportTicket = function () {
+        // Fresh metadata
+        $scope.ticketId = "UTS" + Math.floor(Math.random() * 900000 + 100000);
+        var now = new Date();
+        $scope.timestamp = now.toLocaleDateString('en-GB') + " | " +
+            now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+
+        // Small delay to ensure Angular has updated the hidden template
+        setTimeout(function () {
+            var element = document.getElementById('shareable-ticket-template');
+
+            if (window.html2canvas) {
+                html2canvas(element, {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: null,
+                    logging: false
+                }).then(function (canvas) {
+                    var link = document.createElement('a');
+                    link.download = 'MUMBAI_LOCAL_TICKET_' + $scope.ticketId + '.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                });
+            } else {
+                console.error("html2canvas not loaded. Falling back to print.");
+                window.print();
+            }
+        }, 100);
     };
 
-    $scope.stopTrainDrag = function () {
-        if (!$scope.isDraggingTrain) return;
-        $scope.isDraggingTrain = false;
-        $scope.trainState = 'running';
-        $scope.$applyAsync();
-    };
-
-    $scope.moveTrainDrag = function (e) {
-        if (!$scope.isDraggingTrain) return;
-
-        const ticket = document.querySelector('.ticket');
-        if (!ticket) return;
-
-        const rect = ticket.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const w = rect.width;
-        const h = rect.height;
-        const perim = 2 * (w + h);
-
-        // Snap mouse to perimeter for progress calculation
-        const dists = {
-            top: Math.abs(y),
-            bottom: Math.abs(y - h),
-            left: Math.abs(x),
-            right: Math.abs(x - w)
-        };
-
-        const side = Object.keys(dists).reduce((a, b) => dists[a] < dists[b] ? a : b);
-        let p = 0;
-
-        if (side === 'top') p = x;
-        else if (side === 'right') p = w + y;
-        else if (side === 'bottom') p = w + h + (w - x);
-        else if (side === 'left') p = 2 * w + h + (h - y);
-
-        $scope.trainProgress = Math.max(0, Math.min(1, p / perim));
-
-        // Apply CSS variables directly for high-performance scrubbing
-        ticket.style.setProperty('--train-progress', $scope.trainProgress);
-        ticket.style.setProperty('--train-state', $scope.trainState);
-    };
-
-    // Listen for global mouseup to stop dragging even if mouse leaves the ticket
-    document.addEventListener('mouseup', function () {
-        if ($scope.isDraggingTrain) {
-            $scope.stopTrainDrag();
-        }
-    });
 
     /**
      * Authentic Station Database 🚆
@@ -281,10 +374,8 @@ function atvmController($scope) {
     $scope.destinationStation = $scope.railwayData["Central Railway"][0]; // Default: CSMT
     $scope.showMap = false;
 
-    $scope.searchQuery = "";
-    $scope.noOfAdults = 1;
-    $scope.noOfChildren = 0;
-    $scope.returnTicket = false;
+    $scope.searchQuery = ""; // Note: Kept for internal logic if needed, but searchText is primary for UI
+    $scope.searchText = "";  // Added: Explicitly init searchText
 
     // --- Core Logic & Methods ---
 
@@ -308,49 +399,31 @@ function atvmController($scope) {
      * Sorts matches: Exact > Starts With > Contains.
      */
     $scope.getFilteredStations = function () {
-        const stations = $scope.railwayData[$scope.currentLine];
-        // Note: Check if $scope.searchText is used or $scope.searchQuery.
-        // User HTML said `ng-model="searchText"`.
-        // Controller line 210 defines `$scope.searchQuery`.
-        // Wait, line 149 HTML: `ng-model="searchText"`.
-        // Line 234 JS: `if (!$scope.searchQuery)`.
-        // One of them is wrong or they are synced?
-        // Let's assume HTML `searchText` is correct and JS needs update if mismatch.
-        // But wait, I see `ng-model="searchText"` in HTML snippet step 849.
-        // JS uses `searchQuery`. This might be why search works/doesn't work?
-        // Ah, likely mapped in view or I should check initialization.
-        // Wait, line 210: `$scope.searchQuery = "";`.
-        // Let's use `searchText` to match HTML view.
-
-        // Actually, just better to check what scope variable is being used.
-        // HTML: `ng-model="searchText"`
-        // The previous code block showed `$scope.searchQuery`.
-        // If I change this function to use `searchText`, it will safely match HTML.
-
+        var stations = $scope.railwayData[$scope.currentLine];
         var query = $scope.searchText || "";
         if (!query) return stations;
 
-        const q = query.toLowerCase();
+        var q = query.toLowerCase();
 
         // Filter first
-        let filtered = stations.filter(s =>
-            s.name.toLowerCase().includes(q) || s.devng.includes(q)
-        );
+        var filtered = stations.filter(function (s) {
+            return s.name.toLowerCase().includes(q) || s.devng.includes(q);
+        });
 
         // Sort logic
-        return filtered.sort((a, b) => {
-            const aName = a.name.toLowerCase();
-            const bName = b.name.toLowerCase();
+        return filtered.sort(function (a, b) {
+            var aName = a.name.toLowerCase();
+            var bName = b.name.toLowerCase();
 
             // Priority 1: Exact Match
-            const aExact = aName === q || a.devng === q;
-            const bExact = bName === q || b.devng === q;
+            var aExact = aName === q || a.devng === q;
+            var bExact = bName === q || b.devng === q;
             if (aExact && !bExact) return -1;
             if (!aExact && bExact) return 1;
 
             // Priority 2: Starts With
-            const aStart = aName.startsWith(q) || a.devng.startsWith(q);
-            const bStart = bName.startsWith(q) || b.devng.startsWith(q);
+            var aStart = aName.startsWith(q) || a.devng.startsWith(q);
+            var bStart = bName.startsWith(q) || b.devng.startsWith(q);
             if (aStart && !bStart) return -1;
             if (!aStart && bStart) return 1;
 
@@ -426,12 +499,12 @@ function atvmController($scope) {
     $scope.calculateFare = function () {
         if (!$scope.sourceStation || !$scope.destinationStation) return 0;
 
-        let distance = 0;
-        const src = $scope.sourceStation;
-        const dest = $scope.destinationStation;
+        var distance = 0;
+        var src = $scope.sourceStation;
+        var dest = $scope.destinationStation;
 
         // Define Hub Locations (km markers)
-        const HUBS = {
+        var HUBS = {
             WR_DADAR: 10.1,
             CR_DADAR: 9.1,
             CR_KURLA: 15.5,
@@ -442,8 +515,8 @@ function atvmController($scope) {
             TH_NERUL: 20.0
         };
 
-        const DADAR_TO_KURLA = Math.abs(HUBS.CR_KURLA - HUBS.CR_DADAR); // ~6.4km
-        const DADAR_TO_THANE = Math.abs(HUBS.CR_THANE - HUBS.CR_DADAR); // ~24.9km
+        var DADAR_TO_KURLA = Math.abs(HUBS.CR_KURLA - HUBS.CR_DADAR); // ~6.4km
+        var DADAR_TO_THANE = Math.abs(HUBS.CR_THANE - HUBS.CR_DADAR); // ~24.9km
 
         if (src.type === dest.type) {
             // Same Line: Direct
@@ -451,8 +524,8 @@ function atvmController($scope) {
         } else {
             // Cross-Line Routing
             // Normalize pair key (alphabetical sort to handle A->B or B->A)
-            const types = [src.type, dest.type].sort();
-            const pair = types.join('|');
+            var types = [src.type, dest.type].sort();
+            var pair = types.join('|');
 
             if (pair === "Central Railway|Western Railway") {
                 // Via Dadar
@@ -461,14 +534,14 @@ function atvmController($scope) {
             }
             else if (pair === "Harbour Line|Western Railway") {
                 // Via Dadar -> Kurla (Approximated)
-                const wrDist = Math.abs((src.type === 'Western Railway' ? src.km : dest.km) - HUBS.WR_DADAR);
-                const hbDist = Math.abs((src.type === 'Harbour Line' ? src.km : dest.km) - HUBS.HB_KURLA);
+                var wrDist = Math.abs((src.type === 'Western Railway' ? src.km : dest.km) - HUBS.WR_DADAR);
+                var hbDist = Math.abs((src.type === 'Harbour Line' ? src.km : dest.km) - HUBS.HB_KURLA);
                 distance = wrDist + DADAR_TO_KURLA + hbDist;
             }
             else if (pair === "Trans-Harbour Line|Western Railway") {
                 // Via Dadar -> Thane
-                const wrDist = Math.abs((src.type === 'Western Railway' ? src.km : dest.km) - HUBS.WR_DADAR);
-                const thDist = Math.abs((src.type === 'Trans-Harbour Line' ? src.km : dest.km) - HUBS.TH_THANE);
+                var wrDist = Math.abs((src.type === 'Western Railway' ? src.km : dest.km) - HUBS.WR_DADAR);
+                var thDist = Math.abs((src.type === 'Trans-Harbour Line' ? src.km : dest.km) - HUBS.TH_THANE);
                 distance = wrDist + DADAR_TO_THANE + thDist;
             }
             else if (pair === "Central Railway|Harbour Line") {
@@ -493,11 +566,11 @@ function atvmController($scope) {
         }
 
         // Find corresponding fare stage
-        const stage = FARE_STAGES.find(s => distance <= s.maxDist);
-        const baseFare = stage ? stage.fare : 35; // Cap at 35
+        var stage = FARE_STAGES.filter(function (s) { return distance <= s.maxDist; })[0];
+        var baseFare = stage ? stage.fare : 35; // Cap at 35
 
         // Calculate total for multiple passengers
-        let total = (baseFare * $scope.adults) +
+        var total = (baseFare * $scope.adults) +
             (Math.ceil(baseFare / 2) * $scope.children);
 
         // Apply return ticket multiplier
@@ -507,9 +580,13 @@ function atvmController($scope) {
     };
 
     // --- UI Helpers ---
-    $scope.setLine = (line) => { $scope.currentLine = line; $scope.searchQuery = ""; };
-    $scope.setSelectionMode = (mode) => { $scope.selectionMode = mode; };
-    $scope.range = (n) => new Array(n);
-    $scope.setAdults = (n) => { $scope.noOfAdults = n; };
-    $scope.setChildren = (n) => { $scope.noOfChildren = n; };
-}
+    $scope.setLine = function (line) {
+        $scope.currentLine = line;
+        $scope.searchQuery = "";
+        $scope.searchText = ""; // Added: Clear UI search text when line changes
+    };
+    $scope.setSelectionMode = function (mode) { $scope.selectionMode = mode; };
+    $scope.range = function (n) { return new Array(n); };
+    $scope.setAdults = function (n) { $scope.adults = n; };
+    $scope.setChildren = function (n) { $scope.children = n; };
+}]);
