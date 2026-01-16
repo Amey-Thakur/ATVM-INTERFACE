@@ -1334,8 +1334,8 @@ body::after {
     display: flex;
     flex-direction: column;
     position: relative;
-    overflow: auto;
-    /* Allow scrolling if needed */
+    overflow: hidden !important;
+    /* STRICT NO-SCROLL ON DASHBOARD */
 }
 
 /* Background Watermark (Full Section Centered) */
@@ -1349,10 +1349,11 @@ body::after {
     width: 100%;
     height: 100%;
     background: url('../images/mumbai_lifeline_wallpaper.png') no-repeat center center;
-    background-size: 100% 100%;
-    /* Now uses correct aspect ratio image, so no distortion */
+    background-size: cover;
+    /* Use cover for natural look */
+    background-attachment: fixed;
+    /* Keeps it static */
     opacity: 1;
-    /* Full visibility */
     pointer-events: none;
     z-index: 0;
 }
