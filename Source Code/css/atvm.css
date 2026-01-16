@@ -2725,7 +2725,8 @@ input {
     z-index: 5001;
     background: #fff;
     border-radius: 24px;
-    padding: 20px;
+    padding: 15px;
+    /* Reduced padding */
     box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2);
     transform: scale(0.9);
     transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
@@ -2733,7 +2734,10 @@ input {
     flex-direction: column;
     align-items: center;
     max-width: 90vw;
-    max-height: 90vh;
+    max-height: 95vh;
+    /* Increased slightly to use more space */
+    overflow-y: auto;
+    /* Safety scroll */
 }
 
 .ticket-modal-overlay.active .ticket-modal-content {
@@ -2745,8 +2749,10 @@ input {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
+    margin-bottom: 15px;
+    /* Reduced margin */
+    padding-bottom: 10px;
+    /* Reduced padding */
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
@@ -2795,7 +2801,8 @@ input {
 
 /* --- Modal Actions --- */
 .modal-actions {
-    margin-top: 25px;
+    margin-top: 15px;
+    /* Reduced margin */
     width: 100%;
     display: flex;
     gap: 15px;
@@ -2897,8 +2904,10 @@ input {
 
 .share-ticket {
     width: 600px;
+    max-width: 100%;
     background: #fff;
-    padding: 30px;
+    padding: 20px;
+    /* Reduced padding */
     border-radius: 24px;
     font-family: 'Outfit', sans-serif;
     color: #1c1c1e;
@@ -2927,8 +2936,10 @@ input {
     align-items: center;
     gap: 15px;
     border-bottom: 2px solid #007aff;
-    padding-bottom: 15px;
-    margin-bottom: 20px;
+    padding-bottom: 10px;
+    /* Reduced padding */
+    margin-bottom: 15px;
+    /* Reduced margin */
 }
 
 .st-logo {
@@ -2971,9 +2982,11 @@ input {
     align-items: center;
     justify-content: space-between;
     background: #f2f2f7;
-    padding: 18px 25px;
+    padding: 12px 20px;
+    /* Reduced padding */
     border-radius: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    /* Reduced margin */
     border: 1px solid #e5e5ea;
 }
 
@@ -3006,8 +3019,10 @@ input {
 .st-details-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin-bottom: 25px;
+    gap: 12px;
+    /* Reduced gap */
+    margin-bottom: 15px;
+    /* Reduced margin */
     padding: 0 10px;
 }
 
@@ -3022,14 +3037,16 @@ input {
 
 .st-fare-sec {
     border-top: 1px dashed #d1d1d6;
-    padding: 20px 10px 0 10px;
+    padding: 15px 10px 0 10px;
+    /* Reduced padding */
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
 }
 
 .st-price {
-    font-size: 36px;
+    font-size: 32px;
+    /* Slightly smaller */
     font-weight: 900;
     color: #1c1c1e;
     letter-spacing: -1px;
@@ -3038,8 +3055,10 @@ input {
 .st-meta {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 30px;
-    padding: 15px 10px;
+    margin-bottom: 15px;
+    /* Reduced margin */
+    padding: 10px;
+    /* Reduced padding */
     background: rgba(0, 122, 255, 0.03);
     border-radius: 12px;
 }
@@ -3053,14 +3072,17 @@ input {
 .st-footer {
     text-align: center;
     border-top: 1px solid #f2f2f7;
-    padding-top: 25px;
+    padding-top: 15px;
+    /* Reduced padding */
 }
 
 .st-message {
-    font-size: 14px;
+    font-size: 13px;
+    /* Smaller */
     font-style: italic;
     color: #3a3a3c;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    /* Reduced margin */
     font-weight: 500;
 }
 
