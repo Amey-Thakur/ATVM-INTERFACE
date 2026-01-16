@@ -2726,18 +2726,18 @@ input {
     background: #fff;
     border-radius: 24px;
     padding: 15px;
-    /* Reduced padding */
     box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2);
     transform: scale(0.9);
     transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 90vw;
-    max-height: 95vh;
-    /* Increased slightly to use more space */
-    overflow-y: auto;
-    /* Safety scroll */
+    max-width: 95vw;
+    /* Wider for landscape */
+    max-height: 98vh;
+    /* Use full height */
+    overflow-y: hidden;
+    /* No scroll needed now */
 }
 
 .ticket-modal-overlay.active .ticket-modal-content {
@@ -2903,11 +2903,11 @@ input {
 }
 
 .share-ticket {
-    width: 600px;
+    width: 850px;
+    /* Wide Rectangular */
     max-width: 100%;
     background: #fff;
-    padding: 20px;
-    /* Reduced padding */
+    padding: 25px;
     border-radius: 24px;
     font-family: 'Outfit', sans-serif;
     color: #1c1c1e;
@@ -2915,6 +2915,8 @@ input {
     position: relative;
     overflow: hidden;
     border: 1px solid #e5e5ea;
+    display: flex;
+    flex-direction: column;
 }
 
 .share-ticket::after {
@@ -2974,20 +2976,50 @@ input {
 }
 
 .st-main {
-    margin-bottom: 25px;
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    grid-template-areas:
+        "route fare"
+        "details fare";
+    gap: 15px 25px;
+    margin-bottom: 15px;
 }
 
 .st-route {
+    grid-area: route;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background: #f2f2f7;
-    padding: 12px 20px;
-    /* Reduced padding */
+    padding: 15px 25px;
     border-radius: 16px;
-    margin-bottom: 15px;
-    /* Reduced margin */
     border: 1px solid #e5e5ea;
+}
+
+.st-details-grid {
+    grid-area: details;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 columns for horizontal stretch */
+    gap: 12px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 12px;
+}
+
+.st-fare-sec {
+    grid-area: fare;
+    border: 1px dashed #007aff;
+    background: rgba(0, 122, 255, 0.05);
+    padding: 20px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    /* Fill grid area */
 }
 
 .st-point {
@@ -3016,15 +3048,7 @@ input {
     color: #1c1c1e;
 }
 
-.st-details-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    /* Reduced gap */
-    margin-bottom: 15px;
-    /* Reduced margin */
-    padding: 0 10px;
-}
+/* Handled by .st-main grid now */
 
 .st-item {
     display: flex;
@@ -3035,32 +3059,22 @@ input {
     font-size: 16px;
 }
 
-.st-fare-sec {
-    border-top: 1px dashed #d1d1d6;
-    padding: 15px 10px 0 10px;
-    /* Reduced padding */
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-}
-
 .st-price {
-    font-size: 32px;
-    /* Slightly smaller */
+    font-size: 42px;
     font-weight: 900;
-    color: #1c1c1e;
-    letter-spacing: -1px;
+    color: #007aff;
+    letter-spacing: -2px;
 }
 
 .st-meta {
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
-    /* Reduced margin */
-    padding: 10px;
-    /* Reduced padding */
+    padding: 10px 20px;
     background: rgba(0, 122, 255, 0.03);
     border-radius: 12px;
+    width: calc(100% - 100px);
+    /* Space for QR */
 }
 
 .st-meta .st-val {
@@ -3070,10 +3084,12 @@ input {
 }
 
 .st-footer {
-    text-align: center;
+    text-align: left;
+    /* Aligned left now */
     border-top: 1px solid #f2f2f7;
     padding-top: 15px;
-    /* Reduced padding */
+    width: calc(100% - 120px);
+    /* Space for QR */
 }
 
 .st-message {
@@ -3100,15 +3116,19 @@ input {
 
 .st-qr-code {
     position: absolute;
-    bottom: 30px;
-    right: 30px;
+    bottom: 25px;
+    right: 25px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .st-qr-code i {
-    font-size: 50px;
+    font-size: 60px;
+    /* Larger QR */
     color: #1c1c1e;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
     opacity: 0.9;
 }
 
