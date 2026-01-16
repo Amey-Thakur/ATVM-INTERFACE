@@ -271,9 +271,17 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
 
     // 3. Share Ticket
     $scope.shareTicket = function () {
+        var shareText = "🎫 MUMBAI LOCAL TICKET\n" +
+            "I've booked my journey from " + $scope.sourceStation.name + " to " + $scope.destinationStation.name + "!\n\n" +
+            "\"Wishing you a safe and pleasant journey on Mumbai Lifeline!\"\n\n" +
+            "✨ DESIGNED & DEVELOPED BY:\n" +
+            "• AMEY THAKUR (https://github.com/Amey-Thakur)\n" +
+            "• MEGA SATISH (https://github.com/msatmod)\n\n" +
+            "Project Link: https://github.com/Amey-Thakur/ATVM-INTERFACE";
+
         var shareData = {
             title: 'Mumbai Local Ticket',
-            text: 'I just booked a ' + $scope.journeyType + ' ticket from ' + $scope.sourceStation.name + ' to ' + $scope.destinationStation.name + '!',
+            text: shareText,
             url: window.location.href
         };
 
@@ -286,21 +294,54 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
         }
     };
 
-    // 4. Copy Ticket Text
+    // 4. Copy Ticket (Image + Text)
     $scope.copyTicketText = function () {
+        var element = document.querySelector('.share-ticket');
         var text = "🎫 MUMBAI LOCAL TICKET\n" +
             "ID: #" + $scope.ticketId + "\n" +
             "FROM: " + $scope.sourceStation.name + "\n" +
             "TO: " + $scope.destinationStation.name + "\n" +
             "TYPE: " + $scope.journeyType + " (" + $scope.ticketClass + ")\n" +
             "FARE: ₹ " + $scope.calculateFare() + ".00\n" +
-            "DATE: " + $scope.timestamp;
+            "DATE: " + $scope.timestamp + "\n\n" +
+            "\"Wishing you a safe and pleasant journey on Mumbai Lifeline!\"\n\n" +
+            "✨ DESIGNED & DEVELOPED BY:\n" +
+            "• AMEY THAKUR (https://github.com/Amey-Thakur)\n" +
+            "• MEGA SATISH (https://github.com/msatmod)\n\n" +
+            "Checkout Project: https://github.com/Amey-Thakur/ATVM-INTERFACE";
 
-        navigator.clipboard.writeText(text).then(function () {
-            alert("Ticket details copied to clipboard!");
-        }, function () {
-            alert("Failed to copy ticket details.");
-        });
+        if (window.html2canvas) {
+            html2canvas(element, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: "#ffffff"
+            }).then(function (canvas) {
+                canvas.toBlob(function (blob) {
+                    try {
+                        const item = new ClipboardItem({
+                            "image/png": blob,
+                            "text/plain": new Blob([text], { type: "text/plain" })
+                        });
+                        navigator.clipboard.write([item]).then(function () {
+                            alert("Ticket Image & Details copied to clipboard!");
+                        }).catch(function (err) {
+                            console.error("Clipboard write failed:", err);
+                            // Fallback to just text if image fails
+                            navigator.clipboard.writeText(text).then(function () {
+                                alert("Details copied (Image capture blocked by browser).");
+                            });
+                        });
+                    } catch (e) {
+                        // Fallback for browsers that don't support multi-type clipboard items or blobs in it
+                        navigator.clipboard.writeText(text).then(function () {
+                            alert("Ticket details copied to clipboard!");
+                        });
+                    }
+                }, "image/png");
+            });
+        } else {
+            alert("Error: Ticket engine not ready.");
+        }
     };
 
     // 5. Close Modal
