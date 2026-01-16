@@ -77,7 +77,7 @@ The development of this interface was guided by core **Human-Machine Interaction
 | **Data Handling** | Client-side management of station data and ticket details. |
 
 > [!NOTE]
-> ### 🕵🏻‍♂️ Hidden Easter Egg: Authentic Audio System
+> ### Hidden Easter Egg: Authentic Audio System
 > We've integrated a "Secret" immersive layer! Clicking on the **Station Speakers** or the **Analog Clock** triggers a personalized, high-fidelity Mumbai Railway announcement. This Easter egg recreates the authentic transit atmosphere, surprising users with a real-world station soundscape.
 
 ### Tech Stack
@@ -86,7 +86,7 @@ The development of this interface was guided by core **Human-Machine Interaction
 - **Imaging**: **html2canvas** (Custom high-fidelity capture engine)
 - **UI System**: Bootstrap 3 (Customized), Font Awesome 6
 - **Deployment**: GitHub Actions (Staging Workflow), GitHub Pages
-- **Authorship**: Digitally signed ticket exports **by Amey & Mega** ✍🏻 🚂
+- **Authorship**: Digitally signed ticket exports **by Amey & Mega**
 
 ---
 
