@@ -2,7 +2,7 @@
  * Project: ATVM Interface
  * File: atvm-controller.js
  * Date: January 16, 2026
- * Description: AngularJS controller for handling ATVM logic with real Mumbai Western Line data. (v6.0)
+ * Description: AngularJS controller for handling ATVM logic with real Mumbai Western Line data. (v6.1)
  * 
  * Created by: Amey Thakur (https://github.com/Amey-Thakur) & Mega Satish (https://github.com/msatmod)
  * Repository: https://github.com/Amey-Thakur/ATVM-INTERFACE
@@ -18,7 +18,7 @@
 //   CONSOLE EASTER EGG 🚇
 // =========================================
 console.log(
-    "%c🚇 ATVM Interface - Mumbai Western Railway (v6.0)",
+    "%c🚇 ATVM Interface - Mumbai Western Railway (v6.1)",
     "font-size: 24px; font-weight: bold; color: #ef4444; text-shadow: 2px 2px 0 #0f172a;"
 );
 console.log(
@@ -316,13 +316,12 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
         if (navigator.share) {
             navigator.share({
                 title: 'Mumbai Local Ticket',
-                text: fullPayload,
-                url: window.location.href // Fallback URL
+                text: fullPayload
             }).catch(function (err) {
                 console.log('Native share failed or cancelled:', err);
             });
         } else {
-            // Fallback for browsers without share API (like some older desktop browsers)
+            // Fallback for browsers without share API
             $scope.copyTicketText();
             alert("Native sharing not available. Ticket details copied to clipboard instead!");
         }
