@@ -2530,15 +2530,125 @@ input {
     border: 1px solid rgba(0, 0, 0, 0.1) !important;
 }
 
-/* --- Shareable Ticket Export Template --- */
-.share-ticket-wrapper {
+/* --- Ticket Modal Styles --- */
+.ticket-modal-overlay {
     position: fixed;
-    left: 0;
-    top: 0;
-    width: 600px;
-    z-index: -1000;
+    inset: 0;
+    z-index: 5000;
+    /* Top most layer */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     opacity: 0;
-    pointer-events: none;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.ticket-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+}
+
+.ticket-modal-content {
+    position: relative;
+    z-index: 5001;
+    background: #fff;
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2);
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.ticket-modal-overlay.active .ticket-modal-content {
+    transform: scale(1);
+}
+
+.modal-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #1c1c1e;
+    font-weight: 800;
+}
+
+.close-modal-btn {
+    background: #f2f2f7;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: bold;
+    color: #8e8e93;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.close-modal-btn:hover {
+    background: #e5e5ea;
+    color: #000;
+}
+
+.modal-footer {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.download-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #34c759 0%, #30b350 100%);
+    color: #fff;
+    border: none;
+    padding: 16px;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 10px 20px rgba(52, 199, 89, 0.3);
+    transition: all 0.2s;
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(52, 199, 89, 0.4);
+}
+
+/* --- Shareable Ticket Export Wrapper --- */
+.share-ticket-wrapper {
+    position: relative;
+    /* Changed from fixed to flow naturally in modal */
+    width: auto;
+    z-index: 1;
+    opacity: 1;
+    pointer-events: auto;
+    left: auto;
+    top: auto;
 }
 
 .share-ticket {
