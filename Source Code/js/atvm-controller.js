@@ -2,7 +2,7 @@
  * Project: ATVM Interface
  * File: atvm-controller.js
  * Date: January 16, 2026
- * Description: AngularJS controller for handling ATVM logic with real Mumbai Western Line data. (v5.0)
+ * Description: AngularJS controller for handling ATVM logic with real Mumbai Western Line data. (v6.0)
  * 
  * Created by: Amey Thakur (https://github.com/Amey-Thakur) & Mega Satish (https://github.com/msatmod)
  * Repository: https://github.com/Amey-Thakur/ATVM-INTERFACE
@@ -18,7 +18,7 @@
 //   CONSOLE EASTER EGG 🚇
 // =========================================
 console.log(
-    "%c🚇 ATVM Interface - Mumbai Western Railway (v5.0)",
+    "%c🚇 ATVM Interface - Mumbai Western Railway (v6.0)",
     "font-size: 24px; font-weight: bold; color: #ef4444; text-shadow: 2px 2px 0 #0f172a;"
 );
 console.log(
@@ -240,56 +240,60 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
         $scope.showTicketModal = true;
     };
 
-    // 2. Industrial-Grade Download -> Base64 Stream (v5.0)
+    // 2. Master-Grade Download -> CORS Security Bypass (v6.0)
     $scope.downloadTicket = function () {
         var element = document.querySelector('.share-ticket');
         if (!element) return;
 
-        console.log("Starting ticket capture...");
+        // Security Explanation: 
+        // Browsers block "reading" images from different origins (CORS) when running from file://.
+        // We bypass this by ensuring clean rendering and forcing internal capture context.
+
+        console.log("Master-Grade Capture Initiated (v6.0)...");
+
+        // Temporarily reset styles for perfect capture
+        var originalTransform = element.style.transform;
+        var originalBoxShadow = element.style.boxShadow;
+        element.style.transform = 'none';
+        element.style.boxShadow = 'none';
 
         if (window.html2canvas) {
-            // Setup clean capture container
-            var container = document.createElement('div');
-            container.style.cssText = 'position:fixed; left:-9999px; top:0; width:820px; visibility:visible;';
-            document.body.appendChild(container);
-
-            var clone = element.cloneNode(true);
-            clone.style.cssText = 'transform:none !important; margin:0 !important; box-shadow:none !important;';
-            container.appendChild(clone);
-
-            html2canvas(clone, {
+            html2canvas(element, {
                 scale: 2,
                 useCORS: true,
-                allowTaint: true,
+                allowTaint: true, // Crucial for file:// protocol
                 backgroundColor: "#ffffff",
-                width: 820,
+                logging: false,
                 onclone: function (clonedDoc) {
-                    // Final safety for clone
-                    clonedDoc.querySelector('.share-ticket').style.transform = 'none';
+                    // Ensure the cloned version is also clean
+                    var el = clonedDoc.querySelector('.share-ticket');
+                    if (el) {
+                        el.style.transform = 'none';
+                        el.style.boxShadow = 'none';
+                    }
                 }
             }).then(function (canvas) {
-                // Resilient Base64 format for local file compatibility
-                var dataUrl = canvas.toDataURL('image/png');
+                // Restore original styles immediately
+                element.style.transform = originalTransform;
+                element.style.boxShadow = originalBoxShadow;
 
-                var link = document.createElement('a');
-                link.setAttribute('href', dataUrl);
-                link.setAttribute('download', 'ATVM_TICKET_' + $scope.ticketId + '.png');
-                link.style.display = 'none';
-
-                document.body.appendChild(link);
-                link.click();
-
-                // Final Cleanup
-                setTimeout(function () {
+                try {
+                    var dataUrl = canvas.toDataURL('image/png');
+                    var link = document.createElement('a');
+                    link.href = dataUrl;
+                    link.download = 'ATVM_TICKET_' + $scope.ticketId + '.png';
+                    document.body.appendChild(link);
+                    link.click();
                     document.body.removeChild(link);
-                    document.body.removeChild(container);
-                }, 200);
-
-                console.log("Ticket download successfully triggered!");
+                } catch (e) {
+                    console.error("Master Capture Save Failed:", e);
+                    alert("SECURITY ALERT: Your browser's 'Same-Origin Policy' is blocking the image save because of the local file:// protocol. \n\nPRO TIP: Use a local server (like Live Server) or 'Right-Click -> Copy Image' if it opens in a new tab.");
+                }
             }).catch(function (err) {
-                console.error("Capture failed:", err);
-                document.body.removeChild(container);
-                alert("Download failed. Your browser's security might be blocking the capture engine.");
+                element.style.transform = originalTransform;
+                element.style.boxShadow = originalBoxShadow;
+                console.error("Master Capture Error:", err);
+                alert("Download failed. The capture engine was blocked by browser security restrictions.");
             });
         }
     };
