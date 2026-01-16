@@ -3118,14 +3118,18 @@ input {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 5px;
+    gap: 5px;
 }
 
-.st-qr-code i {
-    font-size: 60px;
-    color: #1c1c1e;
-    margin-bottom: 5px;
-    opacity: 0.9;
+.qr-img {
+    width: 65px;
+    height: 65px;
+    padding: 2px;
+    background: #fff;
+    border: 1px solid #e5e5ea;
+    border-radius: 6px;
+    image-rendering: pixelated;
+    /* Keeps QR code sharp */
 }
 
 .st-qr-code p {
