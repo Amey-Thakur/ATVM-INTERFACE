@@ -296,6 +296,8 @@
                                     <i class="fas fa-arrow-right" style="color: #ccc; font-size: 16px;"></i>
                                     <div class="journey-badge" style="font-size: 10px; margin-top: 5px;">{{journeyType
                                         === 'Return' ? 'RETURN' : 'SINGLE'}}</div>
+                                    <div class="class-badge" ng-class="{'badge-first': ticketClass === 'First'}">
+                                        {{ticketClass.toUpperCase()}}</div>
                                 </div>
 
                                 <div class="route-point">

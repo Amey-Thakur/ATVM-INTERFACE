@@ -2159,6 +2159,23 @@ body::after {
     margin-top: 4px;
 }
 
+.class-badge {
+    background: #e5e5ea;
+    color: #1c1c1e;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-top: 4px;
+}
+
+.class-badge.badge-first {
+    background: #1c1c1e;
+    /* Dark premium background for First Class */
+    color: #ffd700;
+    /* Gold text */
+}
+
 /* Passenger Controls */
 .passenger-controls-grid {
     display: grid;
