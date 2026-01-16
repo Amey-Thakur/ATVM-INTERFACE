@@ -69,15 +69,20 @@ The development of this interface was guided by core **Human-Machine Interaction
 |---------|-------------|
 | **Semantic Layout** | Structured using HTML5 semantic tags for accessibility and clarity. |
 | **State Management** | Uses AngularJS to handle data flow and view transitions without page reloads. |
-| **Responsive Grid** | A custom CSS grid and Bootstrap-based design for kios k-like compatibility. |
+| **Master-Grade Export** | **Industrial-Grade Download (v6.0)** using Base64 streams for local file compatibility. |
+| **Universal Native Share** | Integrated high-compatibility Native Share API for social sharing across all devices. |
+| **Expanded Station UI** | **1.8x Scaled Station Signs** and optimized layout for superior visual hierarchy. |
 | **Interactive UX** | Smooth transitions, instant fare calculation, and simulated printing workflow. |
+| **System Map Overlay** | LED-themed interactive transit map for network-wide orientation. |
 | **Data Handling** | Client-side management of station data and ticket details. |
 
 ### Tech Stack
-- **Languages**: HTML5, CSS3, JavaScript
-- **Framework**: AngularJS (1.x), Bootstrap
-- **Deployment**: GitHub Actions (Staging Workflow)
-- **Hosting**: GitHub Pages
+- **Core**: HTML5, CSS3 (Modern Flexbox/Grid), JavaScript (ES6+)
+- **Logic**: AngularJS (1.x), jQuery
+- **Imaging**: **html2canvas** (Custom high-fidelity capture engine)
+- **UI System**: Bootstrap 3 (Customized), Font Awesome 6
+- **Deployment**: GitHub Actions (Staging Workflow), GitHub Pages
+- **Authorship**: Digitally signed ticket exports for **Amey & Mega** ✍️ 🚂
 
 ---
 
