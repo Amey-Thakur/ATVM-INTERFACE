@@ -3068,8 +3068,8 @@ input {
     padding: 8px 20px;
     background: rgba(0, 122, 255, 0.03);
     border-radius: 12px;
-    width: calc(100% - 130px);
-    /* More space for QR */
+    width: 100%;
+    /* Full Width Entirely */
 }
 
 .st-meta .st-val {
@@ -3079,10 +3079,16 @@ input {
 }
 
 .st-footer {
-    text-align: left;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
     border-top: 1px solid #f2f2f7;
     padding-top: 10px;
-    width: calc(100% - 130px);
+}
+
+.st-footer-info {
+    text-align: left;
 }
 
 .st-message {
@@ -3108,18 +3114,15 @@ input {
 }
 
 .st-qr-code {
-    position: absolute;
-    bottom: 25px;
-    right: 25px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 5px;
 }
 
 .st-qr-code i {
     font-size: 60px;
-    /* Larger QR */
     color: #1c1c1e;
     margin-bottom: 5px;
     opacity: 0.9;
