@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="atvmApp">
 
 <head>
     <meta charset="utf-8">
@@ -181,7 +181,7 @@
 
             <!-- Main Dashboard -->
             <div class="main-interface">
-                <!-- Floating LED Map Sign (CSS Animated) -->
+                <!-- Floating LED Map Sign (Restored to Left) -->
                 <div class="floating-map-btn" ng-click="toggleMap(true)" title="View System Map">
                     <div class="hanger-rods">
                         <div class="rod left"></div>
@@ -195,12 +195,39 @@
                     </div>
                 </div>
 
+                <!-- Iconic Mumbai Analog Station Clock (Hanging Right) -->
+                <div class="station-clock" title="Click for Announcement" ng-click="playAnnouncement()">
+                    <div class="hanger-rod"></div>
+                    <div class="clock-face">
+                        <div class="hand hour-hand" ng-style="{'transform': 'rotate(' + hourRotation + 'deg)'}"></div>
+                        <div class="hand min-hand" ng-style="{'transform': 'rotate(' + minRotation + 'deg)'}"></div>
+                        <div class="hand sec-hand" ng-style="{'transform': 'rotate(' + secRotation + 'deg)'}"></div>
+                        <div class="center-nut"></div>
+                        <!-- Clock Numbers 1-12 -->
+                        <div class="number num12">12</div>
+                        <div class="number num3">3</div>
+                        <div class="number num6">6</div>
+                        <div class="number num9">9</div>
+                    </div>
+                </div>
+
+                <!-- Mumbai Station Speaker (Beside Clock) -->
+                <div class="station-speaker" title="Click for Announcement" ng-click="playAnnouncement()"
+                    ng-class="{'speaking': isAnnouncing}">
+                    <div class="speaker-wire"></div>
+                    <div class="speaker-body">
+                        <div class="speaker-grill"></div>
+                        <div class="sound-waves">
+                            <span></span><span></span><span></span>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="ticket-canvas">
-                    <div class="ticket" id="ticket-card" ng-style="{'--train-state': trainState}">
-                        <!-- Interactive Train Track (Grab & Move) -->
-                        <div class="train-track-container" ng-mousedown="startTrainDrag($event)"
-                            ng-mousemove="moveTrainDrag($event)" ng-mouseup="stopTrainDrag()" style="cursor: grab;">
-                            <div class="train-vessel">
+                    <div class="ticket" id="ticket-card" ng-class="{'train-reverse': trainDirection === 'reverse'}">
+                        <!-- Interactive Train Track (Click Train to Reverse) -->
+                        <div class="train-track-container">
+                            <div class="train-vessel" ng-click="toggleTrainDirection($event)" style="cursor: pointer;">
                                 <div class="compartment">
                                     <div class="engine-face"></div>
                                 </div>
@@ -297,28 +324,97 @@
                         <!-- Footer with Fare and Print Button -->
                         <div class="ticket-controls">
                             <div class="ticket-footer">
-                                <div class="fare-block">
-                                    <h4
-                                        style="margin: 0; font-size: 11px; font-weight: 900; color: #8e8e93; text-transform: uppercase; letter-spacing: 1px;">
-                                        Total Fare / एकूण भाडे</h4>
-                                    <div class="price">Rs. {{calculateFare()}} / ₹ {{calculateFare()}}</div>
+                                <div class="fare-display">
+                                    <div class="fare-label">Total Fare / एकूण भाडे</div>
+                                    <div class="fare-amount">Rs. {{calculateFare()}} / ₹ {{calculateFare()}}</div>
                                 </div>
-                                <button class="print-btn" onclick="window.print()" style="margin-left: auto;"><i
-                                        class="fas fa-print" style="margin-right: 10px;"></i> PRINT TICKET / तिकीट
-                                    छापा</button>
+                                <button class="print-btn" ng-click="exportTicket()">
+                                    <i class="fas fa-print"></i> PRINT TICKET / तिकीट छापा
+                                </button>
                             </div>
                         </div>
 
                     </div> <!-- End of .ticket -->
                 </div> <!-- End of .ticket-canvas -->
+
+                <!-- Hidden Shareable Ticket Template -->
+                <div id="shareable-ticket-template" class="share-ticket-wrapper">
+                    <div class="share-ticket">
+                        <div class="st-header">
+                            <img src="images/mumbai_modern_monogram_logo.png" class="st-logo">
+                            <div class="st-rail-info">
+                                <h2>INDIAN RAILWAYS / भारतीय रेल</h2>
+                                <p>CENTRAL RAILWAY / मध्य रेल</p>
+                            </div>
+                            <div class="st-type-badge">UTS</div>
+                        </div>
+
+                        <div class="st-main">
+                            <div class="st-route">
+                                <div class="st-point">
+                                    <span class="st-label">SOURCE</span>
+                                    <span class="st-val">{{sourceStation.name}}</span>
+                                </div>
+                                <div class="st-arrow">➔</div>
+                                <div class="st-point">
+                                    <span class="st-label">DESTINATION</span>
+                                    <span class="st-val">{{destinationStation.name}}</span>
+                                </div>
+                            </div>
+
+                            <div class="st-details-grid">
+                                <div class="st-item">
+                                    <span class="st-label">JOURNEY TYPE</span>
+                                    <span class="st-val">{{journeyType}}</span>
+                                </div>
+                                <div class="st-item">
+                                    <span class="st-label">CLASS</span>
+                                    <span class="st-val">SECOND (II)</span>
+                                </div>
+                                <div class="st-item">
+                                    <span class="st-label">ADULT</span>
+                                    <span class="st-val">{{adults}}</span>
+                                </div>
+                                <div class="st-item">
+                                    <span class="st-label">CHILD</span>
+                                    <span class="st-val">{{children}}</span>
+                                </div>
+                            </div>
+
+                            <div class="st-fare-sec">
+                                <span class="st-label">TOTAL FARE</span>
+                                <span class="st-price">₹ {{calculateFare()}}.00</span>
+                            </div>
+                        </div>
+
+                        <div class="st-meta">
+                            <div class="st-meta-item">
+                                <span class="st-label">TICKET ID</span>
+                                <span class="st-val">#{{ticketId}}</span>
+                            </div>
+                            <div class="st-meta-item">
+                                <span class="st-label">DATE / TIME</span>
+                                <span class="st-val">{{timestamp}}</span>
+                            </div>
+                        </div>
+
+                        <div class="st-footer">
+                            <div class="st-message">"Wishing you a safe and pleasant journey on Mumbai Lifeline!"</div>
+                            <div class="st-authorship">
+                                DESIGNED & DEVELOPED BY <br>
+                                <strong>AMEY THAKUR & MEGA SATISH</strong>
+                            </div>
+                        </div>
+
+                        <div class="st-qr-code">
+                            <i class="fas fa-qrcode"></i>
+                            <p>SECURE UTS</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- Duplicate Button Removed -->
         </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
     </div>
 
     <!-- Creative Footer (Moved to Root for Full Width) -->
@@ -353,7 +449,10 @@
     <!-- Core Scripts -->
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="js/angular.min.js"></script>
-    <script src="js/atvm-controller.js?v=2.1"></script>
+    <script src="js/atvm-controller.js?v=2.3"></script>
+
+    <!-- Ticket Export Library (Loaded after core) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </body>
 
 </html>

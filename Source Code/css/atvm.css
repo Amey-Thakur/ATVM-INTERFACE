@@ -243,8 +243,8 @@ body::after {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
-    /* Reduced padding */
+    padding: 5px 20px;
+    /* Ultra-compact padding */
     position: relative;
     z-index: 1;
     height: 100%;
@@ -410,36 +410,7 @@ body::after {
 }
 
 /* --- Footer & Print Action --- */
-.ticket-footer {
-    border-top: 1px dashed rgba(0, 0, 0, 0.1);
-    padding-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: auto;
-    /* Push to bottom if space permits */
-}
-
-.fare-display {
-    display: flex;
-    flex-direction: column;
-}
-
-.fare-label {
-    font-size: 11px;
-    font-weight: 700;
-    color: #8e8e93;
-    text-transform: uppercase;
-}
-
-.fare-amount {
-    font-weight: 900;
-    font-size: 48px;
-    /* Slightly reduced */
-    color: var(--apple-text);
-    letter-spacing: -2px;
-    line-height: 1;
-}
+/* Redundant ticker-footer block removed to avoid conflicts */
 
 .print-btn {
     background: linear-gradient(135deg, #007aff, #005ecb);
@@ -969,49 +940,7 @@ body::after {
     /* Styles for the mini sign icon if used */
 }
 
-/* --- Floating LED Map Sign (Real CSS) --- */
-.floating-map-btn {
-    position: absolute;
-    top: -5px;
-    right: 50px;
-    z-index: 100;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transform-origin: top center;
-    animation: dropSwing 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
-}
 
-.floating-map-btn:hover {
-    animation: signSway 3s ease-in-out infinite;
-}
-
-/* The Metal Rods */
-.hanger-rods {
-    display: flex;
-    justify-content: space-between;
-    width: 60%;
-    height: 40px;
-}
-
-.rod {
-    width: 4px;
-    height: 100%;
-    background: linear-gradient(to right, #8e8e93, #d1d1d6, #8e8e93);
-}
-
-/* The Casing */
-.led-board {
-    background: #1c1c1e;
-    padding: 8px 12px;
-    border-radius: 6px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 0 2px #3a3a3c;
-    border: 1px solid #000;
-    width: 180px;
-    /* Wider for scrolling text */
-    text-align: center;
-}
 
 /* The Screen */
 .led-screen {
@@ -1368,7 +1297,7 @@ body::after {
 .main-interface {
     flex: 1;
     background: #f5f5f7;
-    padding: 20px 25px;
+    padding: 5px 25px;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -1443,36 +1372,32 @@ body::after {
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: auto;
-    cursor: grab;
+    pointer-events: none; /* Changed: Unblocks clicks to ticket buttons */
+    cursor: default;
 }
 
 .train-vessel:active {
     cursor: grabbing;
 }
 
-/* Professional Modern Train Styling (Draggable) */
+/* Professional Modern Train Styling (Simplified) */
 .compartment {
     position: absolute;
     width: 32px;
     height: 14px;
     background: #e0e0e0;
-    /* Modern Silver/White */
+    /* Modern Silver Body */
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 3px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     z-index: 10;
     overflow: visible;
-    /* To allow headlight glow to overflow */
-
-    /* Animation Control */
     animation: trainPath 20s infinite linear;
-    animation-play-state: var(--train-state, running);
-    /* The core secret: animation-delay scrubbing */
-    animation-delay: calc((var(--train-progress, 0) * -20s) + var(--stagger));
+    pointer-events: auto; /* Changed: Keeps the train itself clickable */
+    cursor: pointer;
 }
 
-/* Magenta/Purple Stripe at the bottom */
+/* Magenta Stripe at the bottom */
 .compartment::after {
     content: '';
     position: absolute;
@@ -1485,7 +1410,7 @@ body::after {
     border-radius: 0 0 2px 2px;
 }
 
-/* Windows / Details */
+/* Windows */
 .compartment::before {
     content: '';
     position: absolute;
@@ -1494,30 +1419,45 @@ body::after {
     right: 4px;
     height: 3px;
     background: #333;
-    /* Darker windows */
+    /* Dark Windows */
     border-radius: 1px;
 }
 
 /* Engine (Coach 1) - Yellow Face & Headlights */
 .compartment:nth-child(1) {
-    --stagger: 0s;
     background: #e0e0e0;
+    animation-delay: -1.2s;
+    /* Leads the pack */
 }
+
+/* When reversed, the engine (child 1) needs to be at the front of the reversed path.
+   Wait, the easiest way is to adjust animation delays. 
+   Normal: 1(0) -> 2(-0.4) -> 3(-0.8) -> 4(-1.2)
+   Reverse: 4(0) -> 3(-0.4) -> 2(-0.8) -> 1(-1.2) - No, that changes which coach is the head.
+   Actually, the user wants the Engine (yellow part) to ALWAYS lead.
+   This means we need to swap the face when direction changes or keep the order.
+*/
 
 .compartment:nth-child(1) .engine-face {
     position: absolute;
     top: 0;
     right: 0;
+    /* Face forward in normal direction */
     width: 6px;
     height: 100%;
     background: #FFD700;
-    /* Yellow Face */
     border-radius: 0 2px 2px 0;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     padding: 2px 0;
+}
+
+.train-reverse .compartment:nth-child(1) .engine-face {
+    left: 0;
+    right: auto;
+    border-radius: 2px 0 0 2px;
 }
 
 /* Headlights for Engine */
@@ -1528,31 +1468,29 @@ body::after {
     height: 3px;
     background: white;
     border-radius: 50%;
-    box-shadow: 0 0 8px #fff, 0 0 12px rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 5px #fff;
 }
 
-/* Coach Staggering (1 Engine + 3 Coaches) */
+/* Coach Staggering (Correct Order) */
 .compartment:nth-child(2) {
-    --stagger: -0.4s;
+    animation-delay: -0.8s;
 }
 
 .compartment:nth-child(3) {
-    --stagger: -0.8s;
+    animation-delay: -0.4s;
 }
 
 .compartment:nth-child(4) {
-    --stagger: -1.2s;
+    animation-delay: 0s;
 }
 
-/* Direction Control - Pause during drag */
+/* Direction Control */
 .train-reverse .compartment {
     animation-direction: reverse;
 }
 
 /* Smooth Path with Rounded Corners */
 @keyframes trainPath {
-
-    /* Top: L -> R */
     0% {
         top: 12px;
         left: 12px;
@@ -1565,42 +1503,36 @@ body::after {
         transform: translate(-50%, -50%) rotate(0deg);
     }
 
-    /* TR Corner */
     25% {
         top: 25px;
         left: calc(100% - 12px);
         transform: translate(-50%, -50%) rotate(90deg);
     }
 
-    /* Right: T -> B */
     48% {
         top: calc(100% - 25px);
         left: calc(100% - 12px);
         transform: translate(-50%, -50%) rotate(90deg);
     }
 
-    /* BR Corner */
     50% {
         top: calc(100% - 12px);
         left: calc(100% - 25px);
         transform: translate(-50%, -50%) rotate(180deg);
     }
 
-    /* Bottom: R -> L */
     73% {
         top: calc(100% - 12px);
         left: 25px;
         transform: translate(-50%, -50%) rotate(180deg);
     }
 
-    /* BL Corner */
     75% {
         top: calc(100% - 25px);
         left: 12px;
         transform: translate(-50%, -50%) rotate(270deg);
     }
 
-    /* Left: B -> T */
     98% {
         top: 25px;
         left: 12px;
@@ -1611,6 +1543,320 @@ body::after {
         top: 12px;
         left: 12px;
         transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* --- Floating LED Map Sign (Restored to Left) --- */
+.floating-map-btn {
+    position: absolute;
+    top: -5px;
+    left: 25px;
+    /* Far left of the main interface */
+    right: auto;
+    width: auto;
+    z-index: 100;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform-origin: top center;
+    animation: dropSwing 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+.floating-map-btn:hover {
+    animation: signSway 3s ease-in-out infinite;
+}
+
+.hanger-rods {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    height: 40px;
+}
+
+.rod {
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to right, #8e8e93, #d1d1d6, #8e8e93);
+}
+
+.led-board {
+    background: #1c1c1e;
+    padding: 8px 12px;
+    border-radius: 6px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 0 1px #3a3a3c;
+    border: 1px solid #000;
+    width: 200px;
+    /* Fixed width to prevent clipping */
+    text-align: center;
+}
+
+.led-screen {
+    background: #000;
+    height: 36px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background-image: radial-gradient(#111 1px, transparent 1px);
+    background-size: 3px 3px;
+    box-shadow: inset 0 0 10px #000;
+}
+
+.led-text {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+    font-size: 14px;
+    color: #0f0;
+    /* Map LED is Green */
+    text-shadow: 0 0 5px #0f0;
+    white-space: nowrap;
+    display: inline-block;
+    padding-left: 100%;
+    animation: ledScroll 15s linear infinite;
+}
+
+@keyframes ledScroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* --- Iconic Mumbai Analog Station Clock --- */
+.station-clock {
+    position: absolute;
+    top: -5px;
+    right: 60px;
+    /* Hanging Right */
+    z-index: 110;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform-origin: top center;
+    animation: dropSwing 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+.hanger-rod {
+    width: 6px;
+    height: 60px;
+    background: linear-gradient(to right, #444, #666, #444);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.clock-face {
+    width: 100px;
+    height: 100px;
+    background: #fff;
+    border: 8px solid #333;
+    /* Thick black frame */
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: -5px;
+}
+
+.clock-face::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border: 2px solid #555;
+    /* Outer rim detail */
+    border-radius: 50%;
+}
+
+.hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom center;
+    border-radius: 4px;
+    z-index: 5;
+}
+
+.hour-hand {
+    width: 4px;
+    height: 30%;
+    background: #222;
+}
+
+.min-hand {
+    width: 3px;
+    height: 40%;
+    background: #444;
+}
+
+.sec-hand {
+    width: 2px;
+    height: 45%;
+    background: #ef4444;
+    /* Iconic Red Seconds Hand */
+    z-index: 6;
+}
+
+.center-nut {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background: #000;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.number {
+    position: absolute;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    color: #333;
+    transform: translate(-50%, -50%);
+}
+
+.num12 {
+    top: 15%;
+    left: 50%;
+}
+
+.num3 {
+    top: 50%;
+    left: 85%;
+}
+
+.num6 {
+    top: 85%;
+    left: 50%;
+}
+
+.num9 {
+    top: 50%;
+    left: 15%;
+}
+
+/* --- Mumbai Station Speaker (Next to Clock) --- */
+.station-speaker {
+    position: absolute;
+    top: -5px;
+    right: 220px;
+    /* Shifted more to the right to avoid card overlap */
+    z-index: 105;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform-origin: top center;
+    animation: dropSwing 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+.speaker-wire {
+    width: 2px;
+    height: 40px;
+    /* Shortened to avoid hanging over the ticket card */
+    background: #333;
+    box-shadow: 1px 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.speaker-body {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #444, #222);
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    border: 2px solid #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.speaker-grill {
+    width: 44px;
+    height: 44px;
+    background: radial-gradient(circle, #000 1px, transparent 1.5px);
+    background-size: 4px 4px;
+    border-radius: 50%;
+    border: 2px solid #111;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Sound Waves Animation (Only when speaking) */
+.sound-waves {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    display: none;
+}
+
+.station-speaker.speaking .sound-waves {
+    display: block;
+}
+
+.sound-waves span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(0, 122, 255, 0.5);
+    border-radius: 50%;
+    animation: wavePulse 1.5s infinite;
+    opacity: 0;
+}
+
+.sound-waves span:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.sound-waves span:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@keyframes wavePulse {
+    0% {
+        width: 40px;
+        height: 40px;
+        opacity: 0.8;
+    }
+
+    100% {
+        width: 120px;
+        height: 120px;
+        opacity: 0;
+    }
+}
+
+/* Reuse swing animations */
+@keyframes signSway {
+
+    0%,
+    100% {
+        transform: rotate(-1deg);
+    }
+
+    50% {
+        transform: rotate(1deg);
+    }
+}
+
+@keyframes dropSwing {
+    0% {
+        transform: translateY(-100%) rotate(5deg);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0) rotate(0);
+        opacity: 1;
     }
 }
 
@@ -1647,7 +1893,7 @@ body::after {
 
 /* Ticket Header - Compact */
 .ticket-header {
-    padding: 12px 20px;
+    padding: 8px 20px;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -1692,29 +1938,44 @@ body::after {
 }
 
 .ticket-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
     width: 100%;
-    padding: 10px 20px;
+    padding: 12px 20px;
     background: #fff;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px dashed rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
+    margin-top: auto;
+    justify-items: center;
+    align-items: start;
 }
 
-.ticket-footer .fare-block {
-    flex-shrink: 0;
+.fare-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
-.ticket-footer .fare-block .price {
-    font-size: 24px;
-    font-weight: 800;
+.fare-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #8e8e93;
+    text-transform: uppercase;
+}
+
+.fare-amount {
+    font-weight: 900;
+    font-size: 32px;
     color: #1c1c1e;
-    letter-spacing: -0.5px;
+    letter-spacing: -1px;
+    line-height: 1;
 }
+
+/* Standardized Fare Display in Footer */
 
 .ticket-footer .print-btn {
-    margin-left: auto !important;
     background: linear-gradient(135deg, #007aff 0%, #005ecb 100%);
     color: #fff;
     border: none;
@@ -2265,4 +2526,216 @@ body.loaded .premium-loader {
 
 input {
     border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+/* --- Shareable Ticket Export Template --- */
+.share-ticket-wrapper {
+    position: absolute;
+    left: -10000px;
+    top: 0;
+    width: 600px;
+    z-index: -1000;
+}
+
+.share-ticket {
+    width: 600px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 24px;
+    font-family: 'Outfit', sans-serif;
+    color: #1c1c1e;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #e5e5ea;
+}
+
+.share-ticket::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-mask-image: radial-gradient(#007aff 0.5px, transparent 0.5px);
+    mask-image: radial-gradient(#007aff 0.5px, transparent 0.5px);
+    background-color: rgba(0, 122, 255, 0.05);
+    background-size: 15px 15px;
+    pointer-events: none;
+}
+
+.st-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 2px solid #007aff;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.st-logo {
+    width: 50px;
+    height: 50px;
+}
+
+.st-rail-info h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #007aff;
+}
+
+.st-rail-info p {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 600;
+    color: #8e8e93;
+}
+
+.st-type-badge {
+    margin-left: auto;
+    background: #007aff;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-weight: 900;
+    font-size: 14px;
+    box-shadow: 0 4px 10px rgba(0, 122, 255, 0.2);
+}
+
+.st-main {
+    margin-bottom: 25px;
+}
+
+.st-route {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f2f2f7;
+    padding: 18px 25px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    border: 1px solid #e5e5ea;
+}
+
+.st-point {
+    display: flex;
+    flex-direction: column;
+}
+
+.st-arrow {
+    font-size: 28px;
+    color: #007aff;
+    opacity: 0.5;
+}
+
+.st-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: #8e8e93;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+}
+
+.st-val {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1c1c1e;
+}
+
+.st-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 25px;
+    padding: 0 10px;
+}
+
+.st-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.st-item .st-val {
+    font-size: 16px;
+}
+
+.st-fare-sec {
+    border-top: 1px dashed #d1d1d6;
+    padding: 20px 10px 0 10px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.st-price {
+    font-size: 36px;
+    font-weight: 900;
+    color: #1c1c1e;
+    letter-spacing: -1px;
+}
+
+.st-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding: 15px 10px;
+    background: rgba(0, 122, 255, 0.03);
+    border-radius: 12px;
+}
+
+.st-meta .st-val {
+    font-size: 13px;
+    font-family: 'Monaco', monospace;
+    opacity: 0.8;
+}
+
+.st-footer {
+    text-align: center;
+    border-top: 1px solid #f2f2f7;
+    padding-top: 25px;
+}
+
+.st-message {
+    font-size: 14px;
+    font-style: italic;
+    color: #3a3a3c;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.st-authorship {
+    font-size: 11px;
+    color: #8e8e93;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+}
+
+.st-authorship strong {
+    color: #007aff;
+    font-weight: 800;
+}
+
+.st-qr-code {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    text-align: center;
+}
+
+.st-qr-code i {
+    font-size: 50px;
+    color: #1c1c1e;
+    margin-bottom: 8px;
+    opacity: 0.9;
+}
+
+.st-qr-code p {
+    margin: 0;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #8e8e93;
 }
