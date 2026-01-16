@@ -248,7 +248,11 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
                     var link = document.createElement('a');
                     link.download = 'MUMBAI_LOCAL_TICKET_' + $scope.ticketId + '.png';
                     link.href = canvas.toDataURL('image/png');
+                    document.body.appendChild(link); // Added for better browser support
                     link.click();
+                    document.body.removeChild(link); // Cleanup
+                }).catch(function (err) {
+                    console.error("Export failed:", err);
                 });
             } else {
                 console.error("html2canvas not loaded. Falling back to print.");
@@ -589,4 +593,11 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
     $scope.range = function (n) { return new Array(n); };
     $scope.setAdults = function (n) { $scope.adults = n; };
     $scope.setChildren = function (n) { $scope.children = n; };
+
+    // --- Train Interaction ---
+    $scope.trainDirection = 'normal';
+    $scope.toggleTrainDirection = function ($event) {
+        if ($event) $event.stopPropagation();
+        $scope.trainDirection = ($scope.trainDirection === 'normal') ? 'reverse' : 'normal';
+    };
 }]);
