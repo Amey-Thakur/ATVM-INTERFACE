@@ -478,7 +478,7 @@
                                     </div>
                                     <div class="st-qr-code">
                                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://github.com/Amey-Thakur/ATVM-INTERFACE"
-                                            class="qr-img" alt="QR Code">
+                                            class="qr-img" alt="QR Code" crossorigin="anonymous">
                                         <p>SECURE UTS</p>
                                     </div>
                                 </div>
@@ -490,11 +490,11 @@
                                 <i class="fas fa-download"></i>
                                 <span>DOWNLOAD</span>
                             </button>
-                            <button class="action-btn share-btn">
+                            <button class="action-btn share-btn" ng-click="shareTicket()">
                                 <i class="fas fa-share-alt"></i>
                                 <span>SHARE</span>
                             </button>
-                            <button class="action-btn copy-btn">
+                            <button class="action-btn copy-btn" ng-click="copyTicketText()">
                                 <i class="fas fa-link"></i>
                                 <span>COPY</span>
                             </button>
