@@ -1335,7 +1335,10 @@ body::after {
     overflow: hidden;
     max-width: 800px;
     margin: 0 auto;
-    height: fit-content;
+    height: auto;
+    /* Allow auto height */
+    max-height: 90vh;
+    /* Prevent overflowing viewport height */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: cardFadeIn 0.6s ease-out;
     z-index: 1;
@@ -1927,20 +1930,18 @@ body::after {
 
 /* --- New Ticket Dashboard Layout (Compact) --- */
 .ticket-body {
-    padding: 10px 20px 8px 20px;
-    /* Exact 10px spacing from line */
+    padding: 0 20px 0 20px;
+    /* ZERO top/bottom padding */
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
+    /* Tighter gap */
     margin-top: 0;
-    /* No external margin */
 }
 
 /* Specific fix for controls row to sit tight against header */
-/* Specific fix for controls row to sit tight against header */
 .controls-row {
     margin-top: 0;
-    /* Touching the top of ticket-body */
 }
 
 .ticket-controls {
