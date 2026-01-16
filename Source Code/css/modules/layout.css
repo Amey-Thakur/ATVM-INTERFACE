@@ -1,7 +1,8 @@
 /* --- Main Structure & Layout --- */
 .main-container {
     height: 100vh;
-    width: 100vw;
+    width: 100%;
+    /* Fixed: avoid 100vw scroll */
     padding: 0;
     overflow: hidden;
 }
