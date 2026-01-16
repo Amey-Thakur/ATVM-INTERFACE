@@ -260,44 +260,20 @@ body::after {
     width: 100%;
     max-width: 850px;
     height: auto;
-    max-height: 95vh;
-    /* Ensure it fits */
+    max-height: 90vh;
+    /* Strictly constrained to viewport */
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(40px);
-}
-
-/* --- Nuclear Scale Down for Smaller Screens to Prevent Scroll --- */
-@media screen and (max-height: 900px) {
-    .ticket {
-        transform: scale(0.9);
-        transform-origin: center center;
-        max-height: 100%;
-        /* Release rigid constraint to let scale work */
-    }
-
-    .ticket-canvas {
-        overflow: hidden;
-        /* Double seal */
-    }
-}
-
-@media screen and (max-height: 800px) {
-    .ticket {
-        transform: scale(0.8);
-    }
-}
-
--webkit-backdrop-filter: blur(40px);
-border-radius: 32px;
-box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05),
-0 0 0 1px rgba(255, 255, 255, 0.5) inset;
-border: none;
-overflow-y: auto;
-/* Scroll internally if absolutely needed */
-display: flex;
-flex-direction: column;
-padding: 30px;
-/* Reduced from 40px */
+    -webkit-backdrop-filter: blur(40px);
+    border-radius: 32px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+    border: none;
+    overflow: hidden;
+    /* Strict no-scroll */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    /* Reduced padding to help fit */
 }
 
 /* Header with Watermark & Branding */
