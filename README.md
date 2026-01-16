@@ -123,6 +123,14 @@ ATVM-INTERFACE/
   <b>Interface Simulation</b>
   <br><br>
   <img src="https://user-images.githubusercontent.com/54937357/155710329-1b1447b7-ac68-4e2a-9f20-8e52eac1d331.png" alt="ATVM Interface" width="80%">
+  <br><br>
+  <b>Ticket Preview Modal</b>
+  <br><br>
+  <img src="docs/screenshots/ticket_preview.png" alt="Ticket Preview" width="80%">
+  <br><br>
+  <b>Generated Digital Ticket</b>
+  <br><br>
+  <img src="docs/screenshots/downloaded_ticket.png" alt="Downloaded Ticket" width="80%">
 </div>
 
 ---
