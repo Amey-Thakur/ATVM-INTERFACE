@@ -1927,11 +1927,19 @@ body::after {
 
 /* --- New Ticket Dashboard Layout (Compact) --- */
 .ticket-body {
-    padding: 2px 20px 8px 20px;
-    /* Reduced top padding to pull controls up */
+    padding: 0 20px 8px 20px;
+    /* Zero top padding */
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-top: 5px;
+    /* Slight buffer, or actually let's make it tight */
+}
+
+/* Specific fix for controls row to sit tight against header */
+.controls-row {
+    margin-top: 5px;
+    /* Minimal space from the line */
 }
 
 .ticket-controls {
