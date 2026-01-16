@@ -2,7 +2,7 @@
  * Project: ATVM Interface
  * File: atvm-controller.js
  * Date: January 16, 2026
- * Description: AngularJS controller for handling ATVM logic with real Mumbai Western Line data. (v3.1)
+ * Description: AngularJS controller for handling ATVM logic with real Mumbai Western Line data. (v4.0)
  * 
  * Created by: Amey Thakur (https://github.com/Amey-Thakur) & Mega Satish (https://github.com/msatmod)
  * Repository: https://github.com/Amey-Thakur/ATVM-INTERFACE
@@ -18,7 +18,7 @@
 //   CONSOLE EASTER EGG 🚇
 // =========================================
 console.log(
-    "%c🚇 ATVM Interface - Mumbai Western Railway (v3.1)",
+    "%c🚇 ATVM Interface - Mumbai Western Railway (v4.0)",
     "font-size: 24px; font-weight: bold; color: #ef4444; text-shadow: 2px 2px 0 #0f172a;"
 );
 console.log(
@@ -240,25 +240,19 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
         $scope.showTicketModal = true;
     };
 
-    // 2. Download Ticket -> Robust Clone & Capture (v3.0)
+    // 2. Download Ticket -> PRO SILENT DOWNLOAD (v4.0)
     $scope.downloadTicket = function () {
         var element = document.querySelector('.share-ticket');
-        if (!element) return alert("Ticket element not found.");
+        if (!element) return;
 
         if (window.html2canvas) {
-            // Create a temporary container for clean capture
+            // Clean clone for perfect capture
             var container = document.createElement('div');
-            container.style.position = 'fixed';
-            container.style.left = '-9999px';
-            container.style.top = '0';
-            container.style.width = '820px'; // Force target width
+            container.style.cssText = 'position:fixed; left:-9999px; top:0; width:820px;';
             document.body.appendChild(container);
 
-            // Clone the ticket into the clean container
             var clone = element.cloneNode(true);
-            clone.style.transform = 'none'; // Remove any modal scaling
-            clone.style.margin = '0';
-            clone.style.boxShadow = 'none';
+            clone.style.cssText = 'transform:none; margin:0; box-shadow:none;';
             container.appendChild(clone);
 
             html2canvas(clone, {
@@ -266,36 +260,33 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
                 useCORS: true,
                 allowTaint: true,
                 backgroundColor: "#ffffff",
-                logging: false,
                 width: 820
             }).then(function (canvas) {
-                try {
-                    var imgData = canvas.toDataURL('image/png', 1.0);
+                // Pro Coder Approach: Use Blob for guaranteed local download
+                canvas.toBlob(function (blob) {
+                    var url = URL.createObjectURL(blob);
                     var link = document.createElement('a');
+                    link.href = url;
                     link.download = 'MUMBAI_TICKET_' + $scope.ticketId + '.png';
-                    link.href = imgData;
 
-                    // Standard Download
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
+                    // Force download via programmatic click
+                    var clickEvent = new MouseEvent('click', {
+                        view: window,
+                        bubbles: true,
+                        cancelable: true
+                    });
+                    link.dispatchEvent(clickEvent);
 
-                    // Success Feedback
-                    console.log("Download triggered effectively.");
-                } catch (e) {
-                    console.error("Standard download failed, trying tab-fallback:", e);
-                    // Fallback: Open in new window for manual saving
-                    var win = window.open();
-                    win.document.write('<img src="' + canvas.toDataURL() + '" style="max-width:100%; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.2);"><p style="font-family:sans-serif; text-align:center; color:#666;">Right-click and "Save Image As" to download your ticket.</p>');
-                }
-                document.body.removeChild(container);
+                    // Clean up memory
+                    setTimeout(function () {
+                        URL.revokeObjectURL(url);
+                        document.body.removeChild(container);
+                    }, 100);
+                }, 'image/png', 1.0);
             }).catch(function (err) {
-                console.error("html2canvas capture failed:", err);
-                alert("Download failed. Your browser's security settings might be blocking script-based image captures.");
+                console.error("Capture failed:", err);
                 document.body.removeChild(container);
             });
-        } else {
-            alert("Error: Capture engine (html2canvas) not loaded. Please refresh.");
         }
     };
 
