@@ -1979,7 +1979,8 @@ body::after {
 
 .fare-amount {
     font-weight: 900;
-    font-size: 32px;
+    font-size: 28px;
+    /* Compressed font size */
     color: #1c1c1e;
     letter-spacing: -1px;
     line-height: 1;
@@ -2114,12 +2115,14 @@ body::after {
 }
 
 /* Compact Route Visual */
+/* Compact Route Visual */
 .route-visual-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     background: #f9f9fa;
-    padding: 15px 20px;
+    padding: 10px 15px;
+    /* Compressed padding */
     border-radius: 12px;
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
@@ -2197,7 +2200,8 @@ body::after {
     background: #fff;
     border: 1px solid #e5e5ea;
     border-radius: 12px;
-    padding: 12px;
+    padding: 10px;
+    /* Compressed padding */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2572,8 +2576,8 @@ input {
     /* Force equal width */
     margin-bottom: 0 !important;
     /* Remove bottom margin since container handles it */
-    height: 55px;
-    /* Standardize height for both */
+    height: 48px;
+    /* Standardize height (Compressed from 55px) */
     display: flex;
     background: #e3e3e8;
     /* Matched Apple Gray from journey-type-control */
