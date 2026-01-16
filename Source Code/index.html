@@ -196,12 +196,14 @@
                 </div>
 
                 <div class="ticket-canvas">
-                    <div class="ticket" ng-class="{'train-reverse': trainDirection === 'reverse'}">
-                        <!-- Interactive Train Track -->
-                        <div class="train-track-container" ng-click="toggleTrainDirection()">
+                    <div class="ticket" id="ticket-card" ng-style="{'--train-state': trainState}">
+                        <!-- Interactive Train Track (Grab & Move) -->
+                        <div class="train-track-container" ng-mousedown="startTrainDrag($event)"
+                            ng-mousemove="moveTrainDrag($event)" ng-mouseup="stopTrainDrag()" style="cursor: grab;">
                             <div class="train-vessel">
-                                <div class="compartment"></div>
-                                <div class="compartment"></div>
+                                <div class="compartment">
+                                    <div class="engine-face"></div>
+                                </div>
                                 <div class="compartment"></div>
                                 <div class="compartment"></div>
                                 <div class="compartment"></div>
