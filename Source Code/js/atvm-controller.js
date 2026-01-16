@@ -482,11 +482,16 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
 
     // --- Journey & Passenger State ---
     $scope.journeyType = 'Single'; // 'Single' or 'Return'
+    $scope.ticketClass = 'Second'; // 'First' or 'Second'
     $scope.adults = 1;
     $scope.children = 0;
 
     $scope.setJourneyType = function (type) {
         $scope.journeyType = type;
+    };
+
+    $scope.setTicketClass = function (cls) {
+        $scope.ticketClass = cls;
     };
 
     $scope.updatePassenger = function (type, change, $event) {
@@ -588,6 +593,13 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
         // Calculate total for multiple passengers
         var total = (baseFare * $scope.adults) +
             (Math.ceil(baseFare / 2) * $scope.children);
+
+        // Apply Class Multiplier
+        // Standard Mumbai Rule: First Class is approx 10-12x of Second Class, often rounded.
+        // We will use a 12x multiplier for "Premium" feel.
+        if ($scope.ticketClass === 'First') {
+            total = total * 10;
+        }
 
         // Apply return ticket multiplier
         if ($scope.journeyType === 'Return') total *= 2;
