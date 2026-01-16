@@ -263,6 +263,21 @@
                                 </div>
                             </div>
 
+                            <!-- Class Selector (Premium Toggle) -->
+                            <div class="class-selector-control" ng-class="{'class-first': ticketClass === 'First'}">
+                                <div class="class-glider"></div>
+                                <div class="class-option" ng-class="{active: ticketClass === 'Second'}"
+                                    ng-click="setTicketClass('Second')">
+                                    <div class="class-label">SECOND <span class="mr-label">द्वितिय</span></div>
+                                    <div class="class-sub">Ordinary</div>
+                                </div>
+                                <div class="class-option" ng-class="{active: ticketClass === 'First'}"
+                                    ng-click="setTicketClass('First')">
+                                    <div class="class-label">FIRST <span class="mr-label">प्रथम</span></div>
+                                    <div class="class-sub">Comfort</div>
+                                </div>
+                            </div>
+
                             <!-- Route Visuals (Restored Station Signs) -->
                             <div class="route-visual-row">
                                 <div class="route-point">
@@ -378,7 +393,8 @@
                                         </div>
                                         <div class="st-item">
                                             <span class="st-label">CLASS</span>
-                                            <span class="st-val">SECOND (II)</span>
+                                            <span class="st-val">{{ticketClass.toUpperCase()}} ({{ticketClass == 'First'
+                                                ? 'I' : 'II'}})</span>
                                         </div>
                                         <div class="st-item">
                                             <span class="st-label">ADULT</span>
@@ -412,7 +428,13 @@
                                         Lifeline!"</div>
                                     <div class="st-authorship">
                                         DESIGNED & DEVELOPED BY <br>
-                                        <strong>AMEY THAKUR & MEGA SATISH</strong>
+                                        <div class="author-links">
+                                            <a href="https://github.com/Amey-Thakur" target="_blank"
+                                                class="author-link">AMEY THAKUR</a>
+                                            <span class="separator">&</span>
+                                            <a href="https://github.com/msatmod" target="_blank"
+                                                class="author-link">MEGA SATISH</a>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -423,9 +445,18 @@
                             </div>
                         </div>
 
-                        <div class="modal-footer">
-                            <button class="download-btn" ng-click="downloadTicket()">
-                                <i class="fas fa-download"></i> DOWNLOAD / डाउनलोड
+                        <div class="modal-actions">
+                            <button class="action-btn download-btn" ng-click="downloadTicket()">
+                                <i class="fas fa-download"></i>
+                                <span>DOWNLOAD</span>
+                            </button>
+                            <button class="action-btn share-btn">
+                                <i class="fas fa-share-alt"></i>
+                                <span>SHARE</span>
+                            </button>
+                            <button class="action-btn copy-btn">
+                                <i class="fas fa-link"></i>
+                                <span>COPY</span>
                             </button>
                         </div>
                     </div>
