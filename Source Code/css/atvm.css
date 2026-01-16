@@ -244,10 +244,12 @@ body::after {
     align-items: center;
     justify-content: center;
     padding: 5px 20px;
-    /* Ultra-compact padding */
     position: relative;
     z-index: 1;
-    height: 100%;
+    height: auto;
+    /* Allow it to share space with footer */
+    min-height: 0;
+    /* Important for flex child to shrink */
 }
 
 .ticket {
@@ -2741,6 +2743,23 @@ input {
 .close-modal-btn:hover {
     background: #e5e5ea;
     color: #000;
+}
+
+/* --- Attribution Footer in Main Interface --- */
+.attribution {
+    flex-shrink: 0;
+    /* Prevent shrinking */
+    width: 100%;
+    background: #fff;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 8px 15px;
+    /* Compact padding */
+    display: flex !important;
+    /* Ensure visibility */
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    z-index: 1000;
 }
 
 /* --- Modal Actions --- */
