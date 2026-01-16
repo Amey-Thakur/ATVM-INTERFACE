@@ -1491,12 +1491,13 @@ body::after {
     border-radius: 1px;
 }
 
-/* Engine (First Coach) - Yellow Face */
+/* Staggered starts: Engine (Child 1) leads, others trail */
 .compartment:nth-child(1) {
-    animation-delay: 0s;
+    animation-delay: -1.6s;
     background: #f0f0f0;
 }
 
+/* Engine leads */
 .compartment:nth-child(1)::before {
     background: #FFD700;
     /* Yellow Front Face */
@@ -1508,9 +1509,8 @@ body::after {
     border-radius: 0 2px 2px 0;
 }
 
-/* Staggered starts for 5 coaches */
 .compartment:nth-child(2) {
-    animation-delay: -0.4s;
+    animation-delay: -1.2s;
 }
 
 .compartment:nth-child(3) {
@@ -1518,11 +1518,11 @@ body::after {
 }
 
 .compartment:nth-child(4) {
-    animation-delay: -1.2s;
+    animation-delay: -0.4s;
 }
 
 .compartment:nth-child(5) {
-    animation-delay: -1.6s;
+    animation-delay: 0s;
 }
 
 /* Direction Control */
