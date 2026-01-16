@@ -76,6 +76,10 @@ The development of this interface was guided by core **Human-Machine Interaction
 | **System Map Overlay** | LED-themed interactive transit map for network-wide orientation. |
 | **Data Handling** | Client-side management of station data and ticket details. |
 
+> [!NOTE]
+> ### 🕵🏻‍♂️ Hidden Easter Egg: Authentic Audio System
+> We've integrated a "Secret" immersive layer! Clicking on the **Station Speakers** or the **Analog Clock** triggers a personalized, high-fidelity Mumbai Railway announcement. This Easter egg recreates the authentic transit atmosphere, surprising users with a real-world station soundscape.
+
 ### Tech Stack
 - **Core**: HTML5, CSS3 (Modern Flexbox/Grid), JavaScript (ES6+)
 - **Logic**: AngularJS (1.x), jQuery
