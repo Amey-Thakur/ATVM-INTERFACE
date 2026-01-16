@@ -248,33 +248,34 @@
 
                         <div class="ticket-body">
 
-                            <!-- Journey Type Selector (Segmented Control) -->
-                            <div class="journey-type-control" ng-class="{'mode-return': journeyType === 'Return'}">
-                                <div class="glider"></div>
-                                <div class="segment-option" ng-class="{active: journeyType === 'Single'}"
-                                    ng-click="setJourneyType('Single')">
-                                    <div class="seg-label">SINGLE <span class="mr-label">एक-मार्गी</span></div>
-                                    <div class="seg-sub">Single Journey</div>
+                            <!-- Row for Selectors (Side by Side) -->
+                            <div class="controls-row">
+                                <div class="journey-type-control" ng-class="{'mode-return': journeyType === 'Return'}">
+                                    <div class="glider"></div>
+                                    <div class="segment-option" ng-class="{active: journeyType === 'Single'}"
+                                        ng-click="setJourneyType('Single')">
+                                        <div class="seg-label">SINGLE <span class="mr-label">एक-मार्गी</span></div>
+                                        <div class="seg-sub">Single Journey</div>
+                                    </div>
+                                    <div class="segment-option" ng-class="{active: journeyType === 'Return'}"
+                                        ng-click="setJourneyType('Return')">
+                                        <div class="seg-label">RETURN <span class="mr-label">परतीचे</span></div>
+                                        <div class="seg-sub">Valid for 24 hours</div>
+                                    </div>
                                 </div>
-                                <div class="segment-option" ng-class="{active: journeyType === 'Return'}"
-                                    ng-click="setJourneyType('Return')">
-                                    <div class="seg-label">RETURN <span class="mr-label">परतीचे</span></div>
-                                    <div class="seg-sub">Valid for 24 hours</div>
-                                </div>
-                            </div>
 
-                            <!-- Class Selector (Premium Toggle) -->
-                            <div class="class-selector-control" ng-class="{'class-first': ticketClass === 'First'}">
-                                <div class="class-glider"></div>
-                                <div class="class-option" ng-class="{active: ticketClass === 'Second'}"
-                                    ng-click="setTicketClass('Second')">
-                                    <div class="class-label">SECOND <span class="mr-label">द्वितिय</span></div>
-                                    <div class="class-sub">Ordinary</div>
-                                </div>
-                                <div class="class-option" ng-class="{active: ticketClass === 'First'}"
-                                    ng-click="setTicketClass('First')">
-                                    <div class="class-label">FIRST <span class="mr-label">प्रथम</span></div>
-                                    <div class="class-sub">Comfort</div>
+                                <div class="class-selector-control" ng-class="{'class-first': ticketClass === 'First'}">
+                                    <div class="class-glider"></div>
+                                    <div class="class-option" ng-class="{active: ticketClass === 'Second'}"
+                                        ng-click="setTicketClass('Second')">
+                                        <div class="class-label">SECOND <span class="mr-label">द्वितिय</span></div>
+                                        <div class="class-sub">Ordinary</div>
+                                    </div>
+                                    <div class="class-option" ng-class="{active: ticketClass === 'First'}"
+                                        ng-click="setTicketClass('First')">
+                                        <div class="class-label">FIRST <span class="mr-label">प्रथम</span></div>
+                                        <div class="class-sub">Comfort</div>
+                                    </div>
                                 </div>
                             </div>
 
