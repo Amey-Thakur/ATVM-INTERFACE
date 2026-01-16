@@ -1929,8 +1929,8 @@ body::after {
 
 /* --- New Ticket Dashboard Layout (Compact) --- */
 .ticket-body {
-    padding: 0 20px 20px 20px;
-    /* Restored bottom padding for footer separation */
+    padding: 0 20px 10px 20px;
+    /* Reduced bottom padding to 10px as requested */
     display: flex;
     flex-direction: column;
     gap: 8px;
