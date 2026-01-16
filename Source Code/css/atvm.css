@@ -3142,3 +3142,138 @@ input {
     letter-spacing: 1.5px;
     color: #8e8e93;
 }
+
+/* --- Social Share Overlay --- */
+.share-options-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(15px);
+    z-index: 5010;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(1.05);
+}
+
+.share-options-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.share-options-card {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.share-options-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.share-options-header h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+    color: #1c1c1e;
+    letter-spacing: -0.5px;
+}
+
+.close-share-btn {
+    background: #f2f2f7;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #8e8e93;
+    transition: all 0.2s;
+}
+
+.close-share-btn:hover {
+    background: #e5e5ea;
+    color: #000;
+}
+
+.share-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.social-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 18px;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.social-btn i {
+    font-size: 24px;
+}
+
+.social-btn span {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.social-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Brand Colors */
+.social-btn.whatsapp {
+    color: #25d366;
+}
+
+.social-btn.whatsapp:hover {
+    background: #e8f9ef;
+    border-color: #25d366;
+}
+
+.social-btn.twitter {
+    color: #1da1f2;
+}
+
+.social-btn.twitter:hover {
+    background: #e8f5fe;
+    border-color: #1da1f2;
+}
+
+.social-btn.linkedin {
+    color: #0077b5;
+}
+
+.social-btn.linkedin:hover {
+    background: #e5f1f7;
+    border-color: #0077b5;
+}
+
+.social-btn.copy {
+    color: #8e8e93;
+}
+
+.social-btn.copy:hover {
+    background: #f2f2f7;
+    border-color: #8e8e93;
+}
