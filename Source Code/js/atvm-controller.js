@@ -297,7 +297,7 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
     // 4. Copy Ticket (Image + Text)
     $scope.copyTicketText = function () {
         var element = document.querySelector('.share-ticket');
-        var text = "🎫 MUMBAI LOCAL TICKET\n" +
+        var textBody = "🎫 MUMBAI LOCAL TICKET\n" +
             "ID: #" + $scope.ticketId + "\n" +
             "FROM: " + $scope.sourceStation.name + "\n" +
             "TO: " + $scope.destinationStation.name + "\n" +
@@ -314,35 +314,46 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
             html2canvas(element, {
                 scale: 2,
                 useCORS: true,
-                backgroundColor: "#ffffff"
+                allowTaint: false,
+                backgroundColor: "#ffffff",
+                logging: false
             }).then(function (canvas) {
                 canvas.toBlob(function (blob) {
+                    if (!blob) {
+                        // Fallback if blob generation failed (e.g. tainted canvas)
+                        copyOnlyText(textBody, "Image capture failed (CORS), text details copied!");
+                        return;
+                    }
                     try {
-                        const item = new ClipboardItem({
+                        const data = [new ClipboardItem({
                             "image/png": blob,
-                            "text/plain": new Blob([text], { type: "text/plain" })
-                        });
-                        navigator.clipboard.write([item]).then(function () {
-                            alert("Ticket Image & Details copied to clipboard!");
+                            "text/plain": new Blob([textBody], { type: "text/plain" })
+                        })];
+                        navigator.clipboard.write(data).then(function () {
+                            alert("Ticket Image & Full Details copied to clipboard! 🎫✨");
                         }).catch(function (err) {
-                            console.error("Clipboard write failed:", err);
-                            // Fallback to just text if image fails
-                            navigator.clipboard.writeText(text).then(function () {
-                                alert("Details copied (Image capture blocked by browser).");
-                            });
+                            console.error("Rich Copy Failed:", err);
+                            copyOnlyText(textBody, "Image copy blocked by browser, text details copied!");
                         });
                     } catch (e) {
-                        // Fallback for browsers that don't support multi-type clipboard items or blobs in it
-                        navigator.clipboard.writeText(text).then(function () {
-                            alert("Ticket details copied to clipboard!");
-                        });
+                        copyOnlyText(textBody, "Image copy failed, text details copied!");
                     }
                 }, "image/png");
+            }).catch(function (err) {
+                console.error("html2canvas capture failed:", err);
+                copyOnlyText(textBody, "Capture failed, details copied as text.");
             });
         } else {
-            alert("Error: Ticket engine not ready.");
+            copyOnlyText(textBody, "Ticket Details copied!");
         }
     };
+
+    // Helper for fallback text copy
+    function copyOnlyText(txt, alertMsg) {
+        navigator.clipboard.writeText(txt).then(function () {
+            alert(alertMsg || "Ticket Details copied to clipboard!");
+        });
+    }
 
     // 5. Close Modal
     $scope.closeModal = function () {
