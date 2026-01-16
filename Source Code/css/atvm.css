@@ -2530,16 +2530,30 @@ input {
     border: 1px solid rgba(0, 0, 0, 0.1) !important;
 }
 
+/* --- Row Container for Side-by-Side Selectors --- */
+.controls-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
 /* --- Class Selector (Toggle) --- */
-.class-selector-control {
+.class-selector-control,
+.journey-type-control {
+    flex: 1;
+    /* Force equal width */
+    margin-bottom: 0 !important;
+    /* Remove bottom margin since container handles it */
+    height: 55px;
+    /* Standardize height for both */
     display: flex;
     background: #e5e5ea;
     border-radius: 12px;
     padding: 4px;
     position: relative;
     cursor: pointer;
-    margin-bottom: 25px;
-    height: 60px;
+    /* margin-bottom: 25px; */
+    /* height: 60px; */
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
