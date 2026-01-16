@@ -2551,8 +2551,8 @@ input {
 .controls-row {
     display: flex;
     gap: 15px;
-    margin-bottom: 15px;
-    /* Reduced from 25px to fix whitespace */
+    margin-bottom: 0;
+    /* Removed to rely on ticket-body gap */
 }
 
 /* --- Class Selector (Toggle) --- */
