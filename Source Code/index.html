@@ -318,29 +318,30 @@
                             <div class="route-visual-row">
                                 <div class="route-point">
                                     <div class="label"
-                                        style="font-size: 10px; color: #888; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;">
-                                        Source / उगम</div>
-                                    <div class="station-sign">
+                                        style="font-size: 13px; color: #8e8e93; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px;">
+                                        SOURCE / उगम</div>
+                                    <div class="station-sign large">
                                         <div class="diamond"></div>
                                         <div class="circle"></div>
                                         <div class="bar">{{sourceStation.name}}</div>
                                     </div>
                                 </div>
 
-                                <div class="route-arrow">
-                                    <div class="journey-badge" style="font-size: 10px; margin-bottom: 5px;">
+                                <div class="route-arrow" style="gap: 10px;">
+                                    <div class="journey-badge" style="font-size: 12px; padding: 4px 10px;">
                                         {{journeyType
                                         === 'Return' ? 'RETURN' : 'SINGLE'}}</div>
-                                    <i class="fas fa-arrow-right" style="color: #ccc; font-size: 16px;"></i>
+                                    <i class="fas fa-arrow-right"
+                                        style="color: #007aff; font-size: 24px; opacity: 0.5;"></i>
                                     <div class="class-badge" ng-class="{'badge-first': ticketClass === 'First'}"
-                                        style="margin-top: 5px;">{{ticketClass.toUpperCase()}}</div>
+                                        style="font-size: 12px; padding: 4px 10px;">{{ticketClass.toUpperCase()}}</div>
                                 </div>
 
                                 <div class="route-point">
                                     <div class="label"
-                                        style="font-size: 10px; color: #888; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;">
-                                        Destination / गंतव्य</div>
-                                    <div class="station-sign">
+                                        style="font-size: 13px; color: #8e8e93; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px;">
+                                        DESTINATION / गंतव्य</div>
+                                    <div class="station-sign large">
                                         <div class="diamond"></div>
                                         <div class="circle"></div>
                                         <div class="bar">{{destinationStation.name}}</div>
@@ -540,7 +541,7 @@
     <!-- Core Scripts -->
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="js/angular.min.js"></script>
-    <script src="js/atvm-controller.js?v=6.2"></script>
+    <script src="js/atvm-controller.js?v=6.3"></script>
 
     <!-- Ticket Export Library (Loaded after core) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
