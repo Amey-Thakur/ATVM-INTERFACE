@@ -500,34 +500,6 @@
                             </button>
                         </div>
 
-                        <!-- Social Share Overlay (Hidden by Default) -->
-                        <div class="share-options-overlay" ng-class="{active: showShareOptions}">
-                            <div class="share-options-card">
-                                <div class="share-options-header">
-                                    <h4>SHARE TICKET / तिकीट शेअर करा</h4>
-                                    <button class="close-share-btn" ng-click="showShareOptions = false">✕</button>
-                                </div>
-                                <div class="share-grid">
-                                    <button class="social-btn whatsapp" ng-click="sendSocial('whatsapp')">
-                                        <i class="fab fa-whatsapp"></i>
-                                        <span>WHATSAPP</span>
-                                    </button>
-                                    <button class="social-btn twitter" ng-click="sendSocial('twitter')">
-                                        <i class="fab fa-twitter"></i>
-                                        <span>TWITTER (X)</span>
-                                    </button>
-                                    <button class="social-btn linkedin" ng-click="sendSocial('linkedin')">
-                                        <i class="fab fa-linkedin-in"></i>
-                                        <span>LINKEDIN</span>
-                                    </button>
-                                    <button class="social-btn copy"
-                                        ng-click="copyTicketText(); showShareOptions = false">
-                                        <i class="fas fa-copy"></i>
-                                        <span>COPY TEXT</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -568,7 +540,7 @@
     <!-- Core Scripts -->
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="js/angular.min.js"></script>
-    <script src="js/atvm-controller.js?v=2.7"></script>
+    <script src="js/atvm-controller.js?v=2.8"></script>
 
     <!-- Ticket Export Library (Loaded after core) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
