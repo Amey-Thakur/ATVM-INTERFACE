@@ -1,40 +1,215 @@
-/* --- Interactive Map Overlay --- */
+/* --- Map Footer Visibility --- */
+.map-attribution {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    z-index: 3000 !important;
+    background: #ffffff !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    padding: 0 40px;
+    border-top: 4px solid #d1121d !important;
+    border-bottom: 4px solid #005eb8 !important;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+    pointer-events: auto;
+}
+
+/* Force dark text for map footer since background is white */
+.map-attribution .copyright-text,
+.map-attribution .dev-label {
+    color: #1c1c1e !important;
+    opacity: 1 !important;
+}
+
+.map-attribution .footer-pipe {
+    color: #c7c7cc !important;
+}
+
+.map-attribution .station-name {
+    color: #1c1c1e !important;
+    font-weight: 700 !important;
+}
+
+.map-attribution .fa-train {
+    color: #005eb8 !important;
+}
+
+.map-attribution .line-segment {
+    background: #d1d1d6 !important;
+}
+
 .map-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(20px);
+    background: #ffffff;
+    backdrop-filter: none;
     z-index: 2000;
     display: flex;
     flex-direction: column;
-    transform: translateY(100%);
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    opacity: 0;
+    transform: translateY(-100%);
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    opacity: 1;
     pointer-events: none;
+    visibility: hidden;
 }
 
 .map-overlay.active {
     transform: translateY(0);
-    opacity: 1;
     pointer-events: auto;
 }
 
 .map-header {
     padding: 20px 40px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    /* Centered Title */
     align-items: center;
-    background: #fff;
+    position: relative;
+    /* For absolute close btn */
+    background: rgba(255, 255, 255, 0.1);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     z-index: 10;
 }
 
-.map-header h2 {
-    margin: 0;
-    font-weight: 900;
-    color: var(--mumbai-blue);
-    text-transform: uppercase;
+.map-title {
+    flex: 1;
+    text-align: center;
     font-size: 24px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--apple-text);
+    padding-right: 120px;
+    /* Offset for close button balance */
+}
+
+.map-header h2 {
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.map-header .fa-map-location-dot {
+    color: #ffffff;
+    margin-right: 12px;
+}
+
+/* Remove old h2 if present */
+
+/* --- Line Specific Column Styling (Exact Selector Match) --- */
+.line-wr {
+    background: #f0f7ff;
+    /* Western Light Blue */
+    margin-bottom: 20px;
+}
+
+.line-wr .rail-line-label {
+    background: #005eb8;
+    color: #ffffff;
+    font-weight: 800;
+    padding: 8px 24px;
+    border-radius: 50px;
+    margin-bottom: 25px;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-block;
+    cursor: default;
+    box-shadow: 0 4px 10px rgba(0, 94, 184, 0.2);
+    border-bottom: none;
+}
+
+.line-wr:hover .rail-line-label {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 94, 184, 0.3);
+}
+
+.line-cr {
+    background: #fff0f5;
+    /* Central Light Pink */
+    margin-bottom: 20px;
+}
+
+.line-cr .rail-line-label {
+    background: #C71585;
+    color: #ffffff;
+    font-weight: 800;
+    padding: 8px 24px;
+    border-radius: 50px;
+    margin-bottom: 25px;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-block;
+    cursor: default;
+    box-shadow: 0 4px 10px rgba(199, 21, 133, 0.2);
+    border-bottom: none;
+}
+
+.line-cr:hover .rail-line-label {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(199, 21, 133, 0.3);
+}
+
+.line-hr {
+    background: #fffafa;
+    /* Harbour Light Red */
+    margin-bottom: 20px;
+}
+
+.line-hr .rail-line-label {
+    background: #800000;
+    color: #ffffff;
+    font-weight: 800;
+    padding: 8px 24px;
+    border-radius: 50px;
+    margin-bottom: 25px;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-block;
+    cursor: default;
+    box-shadow: 0 4px 10px rgba(128, 0, 0, 0.2);
+    border-bottom: none;
+}
+
+.line-hr:hover .rail-line-label {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(128, 0, 0, 0.3);
+}
+
+.line-th {
+    background: #f6fff9;
+    /* Trans-Harbour Light Green */
+    margin-bottom: 20px;
+}
+
+.line-th .rail-line-label {
+    background: #28B463;
+    color: #ffffff;
+    font-weight: 800;
+    padding: 8px 24px;
+    border-radius: 50px;
+    margin-bottom: 25px;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-block;
+    cursor: default;
+    box-shadow: 0 4px 10px rgba(40, 180, 99, 0.2);
+    border-bottom: none;
+}
+
+.line-th:hover .rail-line-label {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(40, 180, 99, 0.3);
+}
+
+
+/* Map Diagram Padding for Footer */
+.map-diagram {
+    padding-bottom: 90px;
+    /* Increased space for fixed footer and scrolling room */
 }
 
 .close-map-btn {
@@ -46,7 +221,10 @@
     cursor: pointer;
     font-size: 14px;
     text-transform: uppercase;
+    position: absolute;
+    right: 40px;
 }
+
 
 /* --- Schematic Grid Layout --- */
 .map-diagram {
@@ -75,131 +253,191 @@
     position: absolute;
     top: 50px;
     bottom: 0;
-    left: 50%;
+    /* Align to very bottom */
+    left: 40px;
+    /* Fixed Left Position for Alignment */
     width: 6px;
-    transform: translateX(-50%);
     border-radius: 4px;
     z-index: 0;
+}
 
-    .line-mono .track-line {
-        background: rgba(139, 197, 62, 0.15);
-        border: 1px solid rgba(139, 197, 62, 0.1);
-    }
+/* Line colors applied to track (EXACT SELECTOR MATCH) */
+.line-wr .track-line {
+    background: #005eb8;
+}
 
-    .map-station-node {
-        margin-bottom: 25px;
-        /* Spacing between stations */
-        position: relative;
-        z-index: 1;
-        display: flex;
-        align-items: center;
-        background: #fff;
-        padding: 8px 16px;
-        border-radius: 20px;
-        border: 2px solid transparent;
-        cursor: pointer;
-        transition: all 0.2s cubic-bezier(0.3, 0, 0.2, 1);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        width: 180px;
-        justify-content: center;
-    }
+/* Western Blue */
+.line-cr .track-line {
+    background: #C71585;
+}
 
-    .line-wr .map-station-node {
-        border-color: rgba(209, 18, 29, 0.1);
-    }
+/* Central Magenta */
+.line-hr .track-line {
+    background: #800000;
+}
 
-    .line-cr .map-station-node {
-        border-color: rgba(123, 36, 28, 0.1);
-    }
+/* Harbour Maroon */
+.line-th .track-line {
+    background: #28B463;
+}
 
-    .line-hr .map-station-node {
-        border-color: rgba(0, 51, 153, 0.1);
-    }
+/* Trans-Harbour Green */
+.line-mono .track-line {
+    background: rgba(139, 197, 62, 0.15);
+    border: 1px solid rgba(139, 197, 62, 0.1);
+}
 
-    .line-m1 .map-station-node {
-        border-color: rgba(0, 174, 239, 0.1);
-    }
+.map-station-node {
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    background: transparent;
+    /* Remove Card BG */
+    padding: 5px 0;
+    border: none;
+    /* No Border */
+    cursor: pointer;
+    width: 100%;
+    justify-content: flex-start;
+    /* Align Left */
+    padding-left: 36px;
+    /* Offset for track alignment (36px + 7px half-dot = 43px centerline) */
+}
 
-    .line-m2 .map-station-node {
-        border-color: rgba(252, 210, 6, 0.1);
-    }
+.map-station-node:hover {
+    transform: translateX(5px);
+    background: transparent;
+    box-shadow: none;
+}
 
-    .line-mono .map-station-node {
-        border-color: rgba(139, 197, 62, 0.1);
-    }
+/* --- Hover Colors Per Line (Fill Dot & Color Text) --- */
+.line-wr .map-station-node:hover::before {
+    background: #005eb8;
+    box-shadow: 0 0 0 4px rgba(0, 94, 184, 0.2);
+    border-color: #005eb8;
+}
 
-    .map-station-node:hover {
-        transform: scale(1.1);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        z-index: 5;
-    }
+.line-cr .map-station-node:hover::before {
+    background: #C71585;
+    box-shadow: 0 0 0 4px rgba(199, 21, 133, 0.2);
+    border-color: #C71585;
+}
 
-    .map-station-node::before {
-        content: '';
-        display: block;
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        margin-right: 10px;
-        border: 3px solid #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
+.line-hr .map-station-node:hover::before {
+    background: #800000;
+    box-shadow: 0 0 0 4px rgba(128, 0, 0, 0.2);
+    border-color: #800000;
+}
 
-    .line-wr .map-station-node::before {
-        background: var(--wr-red);
-    }
+.line-th .map-station-node:hover::before {
+    background: #28B463;
+    box-shadow: 0 0 0 4px rgba(40, 180, 99, 0.2);
+    border-color: #28B463;
+}
 
-    .line-cr .map-station-node::before {
-        background: var(--cr-maroon);
-    }
+.line-wr .map-station-node:hover .map-station-name {
+    color: #005eb8;
+}
 
-    .line-hr .map-station-node::before {
-        background: var(--mumbai-blue);
-    }
+.line-cr .map-station-node:hover .map-station-name {
+    color: #C71585;
+}
 
-    .line-m1 .map-station-node::before {
-        background: #00AEEF;
-    }
+.line-hr .map-station-node:hover .map-station-name {
+    color: #800000;
+}
 
-    .line-m2 .map-station-node::before {
-        background: #FCD206;
-    }
+.line-th .map-station-node:hover .map-station-name {
+    color: #28B463;
+}
 
-    .line-mono .map-station-node::before {
-        background: #8BC53E;
-    }
+/* The Dot on the Track */
+.map-station-node::before {
+    content: '';
+    display: block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    margin-right: 15px;
+    background: #fff;
+    border: 3px solid #555;
+    /* Default Dark Grey Border */
+    box-shadow: 0 0 0 2px #fff;
+    /* White outline for separation */
+    flex-shrink: 0;
+    z-index: 2;
+}
 
-    .map-station-name {
-        font-size: 13px;
-        font-weight: 700;
-        color: var(--apple-text);
-    }
+/* Interchange Station (Large Black Ring) */
+.map-station-node.interchange::before {
+    width: 22px;
+    height: 22px;
+    background: #fff;
+    border: 5px solid #000;
+    /* Black Ring */
+    margin-left: -4px;
+    /* Center alignment correction */
+    margin-right: 11px;
+}
 
-    /* --- Map Trigger Button --- */
-    .map-trigger-btn {
-        width: 100%;
-        padding: 14px;
-        background: #fff;
-        border: 2px solid var(--apple-bg-accent);
-        color: var(--mumbai-blue);
-        border-radius: 12px;
-        font-weight: 800;
-        text-transform: uppercase;
-        font-size: 13px;
-        cursor: pointer;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        transition: all 0.2s;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
-    }
+/* Line Specific Dot Borders matching Selector Colors */
+.line-wr .map-station-node::before {
+    border-color: #005eb8;
+}
 
-    .map-trigger-btn:hover {
-        background: var(--mumbai-blue);
-        color: #fff;
-        border-color: var(--mumbai-blue);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(0, 51, 153, 0.2);
-    }
+.line-cr .map-station-node::before {
+    border-color: #C71585;
+}
+
+.line-hr .map-station-node::before {
+    border-color: #800000;
+}
+
+.line-th .map-station-node::before {
+    border-color: #28B463;
+}
+
+/* Interchange overrides color with Black */
+.line-wr .map-station-node.interchange::before,
+.line-cr .map-station-node.interchange::before,
+.line-hr .map-station-node.interchange::before,
+.line-th .map-station-node.interchange::before {
+    border-color: #000;
+}
+
+.map-station-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--apple-text);
+}
+
+/* --- Map Trigger Button --- */
+.map-trigger-btn {
+    width: 100%;
+    padding: 14px;
+    background: #fff;
+    border: 2px solid var(--apple-bg-accent);
+    color: var(--mumbai-blue);
+    border-radius: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 13px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+.map-trigger-btn:hover {
+    background: var(--mumbai-blue);
+    color: #fff;
+    border-color: var(--mumbai-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 51, 153, 0.2);
+}
