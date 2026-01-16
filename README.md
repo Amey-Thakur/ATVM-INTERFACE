@@ -122,7 +122,7 @@ ATVM-INTERFACE/
 <div align="center">
   <b>Interface Simulation</b>
   <br><br>
-  <img src="https://user-images.githubusercontent.com/54937357/155710329-1b1447b7-ac68-4e2a-9f20-8e52eac1d331.png" alt="ATVM Interface" width="80%">
+  <img src="docs/screenshots/interface_simulation.png" alt="ATVM Interface" width="80%">
   <br><br>
   <b>Ticket Preview Modal</b>
   <br><br>
@@ -134,7 +134,7 @@ ATVM-INTERFACE/
   <br><br>
   <b>Interactive System Map</b>
   <br><br>
-  <img src="docs/screenshots/map_view.png" alt="System Map" width="80%">
+  <img src="docs/screenshots/map_view.png" alt="Interactive System Map" width="80%">
 </div>
 
 ---
