@@ -2,7 +2,7 @@
  * Project: ATVM Interface
  * File: atvm-controller.js
  * Date: January 16, 2026
- * Description: AngularJS controller for handling ATVM logic with real Mumbai Western Line data. (v6.1)
+ * Description: AngularJS controller for handling ATVM logic with real Mumbai Western Line data. (v6.2)
  * 
  * Created by: Amey Thakur (https://github.com/Amey-Thakur) & Mega Satish (https://github.com/msatmod)
  * Repository: https://github.com/Amey-Thakur/ATVM-INTERFACE
@@ -18,7 +18,7 @@
 //   CONSOLE EASTER EGG 🚇
 // =========================================
 console.log(
-    "%c🚇 ATVM Interface - Mumbai Western Railway (v6.1)",
+    "%c🚇 ATVM Interface - Mumbai Western Railway (v6.2)",
     "font-size: 24px; font-weight: bold; color: #ef4444; text-shadow: 2px 2px 0 #0f172a;"
 );
 console.log(
@@ -298,7 +298,7 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
         }
     };
 
-    // 3. Share Ticket (Universal Native Share)
+    // 3. Share Ticket (Universal Native Share - v6.2)
     $scope.shareTicket = function () {
         var journeyInfo = "🎫 MUMBAI LOCAL TICKET\n" +
             "Journey: " + $scope.sourceStation.name + " ➔ " + $scope.destinationStation.name + "\n" +
@@ -309,21 +309,32 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
             "✨ DESIGNED & DEVELOPED BY:\n" +
             "• AMEY THAKUR (https://github.com/Amey-Thakur)\n" +
             "• MEGA SATISH (https://github.com/msatmod)\n\n" +
-            "Checkout Project: https://github.com/Amey-Thakur/ATVM-INTERFACE";
+            "Repository: https://github.com/Amey-Thakur/ATVM-INTERFACE";
 
-        var fullPayload = journeyInfo + shareMessage;
+        // Pro Coder Strategy: Provide BOTH text and URL.
+        // Windows/Android often show ONLY email if URL is missing.
+        // Providing the URL triggers WhatsApp/Twitter/Telegram etc.
+        var shareData = {
+            title: 'Mumbai Local Ticket',
+            text: journeyInfo + shareMessage,
+            url: 'https://github.com/Amey-Thakur/ATVM-INTERFACE'
+        };
 
         if (navigator.share) {
-            navigator.share({
-                title: 'Mumbai Local Ticket',
-                text: fullPayload
+            navigator.share(shareData).then(function () {
+                console.log("Ticket shared successfully!");
             }).catch(function (err) {
                 console.log('Native share failed or cancelled:', err);
+                // On some desktops, sharing is restricted on file:// protocol
+                if (err.name !== 'AbortError') {
+                    $scope.copyTicketText();
+                    alert("Native sharing had an issue. Ticket details copied to clipboard instead!");
+                }
             });
         } else {
-            // Fallback for browsers without share API
+            // Fallback for browsers without share API or insecure context (file://)
             $scope.copyTicketText();
-            alert("Native sharing not available. Ticket details copied to clipboard instead!");
+            alert("Native sharing is restricted in this context (likely file://). Ticket details copied to clipboard instead!");
         }
     };
 
