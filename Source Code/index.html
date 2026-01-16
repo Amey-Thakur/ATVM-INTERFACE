@@ -19,7 +19,17 @@
     <link href="css/modules/components.css" rel="stylesheet">
     <link href="css/modules/layout.css" rel="stylesheet">
     <link href="css/modules/map.css" rel="stylesheet">
-    <link href="css/atvm.css" rel="stylesheet">
+    <link href="css/atvm.css?v=99" rel="stylesheet">
+    <style>
+        html,
+        body {
+            overflow: hidden !important;
+            width: 100% !important;
+            height: 100% !important;
+            position: fixed !important;
+            inset: 0 !important;
+        }
+    </style>
 </head>
 
 <body ng-controller="atvmController">
@@ -507,6 +517,17 @@
 
     <!-- Ticket Export Library (Loaded after core) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        (function () {
+            function killScroll() {
+                window.scrollTo(0, 0);
+                document.body.style.overflow = 'hidden';
+                document.documentElement.style.overflow = 'hidden';
+            }
+            setInterval(killScroll, 100);
+            window.addEventListener('scroll', killScroll);
+        })();
+    </script>
 </body>
 
 </html>
