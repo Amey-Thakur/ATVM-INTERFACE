@@ -2,7 +2,7 @@
  * Project: ATVM Interface
  * File: atvm-controller.js
  * Date: January 16, 2026
- * Description: AngularJS controller for handling ATVM logic with real Mumbai Western Line data. (v4.0)
+ * Description: AngularJS controller for handling ATVM logic with real Mumbai Western Line data. (v5.0)
  * 
  * Created by: Amey Thakur (https://github.com/Amey-Thakur) & Mega Satish (https://github.com/msatmod)
  * Repository: https://github.com/Amey-Thakur/ATVM-INTERFACE
@@ -18,7 +18,7 @@
 //   CONSOLE EASTER EGG 🚇
 // =========================================
 console.log(
-    "%c🚇 ATVM Interface - Mumbai Western Railway (v4.0)",
+    "%c🚇 ATVM Interface - Mumbai Western Railway (v5.0)",
     "font-size: 24px; font-weight: bold; color: #ef4444; text-shadow: 2px 2px 0 #0f172a;"
 );
 console.log(
@@ -240,19 +240,21 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
         $scope.showTicketModal = true;
     };
 
-    // 2. Download Ticket -> PRO SILENT DOWNLOAD (v4.0)
+    // 2. Industrial-Grade Download -> Base64 Stream (v5.0)
     $scope.downloadTicket = function () {
         var element = document.querySelector('.share-ticket');
         if (!element) return;
 
+        console.log("Starting ticket capture...");
+
         if (window.html2canvas) {
-            // Clean clone for perfect capture
+            // Setup clean capture container
             var container = document.createElement('div');
-            container.style.cssText = 'position:fixed; left:-9999px; top:0; width:820px;';
+            container.style.cssText = 'position:fixed; left:-9999px; top:0; width:820px; visibility:visible;';
             document.body.appendChild(container);
 
             var clone = element.cloneNode(true);
-            clone.style.cssText = 'transform:none; margin:0; box-shadow:none;';
+            clone.style.cssText = 'transform:none !important; margin:0 !important; box-shadow:none !important;';
             container.appendChild(clone);
 
             html2canvas(clone, {
@@ -260,32 +262,34 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
                 useCORS: true,
                 allowTaint: true,
                 backgroundColor: "#ffffff",
-                width: 820
+                width: 820,
+                onclone: function (clonedDoc) {
+                    // Final safety for clone
+                    clonedDoc.querySelector('.share-ticket').style.transform = 'none';
+                }
             }).then(function (canvas) {
-                // Pro Coder Approach: Use Blob for guaranteed local download
-                canvas.toBlob(function (blob) {
-                    var url = URL.createObjectURL(blob);
-                    var link = document.createElement('a');
-                    link.href = url;
-                    link.download = 'MUMBAI_TICKET_' + $scope.ticketId + '.png';
+                // Resilient Base64 format for local file compatibility
+                var dataUrl = canvas.toDataURL('image/png');
 
-                    // Force download via programmatic click
-                    var clickEvent = new MouseEvent('click', {
-                        view: window,
-                        bubbles: true,
-                        cancelable: true
-                    });
-                    link.dispatchEvent(clickEvent);
+                var link = document.createElement('a');
+                link.setAttribute('href', dataUrl);
+                link.setAttribute('download', 'ATVM_TICKET_' + $scope.ticketId + '.png');
+                link.style.display = 'none';
 
-                    // Clean up memory
-                    setTimeout(function () {
-                        URL.revokeObjectURL(url);
-                        document.body.removeChild(container);
-                    }, 100);
-                }, 'image/png', 1.0);
+                document.body.appendChild(link);
+                link.click();
+
+                // Final Cleanup
+                setTimeout(function () {
+                    document.body.removeChild(link);
+                    document.body.removeChild(container);
+                }, 200);
+
+                console.log("Ticket download successfully triggered!");
             }).catch(function (err) {
                 console.error("Capture failed:", err);
                 document.body.removeChild(container);
+                alert("Download failed. Your browser's security might be blocking the capture engine.");
             });
         }
     };
