@@ -131,6 +131,10 @@ ATVM-INTERFACE/
   <b>Generated Digital Ticket</b>
   <br><br>
   <img src="docs/screenshots/downloaded_ticket.png" alt="Downloaded Ticket" width="80%">
+  <br><br>
+  <b>Interactive System Map</b>
+  <br><br>
+  <img src="docs/screenshots/map_view.png" alt="System Map" width="80%">
 </div>
 
 ---
