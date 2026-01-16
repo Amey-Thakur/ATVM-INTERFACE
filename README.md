@@ -122,19 +122,19 @@ ATVM-INTERFACE/
 <div align="center">
   <b>Interface Simulation</b>
   <br><br>
-  <img src="docs/screenshots/interface_simulation.png" alt="ATVM Interface" width="80%">
+  <img src="docs/screenshots/interface_simulation.png" alt="ATVM Interface" width="90%">
   <br><br>
   <b>Ticket Preview Modal</b>
   <br><br>
-  <img src="docs/screenshots/ticket_preview.png" alt="Ticket Preview" width="80%">
+  <img src="docs/screenshots/ticket_preview.png" alt="Ticket Preview" width="90%">
   <br><br>
   <b>Generated Digital Ticket</b>
   <br><br>
-  <img src="docs/screenshots/downloaded_ticket.png" alt="Downloaded Ticket" width="80%">
+  <img src="docs/screenshots/downloaded_ticket.png" alt="Downloaded Ticket" width="90%">
   <br><br>
   <b>Interactive System Map</b>
   <br><br>
-  <img src="docs/screenshots/map_view.png" alt="Interactive System Map" width="80%">
+  <img src="docs/screenshots/map_view.png" alt="Interactive System Map" width="90%">
 </div>
 
 ---
