@@ -2832,310 +2832,346 @@ input {
 }
 
 .share-btn {
-    background: #34c759;
-    color: #fff;
-    box-shadow: 0 4px 12px rgba(52, 199, 89, 0.3);
-}
+    .share-btn:hover {
+        background: #28a745;
+        transform: translateY(-2px);
+    }
 
-.share-btn:hover {
-    background: #28a745;
-    transform: translateY(-2px);
-}
+    .share-b.st-footer-info {
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
 
-.copy-btn {
-    background: #f2f2f7;
-    color: #1c1c1e;
-    /* Changed from white to dark for contrast on light bg */
-    border: 1px solid #d1d1d6;
-}
+    .copy-btn {
+        background: #f2f2f7;
+        color: #1c1c1e;
+        /* Changed from white to dark for contrast on light bg */
+        border: 1px solid #d1d1d6;
+    }
 
-.copy-btn:hover {
-    background: #e5e5ea;
-    transform: translateY(-2px);
-}
+    .copy-btn:hover {
+        background: #e5e5ea;
+        transform: translateY(-2px);
+    }
 
-/* --- Unique Ticket Author Links --- */
-.author-links {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 5px;
-}
+    /* --- Unique Ticket Author Links --- */
+    .author-links {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 5px;
+    }
 
-.author-link {
-    text-decoration: none;
-    color: #007aff;
-    font-weight: 800;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    transition: all 0.2s;
-    padding: 4px 8px;
-    border-radius: 6px;
-    background: rgba(0, 122, 255, 0.1);
-}
+    .author-link {
+        text-decoration: none;
+        color: #007aff;
+        font-weight: 800;
+        font-size: 11px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        border-radius: 99px;
+        /* Capsule Style */
+        background: #f2f2f7;
+        border: 1px solid rgba(0, 122, 255, 0.1);
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-.author-link:hover {
-    background: #007aff;
-    color: #fff;
-    transform: scale(1.05);
-}
+    .author-link i {
+        font-size: 10px;
+        opacity: 0.7;
+    }
 
-.separator {
-    color: #8e8e93;
-    font-size: 10px;
-}
+    .author-link:hover {
+        background: #007aff;
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2);
+        border-color: #007aff;
+    }
 
-/* --- Shareable Ticket Export Wrapper --- */
-.share-ticket-wrapper {
-    position: relative;
-    /* Changed from fixed to flow naturally in modal */
-    width: auto;
-    z-index: 1;
-    opacity: 1;
-    pointer-events: auto;
-    left: auto;
-    top: auto;
-}
+    .author-link:hover i {
+        opacity: 1;
+    }
 
-.share-ticket {
-    width: 820px;
-    /* Slightly narrower to scale better */
-    max-width: 100%;
-    background: #fff;
-    padding: 18px;
-    /* Tighter padding */
-    border-radius: 24px;
-    font-family: 'Outfit', sans-serif;
-    color: #1c1c1e;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-    position: relative;
-    overflow: hidden;
-    border: 1px solid #e5e5ea;
-    display: flex;
-    flex-direction: column;
-}
+    .st-message {
+        font-size: 13px;
+        font-style: italic;
+        color: #1c1c1e;
+        font-weight: 500;
+        line-height: 1.4;
+        padding-left: 12px;
+        border-left: 3px solid #007aff;
+        /* Quote Style */
+    }
 
-.share-ticket::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    -webkit-mask-image: radial-gradient(#007aff 0.5px, transparent 0.5px);
-    mask-image: radial-gradient(#007aff 0.5px, transparent 0.5px);
-    background-color: rgba(0, 122, 255, 0.05);
-    background-size: 15px 15px;
-    pointer-events: none;
-}
+    .st-authorship {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
 
-.st-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    border-bottom: 2px solid #007aff;
-    padding-bottom: 8px;
-    margin-bottom: 10px;
-}
+    .st-dev-label {
+        font-size: 9px;
+        font-weight: 800;
+        color: #8e8e93;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
 
-.st-logo {
-    width: 50px;
-    height: 50px;
-}
+    /* --- Shareable Ticket Export Wrapper --- */
+    .share-ticket-wrapper {
+        position: relative;
+        /* Changed from fixed to flow naturally in modal */
+        width: auto;
+        z-index: 1;
+        opacity: 1;
+        pointer-events: auto;
+        left: auto;
+        top: auto;
+    }
 
-.st-rail-info h2 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    color: #007aff;
-}
+    .share-ticket {
+        width: 820px;
+        /* Slightly narrower to scale better */
+        max-width: 100%;
+        background: #fff;
+        padding: 18px;
+        /* Tighter padding */
+        border-radius: 24px;
+        font-family: 'Outfit', sans-serif;
+        color: #1c1c1e;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        border: 1px solid #e5e5ea;
+        display: flex;
+        flex-direction: column;
+    }
 
-.st-rail-info p {
-    margin: 0;
-    font-size: 12px;
-    font-weight: 600;
-    color: #8e8e93;
-}
+    .share-ticket::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        -webkit-mask-image: radial-gradient(#007aff 0.5px, transparent 0.5px);
+        mask-image: radial-gradient(#007aff 0.5px, transparent 0.5px);
+        background-color: rgba(0, 122, 255, 0.05);
+        background-size: 15px 15px;
+        pointer-events: none;
+    }
 
-.st-type-badge {
-    margin-left: auto;
-    background: #007aff;
-    color: #fff;
-    padding: 6px 14px;
-    border-radius: 10px;
-    font-weight: 900;
-    font-size: 14px;
-    box-shadow: 0 4px 10px rgba(0, 122, 255, 0.2);
-}
+    .st-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        border-bottom: 2px solid #007aff;
+        padding-bottom: 8px;
+        margin-bottom: 10px;
+    }
 
-.st-main {
-    display: grid;
-    grid-template-columns: 1fr 280px;
-    grid-template-areas:
-        "route fare"
-        "details fare";
-    gap: 15px 25px;
-    margin-bottom: 15px;
-}
+    .st-logo {
+        width: 50px;
+        height: 50px;
+    }
 
-.st-route {
-    grid-area: route;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #f2f2f7;
-    padding: 15px 25px;
-    border-radius: 16px;
-    border: 1px solid #e5e5ea;
-}
+    .st-rail-info h2 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        color: #007aff;
+    }
 
-.st-details-grid {
-    grid-area: details;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    /* 4 columns for horizontal stretch */
-    gap: 12px;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.02);
-    border-radius: 12px;
-}
+    .st-rail-info p {
+        margin: 0;
+        font-size: 12px;
+        font-weight: 600;
+        color: #8e8e93;
+    }
 
-.st-fare-sec {
-    grid-area: fare;
-    border: 1px dashed #007aff;
-    background: rgba(0, 122, 255, 0.05);
-    padding: 20px;
-    border-radius: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    height: 100%;
-    /* Fill grid area */
-}
+    .st-type-badge {
+        margin-left: auto;
+        background: #007aff;
+        color: #fff;
+        padding: 6px 14px;
+        border-radius: 10px;
+        font-weight: 900;
+        font-size: 14px;
+        box-shadow: 0 4px 10px rgba(0, 122, 255, 0.2);
+    }
 
-.st-point {
-    display: flex;
-    flex-direction: column;
-}
+    .st-main {
+        display: grid;
+        grid-template-columns: 1fr 280px;
+        grid-template-areas:
+            "route fare"
+            "details fare";
+        gap: 15px 25px;
+        margin-bottom: 15px;
+    }
 
-.st-arrow {
-    font-size: 28px;
-    color: #007aff;
-    opacity: 0.5;
-}
+    .st-route {
+        grid-area: route;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #f2f2f7;
+        padding: 15px 25px;
+        border-radius: 16px;
+        border: 1px solid #e5e5ea;
+    }
 
-.st-label {
-    font-size: 10px;
-    font-weight: 800;
-    color: #8e8e93;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 6px;
-}
+    .st-details-grid {
+        grid-area: details;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        /* 4 columns for horizontal stretch */
+        gap: 12px;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.02);
+        border-radius: 12px;
+    }
 
-.st-val {
-    font-size: 20px;
-    font-weight: 700;
-    color: #1c1c1e;
-}
+    .st-fare-sec {
+        grid-area: fare;
+        border: 1px dashed #007aff;
+        background: rgba(0, 122, 255, 0.05);
+        padding: 20px;
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        height: 100%;
+        /* Fill grid area */
+    }
 
-/* Handled by .st-main grid now */
+    .st-point {
+        display: flex;
+        flex-direction: column;
+    }
 
-.st-item {
-    display: flex;
-    flex-direction: column;
-}
+    .st-arrow {
+        font-size: 28px;
+        color: #007aff;
+        opacity: 0.5;
+    }
 
-.st-item .st-val {
-    font-size: 16px;
-}
+    .st-label {
+        font-size: 10px;
+        font-weight: 800;
+        color: #8e8e93;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 6px;
+    }
 
-.st-price {
-    font-size: 42px;
-    font-weight: 900;
-    color: #007aff;
-    letter-spacing: -2px;
-}
+    .st-val {
+        font-size: 20px;
+        font-weight: 700;
+        color: #1c1c1e;
+    }
 
-.st-meta {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    padding: 8px 20px;
-    background: rgba(0, 122, 255, 0.03);
-    border-radius: 12px;
-    width: 100%;
-    /* Full Width Entirely */
-}
+    /* Handled by .st-main grid now */
 
-.st-meta .st-val {
-    font-size: 13px;
-    font-family: 'Monaco', monospace;
-    opacity: 0.8;
-}
+    .st-item {
+        display: flex;
+        flex-direction: column;
+    }
 
-.st-footer {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    border-top: 1px solid #f2f2f7;
-    padding-top: 10px;
-}
+    .st-item .st-val {
+        font-size: 16px;
+    }
 
-.st-footer-info {
-    text-align: left;
-}
+    .st-price {
+        font-size: 42px;
+        font-weight: 900;
+        color: #007aff;
+        letter-spacing: -2px;
+    }
 
-.st-message {
-    font-size: 13px;
-    /* Smaller */
-    font-style: italic;
-    color: #3a3a3c;
-    margin-bottom: 10px;
-    /* Reduced margin */
-    font-weight: 500;
-}
+    .st-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding: 8px 20px;
+        background: rgba(0, 122, 255, 0.03);
+        border-radius: 12px;
+        width: 100%;
+        /* Full Width Entirely */
+    }
 
-.st-authorship {
-    font-size: 11px;
-    color: #8e8e93;
-    line-height: 1.6;
-    letter-spacing: 0.5px;
-}
+    .st-meta .st-val {
+        font-size: 13px;
+        font-family: 'Monaco', monospace;
+        opacity: 0.8;
+    }
 
-.st-authorship strong {
-    color: #007aff;
-    font-weight: 800;
-}
+    .st-footer {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        border-top: 1px solid #f2f2f7;
+        padding-top: 10px;
+    }
 
-.st-qr-code {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-}
+    .st-footer-info {
+        text-align: left;
+    }
 
-.qr-img {
-    width: 65px;
-    height: 65px;
-    padding: 2px;
-    background: #fff;
-    border: 1px solid #e5e5ea;
-    border-radius: 6px;
-    image-rendering: pixelated;
-    /* Keeps QR code sharp */
-}
+    .st-message {
+        font-size: 13px;
+        /* Smaller */
+        font-style: italic;
+        color: #3a3a3c;
+        margin-bottom: 10px;
+        /* Reduced margin */
+        font-weight: 500;
+    }
 
-.st-qr-code p {
-    margin: 0;
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    color: #8e8e93;
-}
+    .st-authorship {
+        font-size: 11px;
+        color: #8e8e93;
+        line-height: 1.6;
+        letter-spacing: 0.5px;
+    }
+
+    .st-authorship strong {
+        color: #007aff;
+        font-weight: 800;
+    }
+
+    .st-qr-code {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .qr-img {
+        width: 65px;
+        height: 65px;
+        padding: 2px;
+        background: #fff;
+        border: 1px solid #e5e5ea;
+        border-radius: 6px;
+        image-rendering: pixelated;
+        /* Keeps QR code sharp */
+    }
+
+    .st-qr-code p {
+        margin: 0;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        color: #8e8e93;
+    }
