@@ -104,11 +104,66 @@ function atvmController($scope) {
         return $scope.lineTranslations[line] || "";
     };
 
-    // Train Animation Logic
-    $scope.trainDirection = 'normal';
-    $scope.toggleTrainDirection = function () {
-        $scope.trainDirection = ($scope.trainDirection === 'normal') ? 'reverse' : 'normal';
+    // --- Interactive Train Animation (Grab & Move) ---
+    $scope.trainProgress = 0;
+    $scope.isDraggingTrain = false;
+    $scope.trainState = 'running';
+
+    $scope.startTrainDrag = function (e) {
+        $scope.isDraggingTrain = true;
+        $scope.trainState = 'paused';
+        if (e.buttons === 1) $scope.moveTrainDrag(e);
     };
+
+    $scope.stopTrainDrag = function () {
+        if (!$scope.isDraggingTrain) return;
+        $scope.isDraggingTrain = false;
+        $scope.trainState = 'running';
+        $scope.$applyAsync();
+    };
+
+    $scope.moveTrainDrag = function (e) {
+        if (!$scope.isDraggingTrain) return;
+
+        const ticket = document.querySelector('.ticket');
+        if (!ticket) return;
+
+        const rect = ticket.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const w = rect.width;
+        const h = rect.height;
+        const perim = 2 * (w + h);
+
+        // Snap mouse to perimeter for progress calculation
+        const dists = {
+            top: Math.abs(y),
+            bottom: Math.abs(y - h),
+            left: Math.abs(x),
+            right: Math.abs(x - w)
+        };
+
+        const side = Object.keys(dists).reduce((a, b) => dists[a] < dists[b] ? a : b);
+        let p = 0;
+
+        if (side === 'top') p = x;
+        else if (side === 'right') p = w + y;
+        else if (side === 'bottom') p = w + h + (w - x);
+        else if (side === 'left') p = 2 * w + h + (h - y);
+
+        $scope.trainProgress = Math.max(0, Math.min(1, p / perim));
+
+        // Apply CSS variables directly for high-performance scrubbing
+        ticket.style.setProperty('--train-progress', $scope.trainProgress);
+        ticket.style.setProperty('--train-state', $scope.trainState);
+    };
+
+    // Listen for global mouseup to stop dragging even if mouse leaves the ticket
+    document.addEventListener('mouseup', function () {
+        if ($scope.isDraggingTrain) {
+            $scope.stopTrainDrag();
+        }
+    });
 
     /**
      * Authentic Station Database 🚆

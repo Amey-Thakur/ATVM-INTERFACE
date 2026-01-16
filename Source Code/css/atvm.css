@@ -1451,22 +1451,28 @@ body::after {
     cursor: grabbing;
 }
 
-/* Modern Mumbai Local Styling (White/Grey with Magenta Stripe) */
+/* Professional Modern Train Styling (Draggable) */
 .compartment {
     position: absolute;
     width: 32px;
     height: 14px;
-    background: #f0f0f0;
-    /* Silver/White Body */
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 2px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background: #e0e0e0;
+    /* Modern Silver/White */
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     z-index: 10;
-    overflow: hidden;
+    overflow: visible;
+    /* To allow headlight glow to overflow */
+
+    /* Animation Control */
     animation: trainPath 20s infinite linear;
+    animation-play-state: var(--train-state, running);
+    /* The core secret: animation-delay scrubbing */
+    animation-delay: calc((var(--train-progress, 0) * -20s) + var(--stagger));
 }
 
-/* Magenta Stripe at the bottom */
+/* Magenta/Purple Stripe at the bottom */
 .compartment::after {
     content: '';
     position: absolute;
@@ -1475,57 +1481,70 @@ body::after {
     right: 0;
     height: 3px;
     background: #a020f0;
-    /* Magenta/Purple Stripe */
+    /* Magenta Stripe */
+    border-radius: 0 0 2px 2px;
 }
 
-/* Windows */
+/* Windows / Details */
 .compartment::before {
     content: '';
     position: absolute;
     top: 3px;
     left: 4px;
     right: 4px;
-    height: 4px;
-    background: #444;
-    /* Dark Windows */
+    height: 3px;
+    background: #333;
+    /* Darker windows */
     border-radius: 1px;
 }
 
-/* Staggered starts: Engine (Child 1) leads, others trail */
+/* Engine (Coach 1) - Yellow Face & Headlights */
 .compartment:nth-child(1) {
-    animation-delay: -1.6s;
-    background: #f0f0f0;
+    --stagger: 0s;
+    background: #e0e0e0;
 }
 
-/* Engine leads */
-.compartment:nth-child(1)::before {
-    background: #FFD700;
-    /* Yellow Front Face */
-    left: auto;
+.compartment:nth-child(1) .engine-face {
+    position: absolute;
+    top: 0;
     right: 0;
     width: 6px;
     height: 100%;
-    top: 0;
+    background: #FFD700;
+    /* Yellow Face */
     border-radius: 0 2px 2px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2px 0;
 }
 
+/* Headlights for Engine */
+.compartment:nth-child(1) .engine-face::before,
+.compartment:nth-child(1) .engine-face::after {
+    content: '';
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #fff, 0 0 12px rgba(255, 255, 255, 0.8);
+}
+
+/* Coach Staggering (1 Engine + 3 Coaches) */
 .compartment:nth-child(2) {
-    animation-delay: -1.2s;
+    --stagger: -0.4s;
 }
 
 .compartment:nth-child(3) {
-    animation-delay: -0.8s;
+    --stagger: -0.8s;
 }
 
 .compartment:nth-child(4) {
-    animation-delay: -0.4s;
+    --stagger: -1.2s;
 }
 
-.compartment:nth-child(5) {
-    animation-delay: 0s;
-}
-
-/* Direction Control */
+/* Direction Control - Pause during drag */
 .train-reverse .compartment {
     animation-direction: reverse;
 }
@@ -1533,64 +1552,64 @@ body::after {
 /* Smooth Path with Rounded Corners */
 @keyframes trainPath {
 
-    /* Top Edge: Left to Right */
+    /* Top: L -> R */
     0% {
-        top: 10px;
-        left: 10px;
+        top: 12px;
+        left: 12px;
         transform: translate(-50%, -50%) rotate(0deg);
     }
 
     23% {
-        top: 10px;
+        top: 12px;
         left: calc(100% - 25px);
         transform: translate(-50%, -50%) rotate(0deg);
     }
 
-    /* Top-Right Corner Turn */
+    /* TR Corner */
     25% {
         top: 25px;
-        left: calc(100% - 10px);
+        left: calc(100% - 12px);
         transform: translate(-50%, -50%) rotate(90deg);
     }
 
-    /* Right Edge: Top to Bottom */
+    /* Right: T -> B */
     48% {
         top: calc(100% - 25px);
-        left: calc(100% - 10px);
+        left: calc(100% - 12px);
         transform: translate(-50%, -50%) rotate(90deg);
     }
 
-    /* Bottom-Right Corner Turn */
+    /* BR Corner */
     50% {
-        top: calc(100% - 10px);
+        top: calc(100% - 12px);
         left: calc(100% - 25px);
         transform: translate(-50%, -50%) rotate(180deg);
     }
 
-    /* Bottom Edge: Right to Left */
+    /* Bottom: R -> L */
     73% {
-        top: calc(100% - 10px);
+        top: calc(100% - 12px);
         left: 25px;
         transform: translate(-50%, -50%) rotate(180deg);
     }
 
-    /* Bottom-Left Corner Turn */
+    /* BL Corner */
     75% {
         top: calc(100% - 25px);
-        left: 10px;
+        left: 12px;
         transform: translate(-50%, -50%) rotate(270deg);
     }
 
-    /* Left Edge: Bottom to Top */
+    /* Left: B -> T */
     98% {
         top: 25px;
-        left: 10px;
+        left: 12px;
         transform: translate(-50%, -50%) rotate(270deg);
     }
 
     100% {
-        top: 10px;
-        left: 10px;
+        top: 12px;
+        left: 12px;
         transform: translate(-50%, -50%) rotate(360deg);
     }
 }
