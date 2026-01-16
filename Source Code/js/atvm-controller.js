@@ -2,7 +2,7 @@
  * Project: ATVM Interface
  * File: atvm-controller.js
  * Date: January 16, 2026
- * Description: AngularJS controller for handling ATVM logic with real Mumbai Western Line data. (v2.9)
+ * Description: AngularJS controller for handling ATVM logic with real Mumbai Western Line data. (v3.0)
  * 
  * Created by: Amey Thakur (https://github.com/Amey-Thakur) & Mega Satish (https://github.com/msatmod)
  * Repository: https://github.com/Amey-Thakur/ATVM-INTERFACE
@@ -18,7 +18,7 @@
 //   CONSOLE EASTER EGG 🚇
 // =========================================
 console.log(
-    "%c🚇 ATVM Interface - Mumbai Western Railway (v2.9)",
+    "%c🚇 ATVM Interface - Mumbai Western Railway (v3.0)",
     "font-size: 24px; font-weight: bold; color: #ef4444; text-shadow: 2px 2px 0 #0f172a;"
 );
 console.log(
@@ -240,35 +240,54 @@ app.controller('atvmController', ['$scope', '$interval', function ($scope, $inte
         $scope.showTicketModal = true;
     };
 
-    // 2. Download Ticket -> Capture Hidden Template
+    // 2. Download Ticket -> Robust Clone & Capture (v3.0)
     $scope.downloadTicket = function () {
         var element = document.querySelector('.share-ticket');
+        if (!element) return alert("Ticket element not found.");
 
         if (window.html2canvas) {
-            // Ensure any transform/hidden state is accounted for
-            html2canvas(element, {
-                scale: 3,
+            // Create a temporary container for clean capture
+            var container = document.createElement('div');
+            container.style.position = 'fixed';
+            container.style.left = '-9999px';
+            container.style.top = '0';
+            container.style.width = '820px'; // Force target width
+            document.body.appendChild(container);
+
+            // Clone the ticket into the clean container
+            var clone = element.cloneNode(true);
+            clone.style.transform = 'none'; // Remove any modal scaling
+            clone.style.margin = '0';
+            clone.style.boxShadow = 'none';
+            container.appendChild(clone);
+
+            html2canvas(clone, {
+                scale: 2, // Standard high-quality
                 useCORS: true,
-                allowTaint: false,
+                allowTaint: true, // Fallback for file:// protocol
                 backgroundColor: "#ffffff",
-                scrollX: 0,
-                scrollY: 0,
                 logging: false,
-                width: element.scrollWidth,
-                height: element.scrollHeight
+                width: 820
             }).then(function (canvas) {
-                var link = document.createElement('a');
-                link.download = 'ATVM_TICKET_' + $scope.ticketId + '.png';
-                link.href = canvas.toDataURL('image/png');
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+                try {
+                    var link = document.createElement('a');
+                    link.download = 'MUMBAI_LOCAL_TICKET_' + $scope.ticketId + '.png';
+                    link.href = canvas.toDataURL('image/png', 1.0);
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                } catch (e) {
+                    console.error("Canvas toDataURL failed:", e);
+                    alert("Capture successful, but your browser blocked the file save. Try using a local server or a different browser.");
+                }
+                document.body.removeChild(container);
             }).catch(function (err) {
-                console.error("Export failed:", err);
-                alert("Download failed. Your browser might be blocking the download or image capture.");
+                console.error("html2canvas capture failed:", err);
+                alert("Download failed. Your browser's security settings might be blocking script-based image captures.");
+                document.body.removeChild(container);
             });
         } else {
-            alert("Error: Capture engine not loaded.");
+            alert("Error: Capture engine (html2canvas) not loaded. Please refresh.");
         }
     };
 
