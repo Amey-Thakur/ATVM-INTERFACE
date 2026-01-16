@@ -1451,38 +1451,54 @@ body::after {
     cursor: grabbing;
 }
 
+/* Professional Train Styling (Mumbai Local Aesthetic) */
 .compartment {
     position: absolute;
-    font-size: 22px;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    filter: drop-shadow(0 0 5px rgba(0, 122, 255, 0.4));
-    animation: trainPath 15s infinite linear;
+    width: 32px;
+    height: 14px;
+    background: linear-gradient(to bottom, #FFD700 40%, #800000 40%);
+    /* CR Yellow/Maroon */
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+    animation: trainPath 20s infinite linear;
 }
 
-/* Staggered starts for 5-compartment effect */
+/* Central Railway Theme for Coaches */
+/* Visual Windows */
+.compartment::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    right: 4px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 1px;
+}
+
+/* Staggered starts: Engine leads, others trail */
 .compartment:nth-child(1) {
-    animation-delay: 0s;
+    animation-delay: -0.0s;
+    background: #900;
 }
 
+/* Engine (Redder) */
 .compartment:nth-child(2) {
-    animation-delay: -0.3s;
+    animation-delay: -19.6s;
 }
 
 .compartment:nth-child(3) {
-    animation-delay: -0.6s;
+    animation-delay: -19.2s;
 }
 
 .compartment:nth-child(4) {
-    animation-delay: -0.9s;
+    animation-delay: -18.8s;
 }
 
 .compartment:nth-child(5) {
-    animation-delay: -1.2s;
+    animation-delay: -18.4s;
 }
 
 /* Direction Control */
@@ -1490,59 +1506,83 @@ body::after {
     animation-direction: reverse;
 }
 
+/* Smooth Path with Rounded Corners */
 @keyframes trainPath {
+
+    /* Top Edge: Left to Right */
     0% {
-        top: 12px;
-        left: 12px;
-        transform: translate(-50%, -50%) rotate(90deg);
-    }
-
-    25% {
-        top: 12px;
-        left: calc(100% - 12px);
-        transform: translate(-50%, -50%) rotate(90deg);
-    }
-
-    25.01% {
-        top: 12px;
-        left: calc(100% - 12px);
-        transform: translate(-50%, -50%) rotate(180deg);
-    }
-
-    50% {
-        top: calc(100% - 12px);
-        left: calc(100% - 12px);
-        transform: translate(-50%, -50%) rotate(180deg);
-    }
-
-    50.01% {
-        top: calc(100% - 12px);
-        left: calc(100% - 12px);
-        transform: translate(-50%, -50%) rotate(270deg);
-    }
-
-    75% {
-        top: calc(100% - 12px);
-        left: 12px;
-        transform: translate(-50%, -50%) rotate(270deg);
-    }
-
-    75.01% {
-        top: calc(100% - 12px);
-        left: 12px;
+        top: 10px;
+        left: 10px;
         transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    23% {
+        top: 10px;
+        left: calc(100% - 25px);
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    /* Top-Right Corner Turn */
+    25% {
+        top: 25px;
+        left: calc(100% - 10px);
+        transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    /* Right Edge: Top to Bottom */
+    48% {
+        top: calc(100% - 25px);
+        left: calc(100% - 10px);
+        transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    /* Bottom-Right Corner Turn */
+    50% {
+        top: calc(100% - 10px);
+        left: calc(100% - 25px);
+        transform: translate(-50%, -50%) rotate(180deg);
+    }
+
+    /* Bottom Edge: Right to Left */
+    73% {
+        top: calc(100% - 10px);
+        left: 25px;
+        transform: translate(-50%, -50%) rotate(180deg);
+    }
+
+    /* Bottom-Left Corner Turn */
+    75% {
+        top: calc(100% - 25px);
+        left: 10px;
+        transform: translate(-50%, -50%) rotate(270deg);
+    }
+
+    /* Left Edge: Bottom to Top */
+    98% {
+        top: 25px;
+        left: 10px;
+        transform: translate(-50%, -50%) rotate(270deg);
     }
 
     100% {
-        top: 12px;
-        left: 12px;
-        transform: translate(-50%, -50%) rotate(0deg);
+        top: 10px;
+        left: 10px;
+        transform: translate(-50%, -50%) rotate(360deg);
     }
 }
 
-.ticket>* {
+/* Ensure compartments stay on top but background elements behind */
+.ticket-header,
+.ticket-body,
+.ticket-controls {
     position: relative;
-    z-index: 2;
+    z-index: 5;
+    background: transparent !important;
+}
+
+.ticket {
+    background: #fff;
+    /* Re-apply solid white to container since children are transparent */
 }
 
 .ticket:hover {
