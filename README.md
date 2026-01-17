@@ -101,6 +101,13 @@ ATVM-INTERFACE/
 │   └── workflows/
 │       └── deploy.yml               # Automated Staging & Deployment Flow
 │
+├── screenshots/                     # Application Screenshots
+│   ├── interface_simulation.png     # Interface Simulation
+│   ├── atvm_interface_expanded.png  # Expanded Interface Simulation
+│   ├── ticket_preview.png           # Ticket Preview Modal
+│   ├── downloaded_ticket.png        # Generated Digital Ticket
+│   └── map_view.png                 # Interactive System Map
+│
 ├── docs/                            # Technical Documentation
 │   └── SPECIFICATION.md             # Architecture & Design Specification
 │
@@ -131,23 +138,23 @@ ATVM-INTERFACE/
 <div align="center">
   <b>Interface Simulation</b>
   <br><br>
-  <img src="docs/screenshots/interface_simulation.png" alt="ATVM Interface" width="90%">
+  <img src="screenshots/interface_simulation.png" alt="ATVM Interface" width="90%">
   <br><br>
   <b>Expanded Interface Simulation</b>
   <br><br>
-  <img src="docs/screenshots/atvm_interface_expanded.png" alt="Expanded Interface Simulation" width="90%">
+  <img src="screenshots/atvm_interface_expanded.png" alt="Expanded Interface Simulation" width="90%">
   <br><br>
   <b>Ticket Preview Modal</b>
   <br><br>
-  <img src="docs/screenshots/ticket_preview.png" alt="Ticket Preview" width="90%">
+  <img src="screenshots/ticket_preview.png" alt="Ticket Preview" width="90%">
   <br><br>
   <b>Generated Digital Ticket</b>
   <br><br>
-  <img src="docs/screenshots/downloaded_ticket.png" alt="Downloaded Ticket" width="90%">
+  <img src="screenshots/downloaded_ticket.png" alt="Downloaded Ticket" width="90%">
   <br><br>
   <b>Interactive System Map</b>
   <br><br>
-  <img src="docs/screenshots/map_view.png" alt="Interactive System Map" width="90%">
+  <img src="screenshots/map_view.png" alt="Interactive System Map" width="90%">
 </div>
 
 ---
