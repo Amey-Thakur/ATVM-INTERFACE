@@ -85,7 +85,8 @@ The development of this interface was guided by core **Human-Machine Interaction
 - **Logic**: AngularJS (1.x), jQuery
 - **Imaging**: **html2canvas** (Custom high-fidelity capture engine)
 - **UI System**: Bootstrap 3 (Customized), Font Awesome 6
-- **Deployment**: GitHub Actions (Staging Workflow), GitHub Pages
+- **Deployment**: GitHub Actions (Staging & Continuous Delivery Workflow)
+- **Hosting**: GitHub Pages
 
 ---
 
