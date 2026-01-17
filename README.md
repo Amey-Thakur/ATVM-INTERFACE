@@ -78,7 +78,7 @@ The development of this interface was guided by core **Human-Machine Interaction
 
 > [!NOTE]
 > ### Hidden Easter Egg: Authentic Audio System
-> We have integrated a specialized immersive layer into the interface. By interacting with the **Station Speakers** or the **Analog Clock**, users can trigger high-fidelity Mumbai Suburban Railway announcements. This feature was designed to recreate an authentic transit atmosphere, providing a realistic auditory experience that grounds the simulation in its real-world context. Complementing this immersion, the system provides a high-fidelity ticket export feature, with each digital reproduction being professionally attributed to **Amey & Mega**.
+> We have integrated a specialized immersive layer into the interface. By interacting with the **Station Speakers** or the **Analog Clock**, users can trigger high-fidelity Mumbai Suburban Railway announcements. This feature was designed to recreate an authentic transit atmosphere, providing a realistic auditory experience that grounds the simulation in its real-world context. Complementing this immersion, the system also includes a high-fidelity ticket export feature, with each digital reproduction digitally signed by **Amey & Mega**.
 
 ### Tech Stack
 - **Core**: HTML5, CSS3 (Modern Flexbox/Grid), JavaScript (ES6+)
