@@ -78,7 +78,7 @@ The development of this interface was guided by core **Human-Machine Interaction
 
 > [!NOTE]
 > ### Hidden Easter Egg: Authentic Audio System
-> We've integrated a "Secret" immersive layer! Clicking on the **Station Speakers** or the **Analog Clock** triggers a personalized, high-fidelity Mumbai Railway announcement. This Easter egg recreates the authentic transit atmosphere, surprising users with a real-world station soundscape.
+> We have integrated a specialized immersive layer into the interface. By interacting with the **Station Speakers** or the **Analog Clock**, users can trigger high-fidelity Mumbai Suburban Railway announcements. This feature was designed to recreate an authentic transit atmosphere, providing a realistic auditory experience that grounds the simulation in its real-world context.
 
 ### Tech Stack
 - **Core**: HTML5, CSS3 (Modern Flexbox/Grid), JavaScript (ES6+)
