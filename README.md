@@ -181,6 +181,13 @@ ATVM-INTERFACE/
 2.  **Launch**:
     Open `Source Code/index.html` in your preferred browser.
 
+> [!TIP]
+> **Railway ATVM Human-Machine Interaction Simulation**
+>
+> Experience a high-fidelity web reconstruction of the Mumbai Suburban Railway's Automatic Ticket Vending Machine interface, engineered with HMI principles and Fitts's Law optimization to minimize cognitive friction and maximize transaction speed in high-volume transit environments.
+>
+> [**Launch Live Demo**](https://amey-thakur.github.io/ATVM-INTERFACE/)
+
 ---
 
 <!-- =========================================================================================
