@@ -1,0 +1,34 @@
+# ATVM Interface
+
+> A simulation of the Automatic Ticket Vending Machine (ATVM) interface
+> found at railway stations, designed with Human-Machine Interaction (HMI)
+> principles.
+
+Author: Amey Thakur, ORCID 0000-0001-5644-1575
+Co-author: Mega Satish, ORCID 0000-0002-1844-9557
+Institution: Terna Engineering College, University of Mumbai
+Programme: B.E. Computer Engineering, Fourth Year, Semester VIII
+Licence: CC BY 4.0, attribution required
+Repository created: 25 February 2022
+
+## What is in this repository
+
+- Mega, 6 files
+- Source Code, 30 files
+- docs, 1 file
+- screenshots, 5 files
+
+## Subject terms
+
+angularjs, atvm-interface, computer-engineering, computer-science,
+engineering, fitts-law, hci, hmi, human-computer-interaction,
+human-machine-interaction, interactive-map, interface-design,
+mumbai-local, ticket-vending-machine, university-of-mumbai
+
+## Where this sits
+
+- This repository: https://github.com/Amey-Thakur/ATVM-INTERFACE
+- Degree index, every subject and project: https://github.com/Amey-Thakur/COMPUTER-ENGINEERING
+- Project page: https://amey-thakur.github.io/ATVM-INTERFACE/
+- Author: https://github.com/Amey-Thakur
+- Research notes and reflections: https://amey-thakur.github.io/

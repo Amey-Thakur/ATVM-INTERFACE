@@ -32,8 +32,10 @@
             }
         }
     ],
+    "dateCreated": "2022-02-25",
     "dateReleased": "2022-02-25",
     "codeRepository": "https://github.com/Amey-Thakur/ATVM-INTERFACE",
+    "isPartOf": "https://github.com/Amey-Thakur/COMPUTER-ENGINEERING",
     "developmentStatus": "complete",
     "applicationCategory": "Human-Machine Interaction / Simulation",
     "keywords": [
@@ -41,6 +43,33 @@
         "Ticket Vending Machine",
         "Interface Simulation",
         "HMI",
-        "Terna Engineering College"
-    ]
+        "Terna Engineering College",
+        "Angularjs",
+        "ATVM Interface",
+        "Computer Engineering",
+        "Computer Science",
+        "Engineering",
+        "Fitts Law",
+        "HCI",
+        "Human Computer Interaction",
+        "Human Machine Interaction",
+        "Interactive Map",
+        "Interface Design",
+        "Mumbai Local",
+        "University Of Mumbai",
+        "University of Mumbai",
+        "Mumbai University",
+        "Navi Mumbai",
+        "India",
+        "B.E. Computer Engineering",
+        "Semester VIII",
+        "Amey Thakur",
+        "amey",
+        "ameythakur",
+        "amey-thakur",
+        "ameyarc",
+        "Mega Satish",
+        "megasatish"
+    ],
+    "url": "https://amey-thakur.github.io/ATVM-INTERFACE/"
 }
